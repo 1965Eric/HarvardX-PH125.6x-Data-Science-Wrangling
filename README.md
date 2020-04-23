@@ -214,43 +214,43 @@ Are these data considered “tidy” in R? Why or why not?
 
 - [X] A.
 ```
-state abb region population total
-Alabama AL  South   4779736 135
-Alaska  AK   West   710231  19
-Arizona  AZ   West  6392017   232
-Arkansas  AR  South 2915918 93
-California  CA   West   37253956  1257
-Colorado  CO   West 5029196 65 [X]
+state      abb   region  population total
+Alabama    AL    South   4779736    135
+Alaska     AK    West    710231     19
+Arizona    AZ    West    6392017    232
+Arkansas   AR    South   2915918    93
+California CA    West    37253956   1257
+Colorado   CO    West    5029196    65 [X]
 ```
 - [ ] B.
 ```
-state abb region        var  people
-Alabama  AL  South population 4779736
-Alabama  AL  South      total   135
-Alaska  AK   West population  710231
-Alaska  AK   West   total   19
-Arizona  AZ   West population 6392017
-Arizona  AZ   West      total   232
+state    abb  region        var        people
+Alabama  AL   South         population 4779736
+Alabama  AL   South         total      135
+Alaska   AK   West          population 710231
+Alaska   AK   West          total      19
+Arizona  AZ   West          population 6392017
+Arizona  AZ   West          total      232
 ```
 - [ ] C.
 ```
-state abb Northeast   South North Central   West
-Alabama  AL        NA 4779736           NA      NA
-Alaska  AK        NA    NA          NA   710231
-Arizona  AZ        NA   NA          NA  6392017
-Arkansas  AR        NA 2915918          NA      NA
-California  CA      NA      NA          NA 37253956
-Colorado  CO        NA      NA          NA  5029196
+state       abb       Northeast   South      North Central   West
+Alabama     AL        NA          4779736    NA              NA
+Alaska      AK        NA          NA         NA              710231
+Arizona     AZ        NA          NA         NA              6392017
+Arkansas    AR        NA          2915918    NA              NA
+California  CA        NA          NA         NA              37253956
+Colorado    CO        NA          NA         NA              5029196
 ```
 - [ ] D.
 ```
-state abb region    rate
-Alabama  AL  South 2.82e-05
-Alaska  AK   West 2.68e-05
-Arizona  AZ   West 3.63e-05
-Arkansas  AR  South 3.19e-05
-California  CA   West 3.37e-05
-Colorado  CO   West 1.29e-05
+state       abb  region    rate
+Alabama     AL   South     2.82e-05
+Alaska      AK   West      2.68e-05
+Arizona     AZ   West      3.63e-05
+Arkansas    AR   South     3.19e-05
+California  CA   West      3.37e-05
+Colorado    CO   West      1.29e-05
 ```
 ## Assessment 2 - Reshaping Data
 
@@ -291,24 +291,24 @@ gather(time, `2015`:`2017`)
 2. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
 ```
 > head(dat_wide)
-state year population Hepatitis A Mumps Polio Rubella
-Alabama 1990    4040587         86  19    76    1
-Alabama 1991    4066003         39  14    65    0
-Alabama 1992    4097169         35  12    24    0
-Alabama 1993    4133242         40  22    67    0
-Alabama 1994    4173361         72  12    39    0
-Alabama 1995    4216645         75  2     38            0
+state   year    population      Hepatitis A Mumps Polio Rubella
+Alabama 1990    4040587         86          19    76    1
+Alabama 1991    4066003         39          14    65    0
+Alabama 1992    4097169         35          12    24    0
+Alabama 1993    4133242         40          22    67    0
+Alabama 1994    4173361         72          12    39    0
+Alabama 1995    4216645         75          2     38    0
 ```
 Which of the following would transform this into a tidy dataset, with each row representing an observation of the incidence of each specific disease (as shown below)?
 ```
 > head(dat_tidy)
-state year population   disease count
-Alabama 1990    4040587 Hepatitis A 86
-Alabama 1991    4066003 Hepatitis A 39
-Alabama 1992    4097169 Hepatitis A 35
-Alabama 1993    4133242 Hepatitis A 40
-Alabama 1994    4173361 Hepatitis A 72
-Alabama 1995    4216645 Hepatitis A 75
+state   year    population   disease      count
+Alabama 1990    4040587      Hepatitis A  86
+Alabama 1991    4066003      Hepatitis A  39
+Alabama 1992    4097169      Hepatitis A  35
+Alabama 1993    4133242      Hepatitis A  40
+Alabama 1994    4173361      Hepatitis A  72
+Alabama 1995    4216645      Hepatitis A  75
 ```
 - [ ] A.
 ```
@@ -347,23 +347,23 @@ Select the code that converts these data back to the wide format, where each yea
 4.
 ```
 > head(dat)
-state abb region        var  people
-Alabama  AL  South population 4779736
-Alabama  AL  South      total   135
-Alaska  AK   West population  710231
-Alaska  AK   West   total   19
-Arizona  AZ   West population 6392017
-Arizona  AZ   West      total   232
+state    abb  region        var         people
+Alabama  AL   South         population  4779736
+Alabama  AL   South         total       135
+Alaska   AK   West          population  710231
+Alaska   AK   West          total       19
+Arizona  AZ   West          population  6392017
+Arizona  AZ   West          total       232
 ```
 You would like to transform it into a dataset where population and total are each their own column (shown below). Which code would best accomplish this?
 ```
-state abb region population total
-Alabama  AL  South  4779736   135
-Alaska  AK   West   710231  19
-Arizona  AZ   West  6392017   232
-Arkansas  AR  South 2915918 93
-California  CA   West   37253956  1257
-Colorado  CO   West 5029196 65
+state       abb  region  population total
+Alabama     AL   South   4779736    135
+Alaska      AK   West    710231     19
+Arizona     AZ   West    6392017    232
+Arkansas    AR   South   2915918    93
+California  CA   West    37253956   1257
+Colorado    CO   West    5029196    65
 ```
 - [X] A. dat_tidy <- dat %>% spread(key = var, value = people) 
 - [ ] B. dat_tidy <- dat %>% spread(key = state:region, value = people) 
@@ -416,13 +416,13 @@ tidy_data <- d %>%
 2. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
 ```
 > head(stats)
-key     value
+key                 value
 allen_height        75
 allen_hand_length   8.25
-allen_wingspan  79.25
-bamba_height    83.25
-bamba_hand_length 9.75
-bamba_wingspan  94
+allen_wingspan      79.25
+bamba_height        83.25
+bamba_hand_length   9.75
+bamba_wingspan      94
 ```
 Select all of the correct commands below that would turn this data into a “tidy” format.
 
