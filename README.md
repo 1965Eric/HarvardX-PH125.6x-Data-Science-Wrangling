@@ -1,141 +1,140 @@
 # Data_Science_Wrangling
-HarvardX: PH125.6x | Data Science: Wrangling
-Abstract
+# HarvardX: PH125.6x | Data Science: Wrangling
 
+## Abstract
 This is the sixth course in the HarvardX Professional Certificate in Data Science, a series of courses that prepare you to do data analysis in R, from simple computations to machine learning.
 
-The textbook for the Data Science course series is freely available online.
-Learning Objectives
+The textbook for the Data Science course series is [freely available online](https://rafalab.github.io/dsbook/).
 
-    How to import data into R from different file formats
-    How to scrape data from the web
-    How to tidy data using the tidyverse to better facilitate analysis
-    How to process strings with regular expressions (regex)
-    How to wrangle data using dplyr
-    How to work with dates and times as file formats
-    How to mine text
+## Learning Objectives
+- How to import data into R from different file formats
+- How to scrape data from the web
+- How to tidy data using the tidyverse to better facilitate analysis
+- How to process strings with regular expressions (regex)
+- How to wrangle data using dplyr
+- How to work with dates and times as file formats
+- How to mine text
 
-Course Overview
+## Course Overview
 
-Section 1: Data Import
+### Section 1: Data Import
 You will learn how to import data from different sources.
 
-Section 2: Tidy Data
+### Section 2: Tidy Data
 You will learn the first pieces of converting data into a tidy format.
 
-Section 3: String Processing
+### Section 3: String Processing
 You will learn how to process strings using regular expressions (regex).
 
-Section 4: Dates, Times, and Text Mining
+### Section 4: Dates, Times, and Text Mining
 You will learn how to work with dates and times as file formats and how to mine text.
-Section 1 Overview
+
+## Section 1 Overview
 
 In the Data Import section, you will learn how import data into R.
 
 After completing this section, you will be able to:
+- Import data from spreadsheets.
+- Identify and set your working directory and specify the path to a file.
+- Use the readr and readxl packages to import spreadsheets.
+- Use R-base functions to import spreadsheets.
+- Download files from the internet using R.
 
-    Import data from spreadsheets.
-    Identify and set your working directory and specify the path to a file.
-    Use the readr and readxl packages to import spreadsheets.
-    Use R-base functions to import spreadsheets.
-    Download files from the internet using R.
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html)
 
-The textbook for this section is available here
-Assessment 1- Importing Spreadsheets
+## Assessment 1 - Importing Spreadsheets
 
-    Which of the following is NOT part of the data wranging process?
+1. Which of the following is NOT part of the data wranging process?
+- [ ] A. Importing data into R
+- [ ] B. Formatting dates/times
+- [X] C. Checking correlations between your variables
+- [ ] D. Tidying data
 
-A. Importing data into R
-B. Formatting dates/times
-C. Checking correlations between your variables
-D. Tidying data
+2. Which files could be opened in a basic text editor?
 
-    Which files could be opened in a basic text editor?
-    Select ALL that apply.
+Select ALL that apply.
 
-A. data.txt
-B. data.csv
-C. data.xlsx
-D. data.tsv
+- [X] A. data.txt
+- [X] B. data.csv
+- [ ] C. data.xlsx
+- [X] D. data.tsv
 
-    You want to analyze a file containing race finish times for a recent marathon. You open the file in a basic text editor and see lines that look like the following:
-
+3. You want to analyze a file containing race finish times for a recent marathon. You open the file in a basic text editor and see lines that look like the following:
+```
 initials,state,age,time
 vib,MA,61,6:01
 adc,TX,45,5:45
 kme,CT,50,4:19
-
+```
 What type of file is this?
+- [ ] A. A comma-delimited file without a header
+- [ ] B. A tab-delimited file with a header
+- [ ] C. A white space-delimited file without a header
+- [X] D. A comma-delimited file with a header
 
-A. A comma-delimited file without a header
-B. A tab-delimited file with a header
-C. A white space-delimited file without a header
-D. A comma-delimited file with a header
-Assessment 2- Paths and the Working Directory
+## Assessment 2 - Paths and the Working Directory
 
-    Assume the following is the full path to the directory that a student wants to use as their working directory in R: “/Users/student/Documents/projects/”
+1. Assume the following is the full path to the directory that a student wants to use as their working directory in R: “/Users/student/Documents/projects/”
 
 Which of the following lines of code CANNOT set the working directory to the desired “projects” directory?
+- [ ] A. setwd("~/Documents/projects/")
+- [ ] B. setwd("/Users/student/Documents/projects/")
+- [X] C. setwd(/Users/student/Documents/projects/)
+- [ ] D. dir <- "/Users/student/Documents/projects" setwd(dir)
 
-A. setwd("~/Documents/projects/")
-B. setwd("/Users/student/Documents/projects/")
-C. setwd(/Users/student/Documents/projects/)
-D. dir <- "/Users/student/Documents/projects" setwd(dir)
-
-    We want to copy the “murders.csv” file from the dslabs package into an existing folder “data”, which is located in our HarvardX-Wrangling projects folder. We first enter the code below into our RStudio console.
-
+2. We want to copy the “murders.csv” file from the dslabs package into an existing folder “data”, which is located in our HarvardX-Wrangling projects folder. We first enter the code below into our RStudio console.
+```
 > getwd()  
 [1] "C:/Users/UNIVERSITY/Documents/Analyses/HarvardX-Wrangling"  
 > filename <- "murders.csv"  
 > path <- system.file("extdata", package = "dslabs")  
-
+```
 Which of the following commands would NOT successfully copy “murders.csv” into the folder “data”?
-
-A. file.copy(file.path(path, "murders.csv"), getwd())
-B. setwd("data") file.copy(file.path(path, filename), getwd())
-C. file.copy(file.path(path, "murders.csv"), file.path(getwd(), "data"))
-D. file.location <- file.path(system.file("extdata", package = "dslabs"), "murders.csv")
+- [X] A. file.copy(file.path(path, "murders.csv"), getwd())
+- [ ] B. setwd("data") file.copy(file.path(path, filename), getwd())
+- [ ] C. file.copy(file.path(path, "murders.csv"), file.path(getwd(), "data"))
+- [ ] D. file.location <- file.path(system.file("extdata", package = "dslabs"), "murders.csv")
 file.destination <- file.path(getwd(),
 "data") file.copy(file.location, file.destination)
-Assessment 3- The readr and readxl Packages
 
-    You are not sure whether the murders.csv file has a header row. How could you check this?
-    Select ALL that apply.
+### Assessment 3 - The readr and readxl Packages
 
-A. Open the file in a basic text editor.
-B. In the RStudio “Files” pane, click on your file, then select “View File”.
-C. Use the command read_lines (remembering to specify the number of rows with the n_max argument).
+1. You are not sure whether the murders.csv file has a header row. How could you check this?
 
-    What is one difference between read_excel and read_xlsx?
+Select ALL that apply.
+- [X] A. Open the file in a basic text editor.
+- [X] B. In the RStudio “Files” pane, click on your file, then select “View File”.
+- [X] C. Use the command read_lines (remembering to specify the number of rows with the n_max argument).
 
-A. Read_excel also reads meta-data from the excel file, such as sheet names, while read_xlsx only reads the first sheet in a file.
-B. Read_excel reads both .xls and .xlsx files by detecting the file format from its extension, while read_xlsx only reads .xlsx files.
-C. Read_excel is part of the readr package, while read_xlsx is part of the readxl package and has more options.
-D. Read_xlsx has been replaced by read_excel in a recent readxl package update.
+2. What is one difference between read_excel and read_xlsx?
 
-    You have a file called “times.txt” that contains race finish times for a marathon. The first four lines of the file look like this:
+- [ ] A. Read_excel also reads meta-data from the excel file, such as sheet names, while read_xlsx only reads the first sheet in a file.
+- [X] B. Read_excel reads both .xls and .xlsx files by detecting the file format from its extension, while read_xlsx only reads .xlsx files.
+- [ ] C. Read_excel is part of the readr package, while read_xlsx is part of the readxl package and has more options.
+- [ ] D. Read_xlsx has been replaced by read_excel in a recent readxl package update.
 
+3. You have a file called “times.txt” that contains race finish times for a marathon. The first four lines of the file look like this:
+```
 initials,state,age,time
 vib,MA,61,6:01
 adc,TX,45,5:45
 kme,CT,50,4:19
-
+```
 Which line of code will NOT produce a tibble with column names “initials”, “state”, “age”, and “time”?
+- [ ] A. race_times <- read_csv("times.txt")
+- [X] B. race_times <- read.csv("times.txt")
+- [ ] C. race_times <- read_csv("times.txt", col_names = TRUE)
+- [ ] D. race_times <- read_delim("times.txt", delim = “,”)
 
-A. race_times <- read_csv("times.txt")
-B. race_times <- read.csv("times.txt")
-C. race_times <- read_csv("times.txt", col_names = TRUE)
-D. race_times <- read_delim("times.txt", delim = “,”)
-
-    You also have access to marathon finish times in the form of an Excel document named “times.xlsx”. In the Excel document, different sheets contain race information for different years. The first sheet is named “2015”, the second is named “2016”, and the third is named “2017”.
+4. You also have access to marathon finish times in the form of an Excel document named “times.xlsx”. In the Excel document, different sheets contain race information for different years. The first sheet is named “2015”, the second is named “2016”, and the third is named “2017”.
 
 Which line of code will NOT import the data contained in the “2016” tab of this Excel sheet?
+- [ ] A. times_2016 <- read_excel("times.xlsx", sheet = 2)
+- [X] B. times_2016 <- read_xlsx("times.xlsx", sheet = “2”)
+- [ ] C. times_2016 <- read_excel("times.xlsx", sheet = "2016")
+- [ ] D. times_2016 <- read_xlsx("times.xlsx", sheet = 2)
 
-A. times_2016 <- read_excel("times.xlsx", sheet = 2)
-B. times_2016 <- read_xlsx("times.xlsx", sheet = “2”)
-C. times_2016 <- read_excel("times.xlsx", sheet = "2016")
-D. times_2016 <- read_xlsx("times.xlsx", sheet = 2)
-Assessment 4- Importing Data Using R-base Functions
+## Assessment 4 - Importing Data Using R-base Functions
 
     You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
 
