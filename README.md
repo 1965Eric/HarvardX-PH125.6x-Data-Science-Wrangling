@@ -97,7 +97,7 @@ Which of the following commands would NOT successfully copy “murders.csv” in
 file.destination <- file.path(getwd(),
 "data") file.copy(file.location, file.destination)
 
-### Assessment 3 - The readr and readxl Packages
+## Assessment 3 - The readr and readxl Packages
 
 1. You are not sure whether the murders.csv file has a header row. How could you check this?
 
@@ -136,88 +136,84 @@ Which line of code will NOT import the data contained in the “2016” tab of t
 
 ## Assessment 4 - Importing Data Using R-base Functions
 
-    You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
+1. You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
 
 You read in the file using the following code.
-
+```
 race_times <- read.csv(“times.csv”)
-
+```
 What is the data type of the initials in the object race_times?
-
-A. integers
-B. characters
-C. factors
-D. logical
+- [ ] A. integers
+- [ ] B. characters
+- [X] C. factors
+- [ ] D. logical
 
 Note: If you don’t supply the argument stringsAsFactors = F, the read.csv file will automatically convert characters to factors.
 
-    Which of the following is NOT a real difference between the readr import functions and the base R import functions?
+2. Which of the following is NOT a real difference between the readr import functions and the base R import functions?
+- [ ] A. The import functions in the readr package all start as read_, while the import functions for base R all start with read.
+- [ ] B. Base R import functions automatically convert character columns to factors.
+- [X] C. The base R import functions can read .csv files, but cannot files with other delimiters, such as .tsv files, or fixed-width files.
+- [ ] D. Base R functions import data as a data frame, while readr functions import data as a tibble.
 
-A. The import functions in the readr package all start as read_, while the import functions for base R all start with read.
-B. Base R import functions automatically convert character columns to factors.
-C. The base R import functions can read .csv files, but cannot files with other delimiters, such as .tsv files, or fixed-width files.
-D. Base R functions import data as a data frame, while readr functions import data as a tibble.
-
-    You read in a file containing runner information and marathon finish times using the following code.
-
+3. You read in a file containing runner information and marathon finish times using the following code.
+```
 race_times <- read.csv(“times.csv”, stringsAsFactors = F)
-
+```
 What is the class of the object race_times?
+- [X] A. data frame 
+- [ ] B. tibble
+- [ ] C. matrix
+- [ ] D. vector
 
-A. data frame B. tibble
-C. matrix
-D. vector
-Assessment 5- Downloading Files from the Internet
+## Assessment 5 - Downloading Files from the Internet
 
-    Select the answer choice that summarizes all of the actions that the following lines of code can perform. Please note that the url below is an example and does not lead to data.
-
+1. Select the answer choice that summarizes all of the actions that the following lines of code can perform. Please note that the url below is an example and does not lead to data.
+```
 url <- "https://raw.githubusercontent.com/MyUserName/MyProject/master/MyData.csv "
 dat <- read_csv(url)
 download.file(url, "MyData.csv")
+```
+- [ ] A. Create a tibble in R called dat that contains the information contained in the csv file stored on Github and save that tibble to the working directory.
+- [ ] B. Create a matrix in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
+- [ ] C. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and randomly assign it a temporary name that is very likely to be unique.
+- [X] D. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
 
-A. Create a tibble in R called dat that contains the information contained in the csv file stored on Github and save that tibble to the working directory.
+## Section 2 Overview
 
-B. Create a matrix in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
-
-C. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and randomly assign it a temporary name that is very likely to be unique.
-
-D. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
-Section 2 Overview
-
-In the *Tidy Data section, you will learn how to convert data from a raw to a tidy format.
+In the Tidy Data section, you will learn how to convert data from a raw to a tidy format.
 
 This section is divided into three parts: Reshaping Data, Combining Tables, and Web Scraping.
 
 After completing the Tidy Data section, you will be able to:
+- Reshape data using functions from the tidyr package, including gather, spread, separate, and unite.
+- Combine information from different tables using join functions from the dplyr package.
+- Combine information from different tables using binding functions from the dplyr package.
+- Use set operators to combine data frames.
+- Gather data from a website through web scraping and use of CSS selectors.
 
-    Reshape data using functions from the tidyr package, including gather, spread, separate, and unite.
-    Combine information from different tables using join functions from the dplyr package.
-    Combine information from different tables using binding functions from the dplyr package.
-    Use set operators to combine data frames.
-    Gather data from a website through web scraping and use of CSS selectors.
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/tidyverse.html#tidy-data) and [here](https://rafalab.github.io/dsbook/reshaping-data.html)
 
-The textbook for this section is available here and here
-Assessment 1- Tidy Data
+## Assessment 1 - Tidy Data
 
-    A collaborator sends you a file containing data for three years of average race finish times.
-
+1. A collaborator sends you a file containing data for three years of average race finish times.
+```
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
 40,4:39,3:49,4:51
 50,4:48,4:59,5:01
-
+```
 Are these data considered “tidy” in R? Why or why not?
+- [ ] A. Yes. These data are considered “tidy” because each row contains unique observations.
+- [ ] B. Yes. These data are considered “tidy” because there are no missing data in the data frame.
+- [X] C. No. These data are not considered “tidy” because the variable “year” is stored in the header.
+- [ ] D. No. These data are not considered “tidy” because there are not an equal number of columns and rows.
 
-A. Yes. These data are considered “tidy” because each row contains unique observations.
-B. Yes. These data are considered “tidy” because there are no missing data in the data frame.
-C. No. These data are not considered “tidy” because the variable “year” is stored in the header.
-D. No. These data are not considered “tidy” because there are not an equal number of columns and rows.
+2. Below are four versions of the same dataset. Which one is in a tidy format?
 
-    Below are four versions of the same dataset. Which one is in a tidy format?
-
-A.
-
+- [X] A.
+```
 state abb region population total
 Alabama AL  South   4779736 135
 Alaska  AK   West   710231  19
@@ -225,7 +221,9 @@ Arizona  AZ   West  6392017   232
 Arkansas  AR  South 2915918 93
 California  CA   West   37253956  1257
 Colorado  CO   West 5029196 65 [X]
-
+```
+- [ ] B.
+```
 state abb region        var  people
 Alabama  AL  South population 4779736
 Alabama  AL  South      total   135
@@ -233,7 +231,9 @@ Alaska  AK   West population  710231
 Alaska  AK   West   total   19
 Arizona  AZ   West population 6392017
 Arizona  AZ   West      total   232
-
+```
+- [ ] C.
+```
 state abb Northeast   South North Central   West
 Alabama  AL        NA 4779736           NA      NA
 Alaska  AK        NA    NA          NA   710231
@@ -241,7 +241,9 @@ Arizona  AZ        NA   NA          NA  6392017
 Arkansas  AR        NA 2915918          NA      NA
 California  CA      NA      NA          NA 37253956
 Colorado  CO        NA      NA          NA  5029196
-
+```
+- [ ] D.
+```
 state abb region    rate
 Alabama  AL  South 2.82e-05
 Alaska  AK   West 2.68e-05
@@ -249,39 +251,45 @@ Arizona  AZ   West 3.63e-05
 Arkansas  AR  South 3.19e-05
 California  CA   West 3.37e-05
 Colorado  CO   West 1.29e-05
+```
+## Assessment 2 - Reshaping Data
 
-Assessment 2- Reshaping Data
-
-1.Your file called “times.csv” has age groups and average race finish times for three years of marathons.
-
+1. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
+```
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
 40,4:39,3:49,4:51
 50,4:48,4:59,5:01
-
+```
 You read in the data file using the following command.
-
+```
 d <- read_csv("times.csv")
-
+```
 Which commands will help you “tidy” the data?
 
-A.
-
+- [X] A.
+```
 tidy_data <- d %>%
 gather(year, time, `2015`:`2017`)
-
+```
+- [ ] B.
+```
 tidy_data <- d %>%
 spread(year, time, `2015`:`2017`)
-
+```
+- [ ] C.
+```
 tidy_data <- d %>%
 gather(age_group, year, time, `2015`:`2017`)
-
+```
+- [ ] D.
+```
 tidy_data <- d %>%
 gather(time, `2015`:`2017`)
-
-    You have a dataset on U.S. contagious diseases, but it is in the following wide format:
-
+```
+2. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
+```
 > head(dat_wide)
 state year population Hepatitis A Mumps Polio Rubella
 Alabama 1990    4040587         86  19    76    1
@@ -290,9 +298,9 @@ Alabama 1992    4097169         35  12    24    0
 Alabama 1993    4133242         40  22    67    0
 Alabama 1994    4173361         72  12    39    0
 Alabama 1995    4216645         75  2     38            0
-
+```
 Which of the following would transform this into a tidy dataset, with each row representing an observation of the incidence of each specific disease (as shown below)?
-
+```
 > head(dat_tidy)
 state year population   disease count
 Alabama 1990    4040587 Hepatitis A 86
@@ -301,37 +309,43 @@ Alabama 1992    4097169 Hepatitis A 35
 Alabama 1993    4133242 Hepatitis A 40
 Alabama 1994    4173361 Hepatitis A 72
 Alabama 1995    4216645 Hepatitis A 75
-
+```
+- [ ] A.
+```
 dat_tidy <- dat_wide %>%
 gather (key = count, value = disease, `Hepatitis A`, `Rubella`)
-
+```
+- [ ] B.
+```
 dat_tidy <- dat_wide %>%
 gather(key - count, value = disease, -state, -year, -population)
-
+```
+- [ ] C.
+```
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, -state)
-
-D.
-
+```
+- [X] D.
+```
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, “Hepatitis A”: “Rubella”)
-
-    You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
-
+```
+3. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
+```
 age_group,year,time
 20,2015,03:46
 30,2015,03:50
 40,2015,04:39
 50,2015,04:48
 20,2016,03:22
-
+```
 Select the code that converts these data back to the wide format, where each year has a separate column.
-
-A. tidy_data %>% spread(time, year)
-B. tidy_data %>% spread(year, time)
-C. tidy_data %>% spread(year, age_group)
-D. tidy_data %>% spread(time, year, `2015`:`2017`)
-
+- [ ] A. tidy_data %>% spread(time, year)
+- [X] B. tidy_data %>% spread(year, time)
+- [ ] C. tidy_data %>% spread(year, age_group)
+- [ ] D. tidy_data %>% spread(time, year, `2015`:`2017`)
+4.
+```
 > head(dat)
 state abb region        var  people
 Alabama  AL  South population 4779736
@@ -340,9 +354,9 @@ Alaska  AK   West population  710231
 Alaska  AK   West   total   19
 Arizona  AZ   West population 6392017
 Arizona  AZ   West      total   232
-
+```
 You would like to transform it into a dataset where population and total are each their own column (shown below). Which code would best accomplish this?
-
+```
 state abb region population total
 Alabama  AL  South  4779736   135
 Alaska  AK   West   710231  19
@@ -350,48 +364,57 @@ Arizona  AZ   West  6392017   232
 Arkansas  AR  South 2915918 93
 California  CA   West   37253956  1257
 Colorado  CO   West 5029196 65
+```
+- [X] A. dat_tidy <- dat %>% spread(key = var, value = people) 
+- [ ] B. dat_tidy <- dat %>% spread(key = state:region, value = people) 
+- [ ] C. dat_tidy <- dat %>% spread(key = people, value = var) 
+- [ ] D. dat_tidy <- dat %>% spread(key = region, value = people)
 
-A. dat_tidy <- dat %>% spread(key = var, value = people) B. dat_tidy <- dat %>% spread(key = state:region, value = people) C. dat_tidy <- dat %>% spread(key = people, value = var) D. dat_tidy <- dat %>% spread(key = region, value = people)
-Assessment 3- Separate and Unite
+## Assessment 3 - Separate and Unite
 
-    A collaborator sends you a file containing data for two years of average race finish times.
-
+1. A collaborator sends you a file containing data for two years of average race finish times.
+```
 age_group,2015_time,2015_participants,2016_time,2016_participants
 20,3:46,54,3:22,62
 30,3:50,60,3:43,58
 40,4:39,29,3:49,33
 50,4:48,10,4:59,14
-
+```
 You read in the data file
-
+```
 d <- read_csv("times.csv")
-
+```
 Which of the answers below best tidys the data?
-
+- [ ] A.
+```
 tidy_data <- d %>%
     gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “.”) %>% 
     spread(key = variable_name, value = value)
-
-B.
-
+```
+- [X] B.
+```
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
-
+```
+- [ ] C.
+```
  tidy_data <- d %>%
         gather(key = “key”, value = “value”) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
-
+```
+- [ ] D.
+```
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = “year”, sep = “_”) %>% 
     spread(key = year, value = value)
-
-    You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
-
+```
+2. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
+```
 > head(stats)
 key     value
 allen_height        75
@@ -400,25 +423,29 @@ allen_wingspan  79.25
 bamba_height    83.25
 bamba_hand_length 9.75
 bamba_wingspan  94
-
+```
 Select all of the correct commands below that would turn this data into a “tidy” format.
 
-A.
-
+- [X] A.
+```
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_", extra = "merge") %>% 
     spread(key = variable_name, value = value) 
-
+```
+- [ ] B.
+```
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name1", "variable_name2"), sep = "_", fill = "right") %>% 
     unite(col = variable_name, variable_name1, variable_name2, sep = "_") %>% 
     spread(key = variable_name, value = value)
-
+```
+- [ ] C.
+```
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
-
-Assessment 4- Combining Table
+```
+## Assessment 4 - Combining Table
 
     You have created a tab1 and tab2 of state population and election data, similar to our module videos:
 
