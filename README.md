@@ -447,23 +447,23 @@ tidy_data <- stats %>%
 ```
 ## Assessment 4 - Combining Table
 
-    You have created a tab1 and tab2 of state population and election data, similar to our module videos:
-
+1. You have created a tab1 and tab2 of state population and election data, similar to our module videos:
+```
 > tab1
-   state    population
-Alabama 4779736
-Alaska      710231
-Arizona     6392017
-Delaware        897934
+state                    population
+Alabama                  4779736
+Alaska                   710231
+Arizona                  6392017
+Delaware                 897934
 District of Columbia     601723
 
 > tab2
-   state    electoral_votes
+state        electoral_votes
 Alabama      9
-Alaska         3
-Arizona        11
-California     55
-Colorado      9
+Alaska       3
+Arizona      11
+California   55
+Colorado     9
 Connecticut  7
 
 > dim(tab1)
@@ -471,38 +471,36 @@ Connecticut  7
 
 > dim(tab2)
 [1] 6 2
-
+```
 What are the dimensions of the table dat, created by the following command?
-
+```
 dat <- left_join(tab1, tab2, by = “state”)
+```
+- [ ] A. 3 rows by 3 columns
+- [ ] B. 5 rows by 2 columns
+- [X] C. 5 rows by 3 columns
+- [ ] D. 6 rows by 3 columns
 
-A. 3 rows by 3 columns
-B. 5 rows by 2 columns
-C. 5 rows by 3 columns
-D. 6 rows by 3 columns
+2. We are still using the tab1 and tab2 tables shown in question 1. What join command would create a new table “dat” with three rows and two columns?
 
-    We are still using the tab1 and tab2 tables shown in question 1. What join command would create a new table “dat” with three rows and two columns?
+- [ ] A. dat <- right_join(tab1, tab2, by = “state”)
+- [ ] B. dat <- full_join(tab1, tab2, by = “state”)
+- [ ] C. dat <- inner_join(tab1, tab2, by = “state”)
+- [X] D. dat <- semi_join(tab1, tab2, by = “state”)
 
-A. dat <- right_join(tab1, tab2, by = “state”)
-B. dat <- full_join(tab1, tab2, by = “state”)
-C. dat <- inner_join(tab1, tab2, by = “state”)
-D. dat <- semi_join(tab1, tab2, by = “state”)
-Assessment 5- Binding
+## Assessment 5 - Binding
 
-    Which of the following are real differences between the join and bind functions?
+1. Which of the following are real differences between the join and bind functions?
 
-A. Binding functions combine by position, while join functions match by variables.
+- [X] A. Binding functions combine by position, while join functions match by variables.
+- [X] B. Joining functions can join datasets of different dimensions, but the bind functions must match on the appropriate dimension (either same row or column numbers).
+- [X] C. Bind functions can combine both vectors and dataframes, while join functions work for only for dataframes.
+- [ ] D. The join functions are a part of the dplyr package and have been optimized for speed, while the bind functions are inefficient base functions.
 
-B. Joining functions can join datasets of different dimensions, but the bind functions must match on the appropriate dimension (either same row or column numbers).
+## Assessment 6 - Set Operators
 
-C. Bind functions can combine both vectors and dataframes, while join functions work for only for dataframes.
-
-    The join functions are a part of the dplyr package and have been optimized for speed, while the bind functions are inefficient base functions.
-
-Assessment 6- Set Operators
-
-    We have two simple tables, shown below:
-
+1. We have two simple tables, shown below:
+```
 > df1
  x     y    
  a     a    
@@ -512,30 +510,28 @@ Assessment 6- Set Operators
  x     y    
  a     a    
  a     b  
-
+```
 Which command would result in the following table?
-
+```
 > final
  x     y    
  b     a   
+```
+- [ ] A. final <- union(df1, df2)
+- [X] B. final <- setdiff(df1, df2)
+- [ ] C. final <- setdiff(df2, df1)
+- [ ] D. final <- intersect(df1, df2)
 
-A. final <- union(df1, df2)
-B. final <- setdiff(df1, df2)
-C. final <- setdiff(df2, df1)
-D. final <- intersect(df1, df2)
-Assessment 7- Web Scraping
+## Assessment 7 - Web Scraping
 
-    Which feature of html documents allows us to extract the table that we are interested in?
+1. Which feature of html documents allows us to extract the table that we are interested in?
 
-A. Html is easily converted to to xml, which can then be used for extracting tables.
+- [ ] A. Html is easily converted to to xml, which can then be used for extracting tables.
+- [X] B. All elements in an html page are specified as “nodes”; we can use the node “tables” to identify and extract the specific table we are interested in before we do additional data cleaning.
+- [ ] C. All tables in html documents are stored in separate files that you can download via the html code.
+- [ ] D. Tables in html are formatted as csv tables, which we can easily copy and process in R.
 
-B. All elements in an html page are specified as “nodes”; we can use the node “tables” to identify and extract the specific table we are interested in before we do additional data cleaning.
-
-C. All tables in html documents are stored in separate files that you can download via the html code.
-
-D. Tables in html are formatted as csv tables, which we can easily copy and process in R.
-
-    In the video, we use the following code to extract the murders table (tab) from our downloaded html file h:
+2. In the video, we use the following code to extract the murders table (tab) from our downloaded html file h:
 
 tab <- h %>% html_nodes(“table”) 
 tab <- tab[[2]] %>% 
