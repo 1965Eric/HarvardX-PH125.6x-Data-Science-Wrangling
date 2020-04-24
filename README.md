@@ -532,64 +532,65 @@ Which command would result in the following table?
 - [ ] D. Tables in html are formatted as csv tables, which we can easily copy and process in R.
 
 2. In the video, we use the following code to extract the murders table (tab) from our downloaded html file h:
-
+```
 tab <- h %>% html_nodes(“table”) 
 tab <- tab[[2]] %>% 
     html_table
-
+```
 Why did we use the html_nodes() command instead of the html_node command?
 
-A. The html_node command only selects the first node of a specified type. In this example the first “table” node is a legend table and not the actual data we are interested in.
+- [X] A. The html_node command only selects the first node of a specified type. In this example the first “table” node is a legend table and not the actual data we are interested in.
+- [ ] B. The html_nodes command allows us to specify what type of node we want to extract, while the html_node command does not.
+- [ ] C. It does not matter; the two commands are interchangeable.
+- [X] D. We used html_nodes so that we could specify the second “table” element using the tab[[2]] command.
 
-B. The html_nodes command allows us to specify what type of node we want to extract, while the html_node command does not.
-
-C. It does not matter; the two commands are interchangeable.
-
-D. We used html_nodes so that we could specify the second “table” element using the tab[[2]] command.
-Section 3 Overview
+## Section 3 Overview
 
 In the String Processing section, we use case studies that help demonstrate how string processing is a powerful tool useful for overcoming many data wrangling challenges. You will see how the original raw data was processed to create the data frames we have used in courses throughout this series.
 
 This section is divided into three parts.
 
 After completing the String Processing section, you will be able to:
+- Remove unwanted characters from text.
+- Extract numeric values from text.
+- Find and replace characters.
+- Extract specific parts of strings.
+- Convert free form text into more uniform formats.
+- Split strings into multiple values.
+- Use regular expressions (regex) to process strings.
 
-    Remove unwanted characters from text.
-    Extract numeric values from text.
-    Find and replace characters.
-    Extract specific parts of strings.
-    Convert free form text into more uniform formats.
-    Split strings into multiple values.
-    Use regular expressions (regex) to process strings.
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html)
 
-The textbook for this section is available here
-Assessment 1- String Parsing
+## Assessment 1 - String Parsing
 
-    Which of the following is NOT an application of string parsing?
+1. Which of the following is NOT an application of string parsing?
 
-A. Removing unwanted characters from text.
-B. Extracting numeric values from text.
-C. Formatting numbers and characters so they can easily be displayed in deliverables like papers and presentations.
-D. Splitting strings into multiple values.
-Assessment 2- Defining Strings: Single and Double Quotes and How to Escape
+- [ ] A. Removing unwanted characters from text.
+- [ ] B. Extracting numeric values from text.
+- [X] C. Formatting numbers and characters so they can easily be displayed in deliverables like papers and presentations.
+- [ ] D. Splitting strings into multiple values.
 
-    Which of the following commands would not give you an error in R?
+## Assessment 2 - Defining Strings: Single and Double Quotes and How to Escape
 
-A. cat(" LeBron James is 6’8\" ")
-B. cat(' LeBron James is 6'8" ')
-C. cat(` LeBron James is 6'8" `)
-D. cat(" LeBron James is 6\’8" ")
-Assessment 3- stringr Package
+1. Which of the following commands would not give you an error in R?
 
-    Which of the following are advantages of the stringr package over string processing functions in base R? Select all that apply.
+- [X] A. cat(" LeBron James is 6’8\" ")
+- [ ] B. cat(' LeBron James is 6'8" ')
+- [ ] C. cat(` LeBron James is 6'8" `)
+- [ ] D. cat(" LeBron James is 6\’8" ")
 
-A. Base R functions are rarely used for string processing by data scientists so it’s not worth learning them.
-B. Functions in stringr all start with “str_”, which makes them easy to look up using autocomplete.
-C. Stringr functions work better with pipes.
-D. The order of arguments is more consistent in stringr functions than in base R.
-Assessment 4- Case Study 1: US Murders Data
+## Assessment 3 - stringr Package
 
-    You have a dataframe of monthly sales and profits in R
+1. Which of the following are advantages of the stringr package over string processing functions in base R? Select all that apply.
+
+- [ ] A. Base R functions are rarely used for string processing by data scientists so it’s not worth learning them.
+- [X] B. Functions in stringr all start with “str_”, which makes them easy to look up using autocomplete.
+- [X] C. Stringr functions work better with pipes.
+- [X] D. The order of arguments is more consistent in stringr functions than in base R.
+
+## Assessment 4 - Case Study 1: US Murders Data
+
+1. You have a dataframe of monthly sales and profits in R
 
 > head(dat)
 # A tibble: 5 x 3
