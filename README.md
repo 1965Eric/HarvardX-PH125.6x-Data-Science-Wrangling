@@ -591,193 +591,194 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ## Assessment 4 - Case Study 1: US Murders Data
 
 1. You have a dataframe of monthly sales and profits in R
-
+```
 > head(dat)
 # A tibble: 5 x 3
-  Month    Sales    Profit 
-  <chr>    <chr>    <chr>  
-    January     $128,568    $16,234
-    February    $109,523    $12,876
-    March       $115,468    $17,920
-    April       $122,274    $15,825
-    May         $117,921    $15,437
-
+Month       Sales       Profit 
+<chr>       <chr>       <chr>  
+January     $128,568    $16,234
+February    $109,523    $12,876
+March       $115,468    $17,920
+April       $122,274    $15,825
+May         $117,921    $15,437
+```
 Which of the following commands could convert the sales and profits columns to numeric? Select all that apply.
 
-A. dat %>% mutate_at(2:3, parse_number)
+- [X] A. dat %>% mutate_at(2:3, parse_number)
+- [ ] B. dat %>% mutate_at(2:3, as.numeric)
+- [ ] C. dat %>% mutate_all(parse_number)
+- [X] D. dat %>% mutate_at(2:3, funs(str_replace_all(., c("\\$|,"), ""))) %>%mutate_at(2:3, as.numeric)
 
-B. dat %>% mutate_at(2:3, as.numeric)
+## Assessment 5 - Case Study 2: Reported Heights
 
-C. dat %>% mutate_all(parse_number)
-
-D. dat %>% mutate_at(2:3, funs(str_replace_all(., c("\\$|,"), ""))) %>%mutate_at(2:3, as.numeric)
-
-
-Assessment 5- Case Study 2: Reported Heights
-
-    In the video, we use the function not_inches to identify heights that were incorrectly entered
-
+1. In the video, we use the function not_inches to identify heights that were incorrectly entered
+```
 not_inches <- function(x, smallest = 50, tallest = 84) {
   inches <- suppressWarnings(as.numeric(x))
   ind <- is.na(inches) | inches < smallest | inches > tallest 
   ind
 }
-
+```
 In this function, what TWO types of values are identified as not being correctly formatted in inches?
 
-A. Values that specifically contain apostrophes (‘), periods (.) or quotations (“).
-B. Values that result in NA’s when converted to numeric
-C. Values less than 50 inches or greater than 84 inches
-D. Values that are stored as a character class, because most are already classed as numeric.
+- [ ] A. Values that specifically contain apostrophes (‘), periods (.) or quotations (“).
+- [X] B. Values that result in NA’s when converted to numeric
+- [X] C. Values less than 50 inches or greater than 84 inches
+- [ ] D. Values that are stored as a character class, because most are already classed as numeric.
 
-    Which of the following arguments, when passed to the function not_inches, would return the vector c(FALSE)?
+2. Which of the following arguments, when passed to the function not_inches, would return the vector c(FALSE)?
 
-A. c(175)
-B. c(“5’8\””)
-C. c(70)
-D. c(85) (the height of Shaquille O'Neal in inches)
+- [ ] A. c(175)
+- [ ] B. c(“5’8\””)
+- [X] C. c(70)
+- [ ] D. c(85) (the height of Shaquille O'Neal in inches)
 
-    Our function not_inches returns the object ind. Which answer correctly describes ind?
+3. Our function `not_inches` returns the object `ind`. Which answer correctly describes ind?
 
-A. ind is a logical vector of TRUE and FALSE, equal in length to the vector x (in the arguments list). TRUE indicates that a height entry is incorrectly formatted.
+- [X] A. ind is a logical vector of TRUE and FALSE, equal in length to the vector x (in the arguments list). TRUE indicates that a height entry is incorrectly formatted.
+- [ ] B. indis a logical vector of TRUE and FALSE, equal in length to the vector x(in the arguments list). TRUE indicates that a height entry is correctly formatted.
+- [ ] C. ind is a data frame like our reported_heights table but with an extra column of TRUE or FALSE. TRUE indicates that a height entry is incorrectly formatted.
+- [ ] D. ind is a numeric vector equal to reported_heights$heights but with incorrectly formatted heights replaced with NAs.
 
-B. indis a logical vector of TRUE and FALSE, equal in length to the vector x(in the arguments list). TRUE indicates that a height entry is correctly formatted.
+## Assessment 6 - Regex
 
-C. ind is a data frame like our reported_heights table but with an extra column of TRUE or FALSE. TRUE indicates that a height entry is incorrectly formatted.
-
-D. ind is a numeric vector equal to reported_heights$heights but with incorrectly formatted heights replaced with NAs.
-
-
-Assessment 6- Regex
-
-    Given the following code
-
+1. Given the following code
+```
 > s
 [1] "70"       "5 ft"     "4'11"     ""         "."        "Six feet"
-
-What pattern vector yields the following result?
-
+```
+What `pattern` vector yields the following result?
+```
 str_view_all(s, pattern)
 70
 5 ft
 4’11
 .
 Six feet
+```
+- [X] A. pattern <- "\\d|ft"
+- [ ] B. pattern <- "\d|ft"
+- [ ] C. pattern <- "\\d\\d|ft"
+- [ ] D. pattern <- "\\d|feet"
 
-A. pattern <- "\\d|ft"
-B. pattern <- "\d|ft"
-C. pattern <- "\\d\\d|ft"
-D. pattern <- "\\d|feet"
-Assessment 7- Character Classes, Anchors, and Qualifiers
+## Assessment 7 - Character Classes, Anchors, and Qualifiers
 
-    You enter the following set of commands into your R console. What is your printed result?
-
+1. You enter the following set of commands into your R console. What is your printed result?
+```
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[a-z]"
 > str_detect(animals, pattern)
+```
+- [ ] A. TRUE
+- [ ] B. TRUE TRUE TRUE TRUE
+- [X] C. TRUE TRUE TRUE FALSE
+- [ ] D. TRUE TRUE FALSE FALSE
 
-A. TRUE
-B. TRUE TRUE TRUE TRUE
-C. TRUE TRUE TRUE FALSE
-D. TRUE TRUE FALSE FALSE
-
-    You enter the following set of commands into your R console. What is your printed result?
-
+2. You enter the following set of commands into your R console. What is your printed result?
+```
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[A-Z]$"
 > str_detect(animals, pattern)
+```
+- [ ] A. FALSE FALSE FALSE FALSE
+- [ ] B. FALSE FALSE TRUE TRUE
+- [X] C. FALSE FALSE FALSE TRUE
+- [ ] D. TRUE TRUE TRUE FALSE
 
-A. FALSE FALSE FALSE FALSE
-B. FALSE FALSE TRUE TRUE
-C. FALSE FALSE FALSE TRUE
-D. TRUE TRUE TRUE FALSE
-
-    You enter the following set of commands into your R console. What is your printed result?
-
+3. You enter the following set of commands into your R console. What is your printed result?
+```
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[a-z]{4,5}"
 > str_detect(animals, pattern)
+```
+- [X] A. FALSE TRUE TRUE FALSE
+- [ ] B. TRUE TRUE FALSE FALSE
+- [ ] C. FALSE FALSE FALSE TRUE
+- [ ] D. TRUE TRUE TRUE FALSE
 
-A. FALSE TRUE TRUE FALSE
-B. TRUE TRUE FALSE FALSE
-C. FALSE FALSE FALSE TRUE
-D. TRUE TRUE TRUE FALSE
-Assessment 8- Search and Replace with Regex
+## Assessment 8 - Search and Replace with Regex
 
-    Given the following code
-
+1. Given the following code
+```
 animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) Which TWO “pattern” vectors would yield the following result?
+str_detect(animals, pattern) 
+[1] TRUE TRUE TRUE TRUE
+```
+- [X] A. pattern <- “mo*”
+- [X] B. pattern <- “mo?”
+- [ ] C. pattern <- “mo+”
+- [ ] D. pattern <- “moo*”
 
-    str_detect(animals, pattern) [1] TRUE TRUE TRUE TRUE
-
-A. pattern <- “mo*”
-B. pattern <- “mo?”
-C. pattern <- “mo+”
-D. pattern <- “moo*”
-
-    You are working on some data from different universities. You have the following vector
-
+2. You are working on some data from different universities. You have the following vector
+```
 > schools
 [1] "U. Kentucky"                 "Univ New Hampshire"          "Univ. of Massachusetts"      "University Georgia"         
 [5] "U California"                "California State University"
-
+```
 You want to clean this data to match the full names of each university
-
+```
 > final
 [1] "University of Kentucky"      "University of New Hampshire" "University of Massachusetts" "University of Georgia"         
 [5] "University of California"    "California State University"
-
+```
 What of the following commands could accomplish this?
 
+- [ ] A.
+```
 schools %>% 
   str_replace("Univ\\.?|U\\.?", "University ") %>% 
   str_replace("^University of |^University ", "University of ")
-
-B.
-
+```
+- [X] B.
+```
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University ") %>% 
   str_replace("^University of |^University ", "University of ")
-
+```
+- [ ] C.
+```
 schools %>% 
   str_replace("^Univ\\.\\s|^U\\.\\s", "University") %>% 
   str_replace("^University of |^University ", "University of ")
-
+```
+- [ ] D.
+```
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University") %>% 
   str_replace("University ", "University of ")
+```
+## Assessment 9 - Groups with Regex
 
-Assessment 9- Groups with Regex
-
-    Rather than using the pattern_with_groups vector from the video, you accidentally write in the following code
-
+1. Rather than using the pattern_with_groups vector from the video, you accidentally write in the following code
+```
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
-
+```
 What is your result?
 
-A. [1] "5'3" "5'5" "6 1" "5 .11" "5, 12"
-B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
-C. [1] “5’3” “5’5” “6’1” “5 .11” “5, 12”
-D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
+- [X] A. [1] "5'3" "5'5" "6 1" "5 .11" "5, 12"
+- [ ] B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
+- [ ] C. [1] “5’3” “5’5” “6’1” “5 .11” “5, 12”
+- [ ] D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
 
-    You notice your mistake and correct your pattern regex to the following
-
+2. You notice your mistake and correct your pattern regex to the following
+```
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.\\s](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
-
+```
 What is your result?
 
-A. [1] “5’3” “5’5” “6 1” “5 .11” “5, 12”
-B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
-C. [1] "5'3" "5'5" "6'1" "5 .11" "5, 12"
-D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
-Assessment 10- Testing and Improving
+- [ ] A. [1] “5’3” “5’5” “6 1” “5 .11” “5, 12”
+- [ ] B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
+- [X] C. [1] "5'3" "5'5" "6'1" "5 .11" "5, 12"
+- [ ] D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
 
-    In our example, we use the following code to detect height entries that do not match our pattern of x’y”.
+## Assessment 10 - Testing and Improving
 
+1. In our example, we use the following code to detect height entries that do not match our pattern of x’y”.
+```
 converted <- problems %>% 
   str_replace("feet|foot|ft", "'") %>% 
   str_replace("inches|in|''|\"", "") %>% 
@@ -786,21 +787,18 @@ converted <- problems %>%
 pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
 index <- str_detect(converted, pattern)
 converted[!index]
+```
+Which answer best describes the differences between the regex string we use as an argument in `str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")`
 
-Which answer best describes the differences between the regex string we use as an argument in str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
+And the regex string in `pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"`?
 
-And the regex string in pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"?
+- [ ] A. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for one or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
+- [ ] B. The regex used in str_replace allows for additional spaces between the feet and inches digits, but the pattern regex does not.
+- [ ] C. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows none or more digits to be entered as inches, while the pattern regex only allows for the number 1 or 2 to be used.
+- [X] D. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for none or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
 
-A. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for one or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
-
-B. The regex used in str_replace allows for additional spaces between the feet and inches digits, but the pattern regex does not.
-
-C. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows none or more digits to be entered as inches, while the pattern regex only allows for the number 1 or 2 to be used.
-
-D. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for none or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
-
-    You notice a few entries that are not being properly converted using your str_replace and str_detect code
-
+2. You notice a few entries that are not being properly converted using your str_replace and str_detect code
+```
 yes <- c("5 feet 7inches", “5 7”)
 no <- c("5ft 9 inches", "5 ft 9 inches")
 s <- c(yes, no)
@@ -813,155 +811,179 @@ converted <- s %>%
 pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
 str_detect(converted, pattern)
 [1]  TRUE FALSE FALSE
-
+```
 It seems like the problem may be due to spaces around the words feet|foot|ft and inches|in. What is another way you could fix this problem?
 
-A.
-
+- [X] A.
+```
 converted <- s %>% 
   str_replace("\\s*(feet|foot|ft)\\s*", "'") %>% 
   str_replace("\\s*(inches|in|''|\")\\s*", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
-
+```
+- [ ] B. 
+```
 converted <- s %>% 
   str_replace("\\s+feet|foot|ft\\s+”, "'") %>% 
   str_replace("\\s+inches|in|''|\"\\s+", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
-
+```
+- [ ] C.
+```
 converted <- s %>% 
   str_replace("\\s*|feet|foot|ft", "'") %>% 
   str_replace("\\s*|inches|in|''|\"", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2") 
-
+```
+- [ ] D.
+```
 converted <- s %>% 
   str_replace_all(“\\s”, “”) %>% 
   str_replace("\\s|feet|foot|ft", "'") %>% 
   str_replace("\\s|inches|in|''|\"", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
+```
+## Assessment 11 - Using Groups and Quantifiers
 
-Assessment 11- Using Groups and Quantifiers
-
+1.
+```
 s <- c("5'10", "6'1\"", "5'8inches", "5'7.5")
 tab <- data.frame(x = s)
-
+```
 If you use the extract code from our video, the decimal point is dropped. What modification of the code would allow you to put the decimals in a third column called “decimal”?
-
+- [ ] A.
+```
 extract(data = tab, col = x, into = c(“feet”, “inches”, “decimal”), regex = "(\\d)'(\\d{1,2})(\\.)?"
-
+```
+- [ ] B.
+```
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)" 
-
+```
+- [ ] C.
+```
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})\\.\\d+?"
-
-D.
-
+```
+- [X] D.
+```
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)?")  
+```
 
-Assessment 12- String Splitting
+## Assessment 12 - String Splitting
 
-    You have the following table
-
+1. You have the following table
+```
 >schedule
-day     staff
+day         staff
 Monday      Mandy, Chris and Laura
 Tuesday     Steve, Ruth and Frank
-
+```
 You want to turn this into a more useful data frame.
 
 Which two commands would properly split the text in the “staff” column into each individual name? Select ALL that apply.
 
-A. str_split(schedule$staff, ",|and")
-B. str_split(schedule$staff, ", | and ")
-C. str_split(schedule$staff, ",\\s|\\sand\\s")
-D. str_split(schedule$staff, "\\s?(,|and)\\s?")
+- [ ] A. str_split(schedule$staff, ",|and")
+- [X] B. str_split(schedule$staff, ", | and ")
+- [X] C. str_split(schedule$staff, ",\\s|\\sand\\s")
+- [ ] D. str_split(schedule$staff, "\\s?(,|and)\\s?")
 
-    You have the following table
-
+2. You have the following table
+```
 > schedule
-      day           staff
-Monday  Mandy, Chris and Laura
+day         staff
+Monday      Mandy, Chris and Laura
 Tuesday     Steve, Ruth and Frank
-
+```
 What code would successfully turn your “Schedule” table into the following tidy table
-
+```
 < tidy
-  day     staff
-  <chr>   <chr>
-Monday  Mandy
-Monday  Chris
-Monday  Laura
-Tuesday Steve
-Tuesday Ruth 
-Tuesday Frank
-
-A.
-
+day      staff
+<chr>    <chr>
+Monday   Mandy
+Monday   Chris
+Monday   Laura
+Tuesday  Steve
+Tuesday  Ruth 
+Tuesday  Frank
+```
+- [X] A.
+```
 tidy <- schedule %>% 
   mutate(staff = str_split(staff, ", | and ")) %>% 
   unnest()
-
+```
+- [ ] B.
+```
 tidy <- separate(schedule, staff, into = c("s1","s2","s3"), sep = “,”) %>% 
   gather(key = s, value = staff, s1:s3)
-
+```
+- [ ] C.
+```
 tidy <- schedule %>% 
   mutate(staff = str_split(staff, ", | and ", simplify = TRUE)) %>%   unnest()
+```
 
-Assessment 13- Recoding
+## Assessment 13 - Recoding
 
-    Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
-
+1. Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
+- [ ] A.
+```
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(recode(country, 
                           "Central African Republic" = "CAR", 
                           "Congo, Dem. Rep." = "DRC",
                           "Equatorial Guinea" = "Eq. Guinea"))
-
+```
+- [ ] B.
+```
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           c("Central African Republic", "Congo, Dem. Rep.", "Equatorial Guinea"),
                           c("CAR", "DRC", "Eq. Guinea")))
-
+```
+- [ ] C.
+```
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country = recode(country, 
                           "Central African Republic" = "CAR", 
                           "Congo, Dem. Rep." = "DRC",
                           "Equatorial Guinea" = "Eq. Guinea"))
-
-D.
-
+```
+- [X] D.
+```
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           "Central African Republic" = "CAR", 
                           "Congo, Dem. Rep." = "DRC",
                           "Equatorial Guinea" = "Eq. Guinea"))
-
-Section 4 Overview
+```
+## Section 4 Overview
 
 In the Dates, Times, and Text Mining section, you will learn how to deal with dates and times in R and also how to generate numerical summaries from text data.
 
 After completing this section, you will be able to:
+- Handle dates and times in R.
+- Use the lubridate package to parse dates and times in different formats.
+- Generate numerical summaries from text data and apply data visualization and analysis techniques to those data.
 
-    Handle dates and times in R.
-    Use the lubridate package to parse dates and times in different formats.
-    Generate numerical summaries from text data and apply data visualization and analysis techniques to those data.
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/parsing-dates-and-times.html)
 
-The textbook for this section is available here
-Assessment 1- Dates and Times
+## Assessment 1- Dates and Times
 
-    Which of the following is the standard ISO 8601 format for dates?
+1. Which of the following is the standard ISO 8601 format for dates?
 
-A. MM-DD-YY
-B. YYYY-MM-DD
-C. YYYYMMDD
-D. YY-MM-DD
+- [ ] A. MM-DD-YY
+- [X] B. YYYY-MM-DD
+- [ ] C. YYYYMMDD
+- [ ] D. YY-MM-DD
 
-    Which of the following commands could convert this string into the correct date format?
-
+2. Which of the following commands could convert this string into the correct date format?
+```
 dates <- c("09-01-02", "01-12-07", "02-03-04")
-
-A. ymd(dates)
-B. mdy(dates)
-C. dmy(dates)
-D. It is impossible to know which format is correct without additional information.
+```
+- [ ] A. ymd(dates)
+- [ ] B. mdy(dates)
+- [ ] C. dmy(dates)
+- [X] D. It is impossible to know which format is correct without additional information.
 
 # Final: Comprehensive Assessment
 
@@ -981,7 +1003,6 @@ library(pdftools)
 options(digits = 3)    # report 3 significant digits
 ```
 
-
 ### Puerto Rico Hurricane Mortality: Part 1
 
 #### Question 1
@@ -994,9 +1015,6 @@ Find and open the file or open it directly from RStudio. On a Mac, you can type:
 ```{r}
 system2("open", args = fn)
 ```
-
-
-
 #### Question 2
 We are going to create a tidy dataset with each row representing one observation. The variables in this dataset will be year, month, day and deaths.  
 Use the pdftools package to read in fn using the pdf_text function. Store the results in an object called txt.  
@@ -1008,7 +1026,6 @@ class(txt)
 str(txt)
 dim(txt)
 ```
-
 #### Question 3
 Extract the ninth page of the PDF file from the object txt, then use the str_split function from the stringr package so that you have each line in a different entry. The new line character is \n. Call this string vector x.  
 Look at x. What best describes what you see?
@@ -1020,7 +1037,6 @@ x <- str_split(page_9, "\n")
 class(x)
 length(x)
 ```
-
 #### Question 4
 Define s to be the first entry of the x object.  
 What kind of object is s?
@@ -1030,7 +1046,6 @@ class(s)
 length(s)
 s
 ```
-
 #### Question 5
 When inspecting the string we obtained above, we see a common problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them.  
 We learned about the command str_trim that removes spaces at the start or end of the strings. Use this function to trim s and assign the result to s again.
@@ -1040,7 +1055,6 @@ After trimming, what single character is the last character of element 1 of s?
 s <- str_trim(s)
 s[1] # print string, visually inspect last character
 ```
-
 #### Question 6
 We want to extract the numbers from the strings stored in s. However, there are a lot of non-numeric characters that will get in the way. We can remove these, but before doing this we want to preserve the string with the column header, which includes the month abbreviation.
 
@@ -1052,7 +1066,6 @@ What is the value of header_index?
 header_index <- str_which(s, pattern="2015")[1]
 header_index
 ```
-
 #### Question 7
 We want to extract two objects from the header row: *month* will store the month and *header* will store the column names.  
 Save the content of the header row into an object called header, then use str_split to help define the two objects we need.
@@ -1063,8 +1076,6 @@ tmp <- str_split(s[header_index], pattern='\\s+', simplify=TRUE)
 month <- tmp[1]
 header <- tmp[-1]
 ```
-
-
 ### Puerto Rico Hurricane Mortality: Part 2
 
 #### Question 8
@@ -1074,7 +1085,6 @@ What is the value of tail_index?
 tail_index <- str_which(s, pattern="Total")
 tail_index
 ```
-
 #### Question 9
 Because our PDF page includes graphs with numbers, some of our rows have just one number (from the y-axis of the plot). Use the str_count function to create an object n with the count of numbers in each row.  
 How many rows have a single number in them?
@@ -1082,7 +1092,6 @@ How many rows have a single number in them?
 n <- str_count(s, pattern='\\d+')
 which(n==1)
 ```
-
 #### Question 10
 We are now ready to remove entries from rows that we know we don't need. The entry header_index and everything before it should be removed. Entries for which n is 1 should also be removed, and the entry tail_index and everything that comes after it should be removed as well.
 
@@ -1091,7 +1100,6 @@ How many entries remain in s?
 s <- s[-c(1:header_index, which(n==1), tail_index:length(s))]
 length(s)
 ```
-
 #### Question 11
 Now we are ready to remove all text that is not a digit or space. Do this using regular expressions (regex) and the str_remove_all function.
 In regex, using the ^ inside the square brackets [] means not, like the ! means not in !=. To define the regex pattern to catch all non-numbers, you can type [^\\d]. But remember you also want to keep spaces.
@@ -1101,8 +1109,6 @@ Which of these commands produces the correct output?
 s <- str_remove_all(s, "[^\\d\\s]")
 s
 ```
-
-
 #### Question 12
 Use the str_split_fixed function to convert s into a data matrix with just the day and death count data:
 ```{r}
@@ -1132,8 +1138,6 @@ mean(tab$`2017`[1:19])
 # What was the mean number of deaths per day from September 20-30, 2017, after the hurricane hit?
 mean(tab$`2017`[20:30])
 ```
-
-
 #### Question 13
 Finish it up by changing tab to a tidy format, starting from this code outline:
 ```{r}
@@ -1141,7 +1145,6 @@ tab <- tab %>% gather(year, deaths, -day) %>%
     mutate(deaths = as.numeric(deaths))
 tab
 ```
-
 #### Question 14
 Make a plot of deaths versus day with color to denote year. Exclude 2018 since we have no data. Add a vertical line at day 20, the day that Hurricane Maria hit in 2017.
 ```{r}
@@ -1151,7 +1154,6 @@ tab %>%
     geom_line() +
     geom_vline(xintercept=20)
 ```
-
 Which of the following are TRUE?
 
 * September 2015 and 2016 deaths by day are roughly equal to each other.
