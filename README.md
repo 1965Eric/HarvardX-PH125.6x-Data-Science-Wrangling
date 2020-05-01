@@ -179,7 +179,37 @@ download.file(url, "MyData.csv")
 - [ ] C. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and randomly assign it a temporary name that is very likely to be unique.
 - [X] D. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
 
-14. 
+14. Inspect the file at the following URL:
+
+http://mlr.cs.umass.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data
+
+Which readr function should be used to import this file?
+- [ ] A. read_table()
+- [X] B. read_csv()
+- [ ] C. read_csv2()
+- [ ] D. read_tsv()
+- [ ] E. None of the above
+
+15. Check the documentation for the readr function you chose in the previous question to learn about its arguments. Determine which arguments you need to the file from the previous question:
+
+```
+url <- "http://mlr.cs.umass.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
+```
+
+Does this file have a header row? Does the readr function you chose need any additional arguments to import the data correctly?
+
+- [ ] A. Yes, there is a header. No arguments are needed.
+- [ ] B. Yes, there is a header. The header=TRUE argument is necessary.
+- [ ] C. Yes, there is a header. The col_names=TRUE argument is necessary.
+- [ ] D. No, there is no header. No arguments are needed.
+- [ ] E. No, there is no header. The header=FALSE argument is necessary.
+- [X] F. No, there is no header. The col_names=FALSE argument is necessary.
+
+16. Inspect the imported data from the previous question.
+
+How many rows are in the dataset? 569
+
+How many columns are in the dataset? 32 
 
 ## Section 2 Overview
 
