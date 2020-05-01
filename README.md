@@ -74,7 +74,7 @@ What type of file is this?
 
 ## Assessment 2 - Paths and the Working Directory
 
-1. Assume the following is the full path to the directory that a student wants to use as their working directory in R: “/Users/student/Documents/projects/”
+4. Assume the following is the full path to the directory that a student wants to use as their working directory in R: “/Users/student/Documents/projects/”
 
 Which of the following lines of code CANNOT set the working directory to the desired “projects” directory?
 - [ ] A. setwd("~/Documents/projects/")
@@ -82,7 +82,7 @@ Which of the following lines of code CANNOT set the working directory to the des
 - [X] C. setwd(/Users/student/Documents/projects/)
 - [ ] D. dir <- "/Users/student/Documents/projects" setwd(dir)
 
-2. We want to copy the “murders.csv” file from the dslabs package into an existing folder “data”, which is located in our HarvardX-Wrangling projects folder. We first enter the code below into our RStudio console.
+5. We want to copy the “murders.csv” file from the dslabs package into an existing folder “data”, which is located in our HarvardX-Wrangling projects folder. We first enter the code below into our RStudio console.
 ```
 > getwd()  
 [1] "C:/Users/UNIVERSITY/Documents/Analyses/HarvardX-Wrangling"  
@@ -99,21 +99,21 @@ file.destination <- file.path(getwd(),
 
 ## Assessment 3 - The readr and readxl Packages
 
-1. You are not sure whether the murders.csv file has a header row. How could you check this?
+6. You are not sure whether the murders.csv file has a header row. How could you check this?
 
 Select ALL that apply.
 - [X] A. Open the file in a basic text editor.
 - [X] B. In the RStudio “Files” pane, click on your file, then select “View File”.
 - [X] C. Use the command read_lines (remembering to specify the number of rows with the n_max argument).
 
-2. What is one difference between read_excel and read_xlsx?
+7. What is one difference between read_excel and read_xlsx?
 
 - [ ] A. Read_excel also reads meta-data from the excel file, such as sheet names, while read_xlsx only reads the first sheet in a file.
 - [X] B. Read_excel reads both .xls and .xlsx files by detecting the file format from its extension, while read_xlsx only reads .xlsx files.
 - [ ] C. Read_excel is part of the readr package, while read_xlsx is part of the readxl package and has more options.
 - [ ] D. Read_xlsx has been replaced by read_excel in a recent readxl package update.
 
-3. You have a file called “times.txt” that contains race finish times for a marathon. The first four lines of the file look like this:
+8. You have a file called “times.txt” that contains race finish times for a marathon. The first four lines of the file look like this:
 ```
 initials,state,age,time
 vib,MA,61,6:01
@@ -126,7 +126,7 @@ Which line of code will NOT produce a tibble with column names “initials”, �
 - [ ] C. race_times <- read_csv("times.txt", col_names = TRUE)
 - [ ] D. race_times <- read_delim("times.txt", delim = “,”)
 
-4. You also have access to marathon finish times in the form of an Excel document named “times.xlsx”. In the Excel document, different sheets contain race information for different years. The first sheet is named “2015”, the second is named “2016”, and the third is named “2017”.
+9. You also have access to marathon finish times in the form of an Excel document named “times.xlsx”. In the Excel document, different sheets contain race information for different years. The first sheet is named “2015”, the second is named “2016”, and the third is named “2017”.
 
 Which line of code will NOT import the data contained in the “2016” tab of this Excel sheet?
 - [ ] A. times_2016 <- read_excel("times.xlsx", sheet = 2)
@@ -136,7 +136,7 @@ Which line of code will NOT import the data contained in the “2016” tab of t
 
 ## Assessment 4 - Importing Data Using R-base Functions
 
-1. You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
+10. You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
 
 You read in the file using the following code.
 ```
@@ -150,13 +150,13 @@ What is the data type of the initials in the object race_times?
 
 Note: If you don’t supply the argument stringsAsFactors = F, the read.csv file will automatically convert characters to factors.
 
-2. Which of the following is NOT a real difference between the readr import functions and the base R import functions?
+11. Which of the following is NOT a real difference between the readr import functions and the base R import functions?
 - [ ] A. The import functions in the readr package all start as read_, while the import functions for base R all start with read.
 - [ ] B. Base R import functions automatically convert character columns to factors.
 - [X] C. The base R import functions can read .csv files, but cannot files with other delimiters, such as .tsv files, or fixed-width files.
 - [ ] D. Base R functions import data as a data frame, while readr functions import data as a tibble.
 
-3. You read in a file containing runner information and marathon finish times using the following code.
+12. You read in a file containing runner information and marathon finish times using the following code.
 ```
 race_times <- read.csv(“times.csv”, stringsAsFactors = F)
 ```
@@ -168,7 +168,7 @@ What is the class of the object race_times?
 
 ## Assessment 5 - Downloading Files from the Internet
 
-1. Select the answer choice that summarizes all of the actions that the following lines of code can perform. Please note that the url below is an example and does not lead to data.
+13. Select the answer choice that summarizes all of the actions that the following lines of code can perform. Please note that the url below is an example and does not lead to data.
 ```
 url <- "https://raw.githubusercontent.com/MyUserName/MyProject/master/MyData.csv "
 dat <- read_csv(url)
@@ -178,6 +178,8 @@ download.file(url, "MyData.csv")
 - [ ] B. Create a matrix in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
 - [ ] C. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and randomly assign it a temporary name that is very likely to be unique.
 - [X] D. Create a tibble in R called dat that contains the information contained in the csv file stored on Github. Download the csv file to the working directory and name the downloaded file “MyData.csv”.
+
+14. 
 
 ## Section 2 Overview
 
