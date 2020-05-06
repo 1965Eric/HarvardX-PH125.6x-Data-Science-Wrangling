@@ -538,7 +538,27 @@ Which command could help you to wrangle the data into the desired format?
 - [X] C. dat_tidy <- spread(dat, gender, admitted)
 - [ ] D. dat_tidy <- spread(dat, admitted, gender)
 
-13. 
+13. Now use the admissions dataset to create the object tmp, which has columns major, gender, key and value:
+```
+tmp <- gather(admissions, key, value, admitted:applicants)
+tmp
+```
+Combine the key and gender and create a new column called column_name to get a variable with the following values: admitted_men, admitted_women, applicants_men and applicants_women. Save the new data as tmp2.
+
+Which command could help you to wrangle the data into the desired format?
+
+- [ ] A. tmp2 <- spread(tmp, column_name, key, gender)
+- [ ] B. tmp2 <- gather(tmp, column_name, c(gender,key))
+- [ ] C. tmp2 <- unite(tmp, column_name, c(gender, key)) 
+- [ ] D. tmp2 <- spread(tmp, column_name, c(key,gender))
+- [X] E. tmp2 <- unite(tmp, column_name, c(key, gender))
+
+14. Which function can reshape tmp2 to a table with six rows and five columns named major, admitted_men, admitted_women, applicants_men and applicants_women?
+
+- [ ] A. gather()
+- [X] B. spread()
+- [ ] C. separate()
+- [ ] D. unite()
 
 ## Assessment 4 - Combining Table
 
