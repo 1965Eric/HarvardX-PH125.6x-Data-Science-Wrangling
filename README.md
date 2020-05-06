@@ -286,7 +286,7 @@ Colorado    CO   West      1.29e-05
 ```
 ## Assessment 2 - Reshaping Data
 
-1. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
+3. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
 ```
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
@@ -320,7 +320,7 @@ gather(age_group, year, time, `2015`:`2017`)
 tidy_data <- d %>%
 gather(time, `2015`:`2017`)
 ```
-2. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
+4. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
 ```
 > head(dat_wide)
 state   year    population      Hepatitis A Mumps Polio Rubella
@@ -350,7 +350,7 @@ gather (key = count, value = disease, `Hepatitis A`, `Rubella`)
 - [ ] B.
 ```
 dat_tidy <- dat_wide %>%
-gather(key - count, value = disease, -state, -year, -population)
+gather(key = count, value = disease, -state, -year, -population)
 ```
 - [ ] C.
 ```
@@ -362,7 +362,7 @@ gather(key = disease, value = count, -state)
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, “Hepatitis A”: “Rubella”)
 ```
-3. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
+5. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
 ```
 age_group,year,time
 20,2015,03:46
@@ -376,7 +376,7 @@ Select the code that converts these data back to the wide format, where each yea
 - [X] B. tidy_data %>% spread(year, time)
 - [ ] C. tidy_data %>% spread(year, age_group)
 - [ ] D. tidy_data %>% spread(time, year, `2015`:`2017`)
-4.
+6.
 ```
 > head(dat)
 state    abb  region        var         people
@@ -404,7 +404,7 @@ Colorado    CO   West    5029196    65
 
 ## Assessment 3 - Separate and Unite
 
-1. A collaborator sends you a file containing data for two years of average race finish times.
+7. A collaborator sends you a file containing data for two years of average race finish times.
 ```
 age_group,2015_time,2015_participants,2016_time,2016_participants
 20,3:46,54,3:22,62
@@ -445,7 +445,7 @@ tidy_data <- d %>%
     separate(col = key, into = “year”, sep = “_”) %>% 
     spread(key = year, value = value)
 ```
-2. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
+8. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
 ```
 > head(stats)
 key                 value
@@ -477,6 +477,69 @@ tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
+Use the following libraries for these questions:
+```
+library(tidyverse)
+library(dslabs)
+```
+9. Examine the built-in dataset co2. This dataset comes with base R, not dslabs - just type co2 to access the dataset.
+
+Is co2 tidy? Why or why not?
+
+- [ ] A. co2 is tidy data: it has one year for each row.
+- [ ] B. co2 is tidy data: each column is a different month.
+- [ ] C. co2 is not tidy: there are multiple observations per column.
+- [X] D. co2 is not tidy: to be tidy we would have to wrangle it to have three columns (year, month and value), and then each co2 observation would have a row.
+
+10. Run the following command to define the co2_wide object:
+```
+co2_wide <- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) %>% 
+      setNames(1:12) %>%
+    mutate(year = as.character(1959:1997))
+```
+Use the gather() function to make this dataset tidy. Call the column with the CO2 measurements co2 and call the month column month. Name the resulting object co2_tidy.
+
+Which code would return the correct tidy format?
+- [ ] A. co2_tidy <- gather(co2_wide,month,co2,year)
+- [ ] B. co2_tidy <- gather(co2_wide,co2,month,-year)
+- [ ] C. co2_tidy <- gather(co2_wide,co2,month,year)
+- [X] D. co2_tidy <- gather(co2_wide,month,co2,-year)
+
+11. Use co2_tidy to plot CO2 versus month with a different curve for each year:
+```
+co2_tidy %>% ggplot(aes(as.numeric(month), co2, color = year)) + geom_line()
+```
+What can be concluded from this plot?
+- [ ] A. CO2 concentrations increased monotonically (never decreased) from 1959 to 1997.
+- [X] B. CO2 concentrations are highest around May and the yearly average increased from 1959 to 1997.
+- [ ] C. CO2 concentrations are highest around October and the yearly average increased from 1959 to 1997.
+- [ ] D. Yearly average CO2 concentrations have remained constant over time.
+- [ ] E. CO2 concentrations do not have a seasonal trend.
+
+12. Load the admissions dataset from dslabs, which contains college admission information for men and women across six majors, and remove the applicants percentage column:
+```
+library(dslabs)
+data(admissions)
+dat <- admissions %>% select(-applicants)
+```
+Your goal is to get the data in the shape that has one row for each major, like this:
+```
+major  men   women
+A      62    82		
+B      63    68		
+C      37    34		
+D      33    35		
+E      28    24		
+F       6     7	
+```
+Which command could help you to wrangle the data into the desired format?
+- [ ] A. dat_tidy <- spread(dat, major, admitted)
+- [ ] B. dat_tidy <- spread(dat, gender, major)
+- [X] C. dat_tidy <- spread(dat, gender, admitted)
+- [ ] D. dat_tidy <- spread(dat, admitted, gender)
+
+13. 
+
 ## Assessment 4 - Combining Table
 
 1. You have created a tab1 and tab2 of state population and election data, similar to our module videos:
