@@ -252,7 +252,7 @@ Alaska     AK    West    710231     19
 Arizona    AZ    West    6392017    232
 Arkansas   AR    South   2915918    93
 California CA    West    37253956   1257
-Colorado   CO    West    5029196    65 [X]
+Colorado   CO    West    5029196    65
 ```
 - [ ] B.
 ```
