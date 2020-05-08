@@ -605,7 +605,7 @@ dat <- left_join(tab1, tab2, by = “state”)
 
 ## Assessment 5 - Binding
 
-1. Which of the following are real differences between the join and bind functions?
+3. Which of the following are real differences between the join and bind functions?
 
 - [X] A. Binding functions combine by position, while join functions match by variables.
 - [X] B. Joining functions can join datasets of different dimensions, but the bind functions must match on the appropriate dimension (either same row or column numbers).
@@ -614,7 +614,7 @@ dat <- left_join(tab1, tab2, by = “state”)
 
 ## Assessment 6 - Set Operators
 
-1. We have two simple tables, shown below:
+4. We have two simple tables, shown below:
 ```
 > df1
  x     y    
@@ -636,6 +636,38 @@ Which command would result in the following table?
 - [X] B. final <- setdiff(df1, df2)
 - [ ] C. final <- setdiff(df2, df1)
 - [ ] D. final <- intersect(df1, df2)
+
+Install and load the Lahman library. This library contains a variety of datasets related to US professional baseball. We will use this library for the next few questions and will discuss it more extensively in the Regression course. For now, focus on wrangling the data rather than understanding the statistics.
+
+The Batting data frame contains the offensive statistics for all baseball players over several seasons.  Filter this data frame to define top as the top 10 home run (HR) hitters in 2016:
+```
+library(Lahman)
+top <- Batting %>% 
+  filter(yearID == 2016) %>%
+  arrange(desc(HR)) %>%    # arrange by descending HR count
+  slice(1:10)    # take entries 1-10
+top %>% as_tibble()
+```
+Also Inspect the Master data frame, which has demographic information for all players:
+```
+Master %>% as_tibble()
+```
+5. Use the correct join or bind function to create a combined table of the names and statistics of the top 10 home run (HR) hitters for 2016. This table should have the player ID, first name, last name, and number of HR for the top 10 players. Name this data frame top_names.
+
+Identify the join or bind that fills the blank in this code to create the correct table:
+```
+top_names <- top %>% ___________________ %>%
+    select(playerID, nameFirst, nameLast, HR)
+```
+Which bind or join function fills the blank to generate the correct table?
+- [ ] A. rbind(Master)
+- [ ] B. cbind(Master)
+- [X] C. left_join(Master)
+- [ ] D. right_join(Master)
+- [ ] E. full_join(Master)
+- [ ] F. anti_join(Master)
+
+6. 
 
 ## Assessment 7 - Web Scraping
 
