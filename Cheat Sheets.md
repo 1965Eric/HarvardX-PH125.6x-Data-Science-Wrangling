@@ -4,4 +4,6 @@
 
 <img width="822" alt="Schermafbeelding 2020-05-08 om 12 56 44" src="https://user-images.githubusercontent.com/17474099/81399631-9c4af200-912b-11ea-8853-76cb23da0cde.png">
 
+<img width="822" alt="Schermafbeelding 2020-05-08 om 12 57 41" src="https://user-images.githubusercontent.com/17474099/81399686-b97fc080-912b-11ea-9dfa-047731fff410.png">
+
 
