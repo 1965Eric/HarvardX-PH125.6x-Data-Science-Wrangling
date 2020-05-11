@@ -667,8 +667,35 @@ Which bind or join function fills the blank to generate the correct table?
 - [ ] E. full_join(Master)
 - [ ] F. anti_join(Master)
 
-6. 
+6. Inspect the Salaries data frame. Filter this data frame to the 2016 salaries, then use the correct bind join function to add a salary column to the top_names data frame from the previous question. Name the new data frame top_salary. Use this code framework:
+```
+top_salary <- Salaries %>% filter(yearID == 2016) %>%
+  ______________ %>%
+  select(nameFirst, nameLast, teamID, HR, salary)
+```
+Which bind or join function fills the blank to generate the correct table?
+- [ ] A. rbind(top_names)
+- [ ] B. cbind(top_names)
+- [ ] C. left_join(top_names)
+- [X] D. right_join(top_names)
+- [ ] E. full_join(top_names)
+- [ ] F. anti_join(top_names)
 
+7. Inspect the AwardsPlayers table. Filter awards to include only the year 2016.
+
+How many players from the top 10 home run hitters won at least one award in 2016? Use a set operator. 
+```
+top_awards <- AwardsPlayers %>% filter(yearID == 2016)
+length(intersect(top_awards$playerID, top_names$playerID))
+
+3 
+```
+How many players won an award in 2016 but were not one of the top 10 home run hitters in 2016? Use a set operator.
+```
+length(setdiff(top_awards$playerID, top_names$playerID))
+
+44
+```
 ## Assessment 7 - Web Scraping
 
 1. Which feature of html documents allows us to extract the table that we are interested in?
