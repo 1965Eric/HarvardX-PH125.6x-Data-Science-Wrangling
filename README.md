@@ -698,6 +698,59 @@ length(setdiff(top_awards$playerID, top_names$playerID))
 ```
 ## Assessment 7 - Web Scraping
 
+Load the following web page, which contains information about Major League Baseball payrolls, into R: 
+
+https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm
+```
+library(rvest)
+url <- "https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm"
+h <- read_html(url)
+```
+We learned that tables in html are associated with the table node.  Use the html_nodes() function and the table node type to extract the first table. Store it in an object nodes:
+```
+nodes <- html_nodes(h, "table")
+The html_nodes() function returns a list of objects of class xml_node. We can see the content of each one using, for example, the html_text() function. You can see the content for an arbitrarily picked component like this:
+```
+```
+html_text(nodes[[8]])
+```
+If the content of this object is an html table, we can use the html_table() function to convert it to a data frame:
+```
+html_table(nodes[[8]])
+```
+You will analyze the tables from this HTML page over questions 1-3.
+
+1. Many tables on this page are team payroll tables, with columns for rank, team, and one or more money values.
+
+Convert the first four tables in nodes to data frames and inspect them.
+
+Which of the first four nodes are tables of team payroll? Check all correct answers. Look at table content, not column names.
+
+- [ ] A. None of the above
+- [ ] B. Table 1
+- [X] C. Table 2
+- [X] D. Table 3
+- [X] E. Table 4
+
+2. For the last 3 components of nodes, which of the following are true? Check all correct answers.
+
+- [X] A. All three entries are tables.
+- [ ] B. All three entries are tables of payroll per team.
+- [X] C. The last entry shows the average across all teams through time, not payroll per team.
+- [ ] D. None of the three entries are tables of payroll per team.
+
+3. Create a table called tab_1 using entry 10 of nodes. Create a table called tab_2 using entry 19 of nodes.
+
+Note that the column names should be c("Team", "Payroll", "Average"). You can see that these column names are actually in the first data row of each table, and that tab_1 has an extra first column No. that should be removed so that the column names for both tables match.
+
+Remove the extra column in tab_1, remove the first row of each dataset, and change the column names for each table to c("Team", "Payroll", "Average"). Use a full_join() by the Team to combine these two tables.
+
+Note that some students, presumably because of system differences, have noticed that entry 18 instead of entry 19 of nodes gives them the tab_2 correctly; be sure to check entry 18 if entry 19 is giving you problems.
+
+How many rows are in the joined data table? 58
+
+4. 
+
 1. Which feature of html documents allows us to extract the table that we are interested in?
 
 - [ ] A. Html is easily converted to to xml, which can then be used for extracting tables.
