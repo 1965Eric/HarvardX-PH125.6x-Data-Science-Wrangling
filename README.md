@@ -747,9 +747,23 @@ Remove the extra column in tab_1, remove the first row of each dataset, and chan
 
 Note that some students, presumably because of system differences, have noticed that entry 18 instead of entry 19 of nodes gives them the tab_2 correctly; be sure to check entry 18 if entry 19 is giving you problems.
 
-How many rows are in the joined data table? 58
+How many rows are in the joined data table? ```58```
 
-4. 
+4. The Wikipedia page on opinion polling for the Brexit referendum, in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
+
+Use the rvest library to read the HTML from this Wikipedia page (make sure to copy both lines of the URL):
+```
+library(rvest)
+library(tidyverse)
+url <- "https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054"
+```
+Assign tab to be the html nodes of the "table" class.
+
+How many tables are in this Wikipedia page? ```40```
+
+5. Inspect the first several html tables using html_table() with the argument fill=TRUE (you can read about this argument in the documentation). Find the first table that has 9 columns with the first column named "Date(s) conducted".
+
+What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```5```
 
 1. Which feature of html documents allows us to extract the table that we are interested in?
 
