@@ -765,26 +765,6 @@ How many tables are in this Wikipedia page? ```40```
 
 What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```5```
 
-1. Which feature of html documents allows us to extract the table that we are interested in?
-
-- [ ] A. Html is easily converted to to xml, which can then be used for extracting tables.
-- [X] B. All elements in an html page are specified as “nodes”; we can use the node “tables” to identify and extract the specific table we are interested in before we do additional data cleaning.
-- [ ] C. All tables in html documents are stored in separate files that you can download via the html code.
-- [ ] D. Tables in html are formatted as csv tables, which we can easily copy and process in R.
-
-2. In the video, we use the following code to extract the murders table (tab) from our downloaded html file h:
-```
-tab <- h %>% html_nodes(“table”) 
-tab <- tab[[2]] %>% 
-    html_table
-```
-Why did we use the html_nodes() command instead of the html_node command?
-
-- [X] A. The html_node command only selects the first node of a specified type. In this example the first “table” node is a legend table and not the actual data we are interested in.
-- [ ] B. The html_nodes command allows us to specify what type of node we want to extract, while the html_node command does not.
-- [ ] C. It does not matter; the two commands are interchangeable.
-- [X] D. We used html_nodes so that we could specify the second “table” element using the tab[[2]] command.
-
 ## Section 3 Overview
 
 In the String Processing section, we use case studies that help demonstrate how string processing is a powerful tool useful for overcoming many data wrangling challenges. You will see how the original raw data was processed to create the data frames we have used in courses throughout this series.
