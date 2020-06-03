@@ -6,4 +6,6 @@
 
 <img width="822" alt="Schermafbeelding 2020-05-08 om 12 57 41" src="https://user-images.githubusercontent.com/17474099/81399686-b97fc080-912b-11ea-9dfa-047731fff410.png">
 
+<img width="1591" alt="Schermafbeelding 2020-06-03 om 12 20 03" src="https://user-images.githubusercontent.com/17474099/83625793-ccec4300-a594-11ea-80d1-fda632075b11.png">
+
 
