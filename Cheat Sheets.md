@@ -8,4 +8,5 @@
 
 <img width="1591" alt="Schermafbeelding 2020-06-03 om 12 20 03" src="https://user-images.githubusercontent.com/17474099/83625793-ccec4300-a594-11ea-80d1-fda632075b11.png">
 
+<img width="1590" alt="Schermafbeelding 2020-06-03 om 12 20 16" src="https://user-images.githubusercontent.com/17474099/83625897-f016f280-a594-11ea-848e-1097c223e12d.png">
 
