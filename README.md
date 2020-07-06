@@ -1215,7 +1215,9 @@ Check all correct answers.
 Use a function from stringr to convert "N/A" in the undecided column to 0. The format of your command should be function_name(polls$undecided, "arg1", "arg2").
 
 What function replaces function_name? ```str_replace```
+
 What argument replaces arg1? ```N/A```
+
 What argument replaces arg2? ```0```
 
 5. The dates column contains the range of dates over which the poll was conducted. The format is "8-10 Jan" where the poll had a start date of 2016-01-08 and end date of 2016-01-10. Some polls go across month boundaries (16 May-12 June).
