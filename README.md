@@ -877,10 +877,10 @@ str_view_all(s, pattern)
 .
 Six feet
 ```
-- [X] A. pattern <- "\\d|ft"
-- [ ] B. pattern <- "\d|ft"
-- [ ] C. pattern <- "\\d\\d|ft"
-- [ ] D. pattern <- "\\d|feet"
+- [X] A. ```pattern <- "\\d|ft"```
+- [ ] B. ```pattern <- "\d|ft"```
+- [ ] C. ```pattern <- "\\d\\d|ft"```
+- [ ] D. ```pattern <- "\\d|feet"```
 
 ## Assessment 7 - Character Classes, Anchors, and Qualifiers
 
