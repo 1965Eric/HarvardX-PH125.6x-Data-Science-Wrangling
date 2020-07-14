@@ -1323,6 +1323,55 @@ reviews_by_hour <- table(year(dates))
 names(which.max(reviews_by_hour))
 ```
 
+6. Project Gutenberg is a digital archive of public domain books. The R package gutenbergr facilitates the importation of these texts into R. We will combine this with the tidyverse and tidytext libraries to practice text mining.
+
+Use these libraries and options:
+```
+library(tidyverse)
+library(gutenbergr)
+library(tidytext)
+options(digits = 3)
+```
+You can see the books and documents available in gutenbergr like this:
+```
+gutenberg_metadata
+```
+
+Use str_detect() to find the ID of the novel Pride and Prejudice.
+
+How many different ID numbers are returned?```6```
+```
+gutenberg_metadata %>% filter(str_detect(title, "Pride and Prejudice"))
+```
+
+7. Notice that there are several versions of the book. The gutenberg_works() function filters this table to remove replicates and include only English language works. Use this function to find the ID for Pride and Prejudice.
+
+What is the correct ID number? ```1342```
+```
+gutenberg_works(title == "Pride and Prejudice") 
+```
+
+8. Use the gutenberg_download() function to download the text for Pride and Prejudice. Use the tidytext package to create a tidy table with all the words in the text. Save this object as words.
+
+How many words are present in the book? ```122204``` 
+```
+book_austen <- gutenberg_download(1342) 
+words <- book_austen %>% unnest_tokens(word, text) 
+nrow(words)
+```
+
+9. Remove stop words from the words object. Recall that stop words are defined in the stop_words data frame from the tidytext package.
+
+How many words remain? ```37246```
+
+```
+words <- words %>% anti_join(stop_words) 
+nrow(words) 
+```
+
+10. 
+
+
 # Final: Comprehensive Assessment
 
 ## Comprehensive Assessment: Puerto Rico Hurricane Mortality
