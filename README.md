@@ -1403,6 +1403,27 @@ words %>%
     pull(n)
 ```
 
+12. Define the afinn lexicon.
+```
+afinn <- get_sentiments("afinn")
+```
+
+Use this afinn lexicon to assign sentiment values to words. Keep only words that are present in both words and the afinn lexicon. Save this data frame as afinn_sentiments.
+
+How many elements of words have sentiments in the afinn lexicon? ```6065``` 
+```
+afinn_sentiments <- inner_join(afinn, words)
+nrow(afinn_sentiments)
+```
+What proportion of words in afinn_sentiments have a positive value? ```0.563``` 
+```
+mean(afinn_sentiments$value > 0)
+```
+How many elements of afinn_sentiments have a value of 4? ```51``` 
+```
+sum(afinn_sentiments$value == 4)
+```
+
 # Final: Comprehensive Assessment
 
 ## Comprehensive Assessment: Puerto Rico Hurricane Mortality
