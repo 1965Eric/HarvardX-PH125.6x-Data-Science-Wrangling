@@ -1284,6 +1284,45 @@ Use the round_date() function on the enddate column with the argument unit="week
 sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
 ```
 
+4. Use the weekdays() function from lubridate to determine the weekday on which each poll ended (enddate).
+
+On which weekday did the greatest number of polls end?
+- [ ] A. Monday
+- [ ] B. Tuesday
+- [ ] C. Wednesday
+- [ ] D. Thursday
+- [ ] E. Friday
+- [ ] F. Saturday
+- [X] G. Sunday
+
+```
+max(weekdays(brexit_polls$enddate))
+```
+
+5. Load the movielens data frame from dslabs.
+```
+data(movielens)
+```
+This data frame contains a set of about 100,000 movie reviews. The timestamp column contains the review date as the number of seconds since 1970-01-01 (epoch time).
+
+Convert the timestamp column to dates using the lubridate as_datetime() function.
+```
+dates <- as_datetime(movielens$timestamp) 
+``` 
+
+Which year had the most movie reviews? ```2000```
+```
+reviews_by_year <- table(year(dates))
+names(which.max(reviews_by_year))
+```
+
+Which hour of the day had the most movie reviews? ```20```
+
+```
+reviews_by_hour <- table(year(dates))
+names(which.max(reviews_by_hour))
+```
+
 # Final: Comprehensive Assessment
 
 ## Comprehensive Assessment: Puerto Rico Hurricane Mortality
