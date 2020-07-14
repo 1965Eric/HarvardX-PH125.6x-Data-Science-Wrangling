@@ -1278,7 +1278,9 @@ data(brexit_polls)
 ```
 
 How many polls had a start date (startdate) in April (month number 4)? ```25```
- 
+```
+sum(month(brexit_polls$startdate) == 4)
+```
 Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```13```
 ```
 sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
@@ -1369,8 +1371,37 @@ words <- words %>% anti_join(stop_words)
 nrow(words) 
 ```
 
-10. 
+10. After removing stop words, detect and then filter out any token that contains a digit from words.
 
+How many words remain? ```37180```
+
+```
+words %>% filter(!str_detect(word, "\\d"))
+```
+
+11. Analyze the most frequent words in the novel after removing stop words and tokens with digits.
+
+How many words appear more than 100 times in the book? ```23```
+```
+words %>%
+    count(word) %>%
+    filter(n > 100) %>%
+    nrow()
+``` 
+What is the most common word in the book? ```Elizabeth```
+```
+words %>%
+    count(word) %>%
+    top_n(1, n) %>%
+    pull(word)
+```
+How many times does that most common word appear? ```597```
+```
+words %>%
+    count(word) %>%
+    top_n(1, n) %>%
+    pull(n)
+```
 
 # Final: Comprehensive Assessment
 
