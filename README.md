@@ -1271,6 +1271,19 @@ dates <- c("09-01-02", "01-12-07", "02-03-04")
 - [ ] C. dmy(dates)
 - [X] D. It is impossible to know which format is correct without additional information.
 
+3. Load the brexit_polls data frame from dslabs:
+
+```
+data(brexit_polls)
+```
+
+How many polls had a start date (startdate) in April (month number 4)? ```25```
+ 
+Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```13```
+```
+sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
+```
+
 # Final: Comprehensive Assessment
 
 ## Comprehensive Assessment: Puerto Rico Hurricane Mortality
