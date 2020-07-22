@@ -207,9 +207,9 @@ Does this file have a header row? Does the readr function you chose need any add
 
 16. Inspect the imported data from the previous question.
 
-How many rows are in the dataset? 569
+How many rows are in the dataset? ```{r}569```
 
-How many columns are in the dataset? 32 
+How many columns are in the dataset? ```{r}32```
 
 ## Section 2 Overview
 
