@@ -759,11 +759,11 @@ url <- "https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_Unite
 ```
 Assign tab to be the html nodes of the "table" class.
 
-How many tables are in this Wikipedia page? ```{r}40```
+How many tables are in this Wikipedia page? ```40```
 
 5. Inspect the first several html tables using html_table() with the argument fill=TRUE (you can read about this argument in the documentation). Find the first table that has 9 columns with the first column named "Date(s) conducted".
 
-What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```{r}5```
+What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```5```
 
 ## Section 3 Overview
 
