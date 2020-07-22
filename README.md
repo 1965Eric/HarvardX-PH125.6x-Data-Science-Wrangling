@@ -1463,8 +1463,7 @@ Which of the following best describes this file?
 
 #### Question 2
 We are going to create a tidy dataset with each row representing one observation. The variables in this dataset will be year, month, day and deaths.  
-Use the pdftools package to read in fn using the pdf_text function. Store the results in an object called txt.  
-Describe what you see in txt.  
+Use the pdftools package to read in fn using the pdf_text function. Store the results in an object called txt.    
 
 ```{r}
 txt <- pdf_text(fn)
@@ -1473,6 +1472,8 @@ str(txt)
 dim(txt)
 ```
 
+Describe what you see in txt.
+
 - [ ] A. A table with the mortality data.
 - [X] B. A character string of length 12. Each entry represents the text in each page. The mortality data is in there somewhere.
 - [ ] C. A character string with one entry containing all the information in the PDF file.
@@ -1480,7 +1481,6 @@ dim(txt)
 
 #### Question 3
 Extract the ninth page of the PDF file from the object txt, then use the str_split function from the stringr package so that you have each line in a different entry. The new line character is \n. Call this string vector x.  
-Look at x. What best describes what you see?
 
 ```{r}
 page_9 <- txt[9]
@@ -1489,6 +1489,8 @@ x <- str_split(page_9, "\n")
 class(x)
 length(x)
 ```
+
+Look at x. What best describes what you see?
 
 - [ ] A. It is an empty string.
 - [ ] B. I can see the figure shown in page 1.
@@ -1501,7 +1503,7 @@ How many entries does x have? ```1```
 
 #### Question 4
 Define s to be the first entry of the x object.  
-What kind of object is s?
+
 ```{r}
 s <- x[[1]]
 class(s)
@@ -1509,62 +1511,80 @@ length(s)
 s
 ```
 
+What kind of object is s? ```character```
 
+How many entries does s have? ```40```
 
 #### Question 5
 When inspecting the string we obtained above, we see a common problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them.  
 We learned about the command str_trim that removes spaces at the start or end of the strings. Use this function to trim s and assign the result to s again.
 
-After trimming, what single character is the last character of element 1 of s?
+After trimming, what single character is the last character of element 1 of s? ```s```
+
 ```{r}
 s <- str_trim(s)
 s[1] # print string, visually inspect last character
 ```
+
 #### Question 6
 We want to extract the numbers from the strings stored in s. However, there are a lot of non-numeric characters that will get in the way. We can remove these, but before doing this we want to preserve the string with the column header, which includes the month abbreviation.
 
 Use the *str_which* function to find the row with the header. Save this result to *header_index*.  
 Hint: find the first string that matches the pattern "2015" using the str_which function.
 
-What is the value of header_index?
+What is the value of header_index? ```2```
 ```{r}
 header_index <- str_which(s, pattern="2015")[1]
 header_index
 ```
+
 #### Question 7
 We want to extract two objects from the header row: *month* will store the month and *header* will store the column names.  
 Save the content of the header row into an object called header, then use str_split to help define the two objects we need.
 
-What is the value of month?
 ```{r}
-tmp <- str_split(s[header_index], pattern='\\s+', simplify=TRUE)
+tmp <- str_split(s[header_index], pattern="\\s+", simplify=TRUE)
 month <- tmp[1]
 header <- tmp[-1]
 ```
+
+What is the value of month? ```SEP```
+
+What is the third value in header? ```2017``` 
+
 ### Puerto Rico Hurricane Mortality: Part 2
 
 #### Question 8
 Notice that towards the end of the page defined by s you see a "Total" row followed by rows with other summary statistics. Create an object called tail_index with the index of the "Total" entry.
-What is the value of tail_index?
+
+What is the value of tail_index? ```35```
+
 ```{r}
 tail_index <- str_which(s, pattern="Total")
 tail_index
 ```
+
 #### Question 9
 Because our PDF page includes graphs with numbers, some of our rows have just one number (from the y-axis of the plot). Use the str_count function to create an object n with the count of numbers in each row.  
-How many rows have a single number in them?
+
+How many rows have a single number in them? ```2```
+
 ```{r}
 n <- str_count(s, pattern='\\d+')
 which(n==1)
 ```
+
 #### Question 10
 We are now ready to remove entries from rows that we know we don't need. The entry header_index and everything before it should be removed. Entries for which n is 1 should also be removed, and the entry tail_index and everything that comes after it should be removed as well.
 
-How many entries remain in s?
+How many entries remain in s? ```30```
+
 ```{r}
-s <- s[-c(1:header_index, which(n==1), tail_index:length(s))]
+out <- c(1:header_index, which(n==1), tail_index:length(s))
+s <- s[-out]
 length(s)
 ```
+
 #### Question 11
 Now we are ready to remove all text that is not a digit or space. Do this using regular expressions (regex) and the str_remove_all function.
 In regex, using the ^ inside the square brackets [] means not, like the ! means not in !=. To define the regex pattern to catch all non-numbers, you can type [^\\d]. But remember you also want to keep spaces.
