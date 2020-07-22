@@ -1587,13 +1587,27 @@ length(s)
 
 #### Question 11
 Now we are ready to remove all text that is not a digit or space. Do this using regular expressions (regex) and the str_remove_all function.
-In regex, using the ^ inside the square brackets [] means not, like the ! means not in !=. To define the regex pattern to catch all non-numbers, you can type [^\\d]. But remember you also want to keep spaces.
+In regex, using the ^ inside the square brackets [] means *not*, like the ```!``` means *not* in ```!=```. To define the regex pattern to catch all non-numbers, you can type ```[^\\d]```. But remember you also want to keep spaces.
 
 Which of these commands produces the correct output?
+
+- [ ] A.
+```{r}
+s <- str_remove_all(s, "[^\\d]")
+```
+- [ ] B.
+```{r}
+s <- str_remove_all(s, "[\\d\\s]")
+```
+- [X] C.
 ```{r}
 s <- str_remove_all(s, "[^\\d\\s]")
-s
 ```
+- [ ] D.
+```{r}
+s <- str_remove_all(s, "[\\d]")
+```
+
 #### Question 12
 Use the str_split_fixed function to convert s into a data matrix with just the day and death count data:
 ```{r}
