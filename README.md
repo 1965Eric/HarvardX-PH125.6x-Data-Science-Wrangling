@@ -1615,35 +1615,46 @@ s <- str_split_fixed(s, "\\s+", n = 6)[,1:5]
 ```
 
 Now you are almost ready to finish. Add column names to the matrix: the first column should be day and the next columns should be the header. Convert all values to numeric. Also, add a column with the month. Call the resulting object tab.
+
 ```{r}
-# colnames(s) <- c('day', header)
-# parse_number(s[,1])
-# tab <- data.frame(parse_number(s[,1]), parse_number(s[,2]), parse_number(s[,3]), parse_number(s[,4]), parse_number(s[,5]))
-# colnames(tab) <- colnames(s)
-# tab <- cbind(tab, month="SEP")
 tab <- s %>% 
     as_data_frame() %>% 
     setNames(c("day", header)) %>%
     mutate_all(as.numeric)
-tab
 ```
+
+What was the mean number of deaths per day in September 2015? ```75.3```
 ```{r}
-# What was the mean number of deaths per day in September 2015?
 mean(tab$`2015`)
-# What is the mean number of deaths per day in September 2016?
+```
+What is the mean number of deaths per day in September 2016? ```78.9```
+```{r}
 mean(tab$`2016`)
-# Hurricane Maria hit Puerto Rico on September 20, 2017. What was the mean number of deaths per day from September 1-19, 2017, before the hurricane hit?
+```
+Hurricane Maria hit Puerto Rico on September 20, 2017. What was the mean number of deaths per day from September 1-19, 2017, before the hurricane hit? ```83.7```
+```{r}
 mean(tab$`2017`[1:19])
-# What was the mean number of deaths per day from September 20-30, 2017, after the hurricane hit?
+```
+What was the mean number of deaths per day from September 20-30, 2017, after the hurricane hit? ```122```
+```{r}
 mean(tab$`2017`[20:30])
 ```
+
 #### Question 13
 Finish it up by changing tab to a tidy format, starting from this code outline:
+
 ```{r}
-tab <- tab %>% gather(year, deaths, -day) %>%
+tab <- tab %>% ________(year, deaths, -day) %>%
     mutate(deaths = as.numeric(deaths))
 tab
 ```
+What code fills the blank to generate a data frame with columns named "day", "year" and "deaths"?
+
+- [ ] A. separate
+- [ ] B. unite
+- [X] C. gather
+- [ ] D. spread
+
 #### Question 14
 Make a plot of deaths versus day with color to denote year. Exclude 2018 since we have no data. Add a vertical line at day 20, the day that Hurricane Maria hit in 2017.
 ```{r}
@@ -1655,7 +1666,8 @@ tab %>%
 ```
 Which of the following are TRUE?
 
-* September 2015 and 2016 deaths by day are roughly equal to each other.
-* The day with the most deaths was the day of the hurricane: September 20, 2017.
-* After the hurricane in September 2017, there were over 100 deaths per day every day for the rest of the month.
-* No days before September 20, 2017 have over 100 deaths per day.
+- [X] A. September 2015 and 2016 deaths by day are roughly equal to each other.
+- [ ] B. The day with the most deaths was the day of the hurricane: September 20, 2017.
+- [X] C. After the hurricane in September 2017, there were over 100 deaths per day every day for the rest of the month.
+- [X] D. No days before September 20, 2017 have over 100 deaths per day.
+
