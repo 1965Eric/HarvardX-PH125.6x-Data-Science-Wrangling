@@ -207,9 +207,9 @@ Does this file have a header row? Does the readr function you chose need any add
 
 16. Inspect the imported data from the previous question.
 
-How many rows are in the dataset? ```{r}569```
+How many rows are in the dataset? ```569```
 
-How many columns are in the dataset? ```{r}32```
+How many columns are in the dataset? ```32```
 
 ## Section 2 Overview
 
@@ -1195,9 +1195,9 @@ Some rows in this table do not contain polls. You can identify these by the lack
 
 Update polls by changing the column names to c("dates", "remain", "leave", "undecided", "lead", "samplesize", "pollster", "poll_type", "notes") and only keeping rows that have a percent sign (%) in the remain column.
 
-How many rows remain in the polls data frame? ```{r}129```
+How many rows remain in the polls data frame? ```129```
 
-3. The ```{r}remain``` and ```{r}leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
+3. The ```remain``` and ```leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
 
 Which of these commands converts the remain vector to a proportion between 0 and 1?
 
@@ -1214,11 +1214,11 @@ Check all correct answers.
 
 Use a function from stringr to convert "N/A" in the undecided column to 0. The format of your command should be function_name(polls$undecided, "arg1", "arg2").
 
-What function replaces function_name? ```{r}str_replace```
+What function replaces function_name? ```str_replace```
 
-What argument replaces arg1? ```{r}N/A```
+What argument replaces arg1? ```N/A```
 
-What argument replaces arg2? ```{r}0```
+What argument replaces arg2? ```0```
 
 5. The dates column contains the range of dates over which the poll was conducted. The format is "8-10 Jan" where the poll had a start date of 2016-01-08 and end date of 2016-01-10. Some polls go across month boundaries (16 May-12 June).
 
@@ -1234,13 +1234,13 @@ end_date <- sapply(temp, function(x) x[length(x)]) # take last element (handles 
 Which of the following regular expressions correctly extracts the end day and month when inserted into the blank in the code above?
 Check all correct answers.
 
-- [ ] A. ```{r}"\\d?\\s[a-zA-Z]?"```
-- [X] B. ```{r}"\\d+\\s[a-zA-Z]+"```
-- [ ] C. ```{r}"\\d+\\s[A-Z]+"```
-- [X] D. ```{r}"[0-9]+\\s[a-zA-Z]+"```
-- [X] E. ```{r}"\\d{1,2}\\s[a-zA-Z]+"```
-- [ ] F. ```{r}"\\d{1,2}[a-zA-Z]+"```
-- [X] G. ```{r}"\\d+\\s[a-zA-Z]{3,5}"```
+- [ ] A. ```"\\d?\\s[a-zA-Z]?"```
+- [X] B. ```"\\d+\\s[a-zA-Z]+"```
+- [ ] C. ```"\\d+\\s[A-Z]+"```
+- [X] D. ```"[0-9]+\\s[a-zA-Z]+"```
+- [X] E. ```"\\d{1,2}\\s[a-zA-Z]+"```
+- [ ] F. ```"\\d{1,2}[a-zA-Z]+"```
+- [X] G. ```"\\d+\\s[a-zA-Z]{3,5}"```
 
 ## Section 4 Overview
 
@@ -1277,11 +1277,11 @@ dates <- c("09-01-02", "01-12-07", "02-03-04")
 data(brexit_polls)
 ```
 
-How many polls had a start date (startdate) in April (month number 4)? ```{r}25```
+How many polls had a start date (startdate) in April (month number 4)? ```25```
 ```{r}
 sum(month(brexit_polls$startdate) == 4)
 ```
-Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```{r}13```
+Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```13```
 ```{r}
 sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
 ```
@@ -1312,13 +1312,13 @@ Convert the timestamp column to dates using the lubridate as_datetime() function
 dates <- as_datetime(movielens$timestamp) 
 ``` 
 
-Which year had the most movie reviews? ```{r}2000```
+Which year had the most movie reviews? ```2000```
 ```{r}
 reviews_by_year <- table(year(dates))
 names(which.max(reviews_by_year))
 ```
 
-Which hour of the day had the most movie reviews? ```{r}20```
+Which hour of the day had the most movie reviews? ```20```
 
 ```{r}
 reviews_by_hour <- table(year(dates))
@@ -1341,21 +1341,21 @@ gutenberg_metadata
 
 Use str_detect() to find the ID of the novel Pride and Prejudice.
 
-How many different ID numbers are returned? ```{r}6```
+How many different ID numbers are returned? ```6```
 ```{r}
 gutenberg_metadata %>% filter(str_detect(title, "Pride and Prejudice"))
 ```
 
 7. Notice that there are several versions of the book. The gutenberg_works() function filters this table to remove replicates and include only English language works. Use this function to find the ID for Pride and Prejudice.
 
-What is the correct ID number? ```{r}1342```
+What is the correct ID number? ```1342```
 ```{r}
 gutenberg_works(title == "Pride and Prejudice") 
 ```
 
 8. Use the gutenberg_download() function to download the text for Pride and Prejudice. Use the tidytext package to create a tidy table with all the words in the text. Save this object as words.
 
-How many words are present in the book? ```{r}122204``` 
+How many words are present in the book? ```122204``` 
 ```{r}
 book_austen <- gutenberg_download(1342) 
 words <- book_austen %>% unnest_tokens(word, text) 
@@ -1364,7 +1364,7 @@ nrow(words)
 
 9. Remove stop words from the words object. Recall that stop words are defined in the stop_words data frame from the tidytext package.
 
-How many words remain? ```{r}37246```
+How many words remain? ```37246```
 
 ```{r}
 words <- words %>% anti_join(stop_words) 
@@ -1373,7 +1373,7 @@ nrow(words)
 
 10. After removing stop words, detect and then filter out any token that contains a digit from words.
 
-How many words remain? ```{r}37180```
+How many words remain? ```37180```
 
 ```{r}
 words %>% filter(!str_detect(word, "\\d"))
@@ -1381,21 +1381,21 @@ words %>% filter(!str_detect(word, "\\d"))
 
 11. Analyze the most frequent words in the novel after removing stop words and tokens with digits.
 
-How many words appear more than 100 times in the book? ```{r}23```
+How many words appear more than 100 times in the book? ```23```
 ```{r}
 words %>%
     count(word) %>%
     filter(n > 100) %>%
     nrow()
 ``` 
-What is the most common word in the book? ```{r}Elizabeth```
+What is the most common word in the book? ```Elizabeth```
 ```{r}
 words %>%
     count(word) %>%
     top_n(1, n) %>%
     pull(word)
 ```
-How many times does that most common word appear? ```{r}597```
+How many times does that most common word appear? ```597```
 ```{r}
 words %>%
     count(word) %>%
@@ -1410,16 +1410,16 @@ afinn <- get_sentiments("afinn")
 
 Use this afinn lexicon to assign sentiment values to words. Keep only words that are present in both words and the afinn lexicon. Save this data frame as afinn_sentiments.
 
-How many elements of words have sentiments in the afinn lexicon? ```{r}6065``` 
+How many elements of words have sentiments in the afinn lexicon? ```6065``` 
 ```{r}
 afinn_sentiments <- inner_join(afinn, words)
 nrow(afinn_sentiments)
 ```
-What proportion of words in afinn_sentiments have a positive value? ```{r}0.563``` 
+What proportion of words in afinn_sentiments have a positive value? ```0.563``` 
 ```{r}
 mean(afinn_sentiments$value > 0)
 ```
-How many elements of afinn_sentiments have a value of 4? ```{r}51``` 
+How many elements of afinn_sentiments have a value of 4? ```51``` 
 ```{r}
 sum(afinn_sentiments$value == 4)
 ```
