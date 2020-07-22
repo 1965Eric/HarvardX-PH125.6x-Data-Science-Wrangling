@@ -1454,6 +1454,13 @@ Find and open the file or open it directly from RStudio. On a Mac, you can type:
 ```{r}
 system2("open", args = fn)
 ```
+
+Which of the following best describes this file?
+- [ ] A. It is a table. Extracting the data will be easy.
+- [ ] B. It is a report written in prose. Extracting the data will be impossible.
+- [X] C. It is a report combining graphs and tables. Extracting the data seems possible.
+- [ ] D. It shows graphs of the data. Extracting the data will be difficult.
+
 #### Question 2
 We are going to create a tidy dataset with each row representing one observation. The variables in this dataset will be year, month, day and deaths.  
 Use the pdftools package to read in fn using the pdf_text function. Store the results in an object called txt.  
@@ -1465,6 +1472,12 @@ class(txt)
 str(txt)
 dim(txt)
 ```
+
+- [ ] A. A table with the mortality data.
+- [X] B. A character string of length 12. Each entry represents the text in each page. The mortality data is in there somewhere.
+- [ ] C. A character string with one entry containing all the information in the PDF file.
+- [ ] D. An html document.
+
 #### Question 3
 Extract the ninth page of the PDF file from the object txt, then use the str_split function from the stringr package so that you have each line in a different entry. The new line character is \n. Call this string vector x.  
 Look at x. What best describes what you see?
@@ -1476,6 +1489,16 @@ x <- str_split(page_9, "\n")
 class(x)
 length(x)
 ```
+
+- [ ] A. It is an empty string.
+- [ ] B. I can see the figure shown in page 1.
+- [ ] C. It is a tidy table.
+- [X] D. I can see the table! But there is a bunch of other stuff we need to get rid of.
+
+What kind of object is x? ```list```
+
+How many entries does x have? ```1```
+
 #### Question 4
 Define s to be the first entry of the x object.  
 What kind of object is s?
