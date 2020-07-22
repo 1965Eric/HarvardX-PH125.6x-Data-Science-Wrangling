@@ -60,7 +60,7 @@ Select ALL that apply.
 - [X] D. data.tsv
 
 3. You want to analyze a file containing race finish times for a recent marathon. You open the file in a basic text editor and see lines that look like the following:
-```
+```{r}
 initials,state,age,time
 vib,MA,61,6:01
 adc,TX,45,5:45
@@ -83,7 +83,7 @@ Which of the following lines of code CANNOT set the working directory to the des
 - [ ] D. dir <- "/Users/student/Documents/projects" setwd(dir)
 
 5. We want to copy the “murders.csv” file from the dslabs package into an existing folder “data”, which is located in our HarvardX-Wrangling projects folder. We first enter the code below into our RStudio console.
-```
+```{r}
 > getwd()  
 [1] "C:/Users/UNIVERSITY/Documents/Analyses/HarvardX-Wrangling"  
 > filename <- "murders.csv"  
@@ -114,7 +114,7 @@ Select ALL that apply.
 - [ ] D. Read_xlsx has been replaced by read_excel in a recent readxl package update.
 
 8. You have a file called “times.txt” that contains race finish times for a marathon. The first four lines of the file look like this:
-```
+```{r}
 initials,state,age,time
 vib,MA,61,6:01
 adc,TX,45,5:45
@@ -139,7 +139,7 @@ Which line of code will NOT import the data contained in the “2016” tab of t
 10. You have a comma-separated values file that contains the initials, home states, ages, and race finish times for marathon runners. The runners’ initials contain three characters for the runners’ first, middle, and last names (for example, “KME”).
 
 You read in the file using the following code.
-```
+```{r}
 race_times <- read.csv(“times.csv”)
 ```
 What is the data type of the initials in the object race_times?
@@ -157,7 +157,7 @@ Note: If you don’t supply the argument stringsAsFactors = F, the read.csv file
 - [ ] D. Base R functions import data as a data frame, while readr functions import data as a tibble.
 
 12. You read in a file containing runner information and marathon finish times using the following code.
-```
+```{r}
 race_times <- read.csv(“times.csv”, stringsAsFactors = F)
 ```
 What is the class of the object race_times?
@@ -169,7 +169,7 @@ What is the class of the object race_times?
 ## Assessment 5 - Downloading Files from the Internet
 
 13. Select the answer choice that summarizes all of the actions that the following lines of code can perform. Please note that the url below is an example and does not lead to data.
-```
+```{r}
 url <- "https://raw.githubusercontent.com/MyUserName/MyProject/master/MyData.csv "
 dat <- read_csv(url)
 download.file(url, "MyData.csv")
@@ -192,7 +192,7 @@ Which readr function should be used to import this file?
 
 15. Check the documentation for the readr function you chose in the previous question to learn about its arguments. Determine which arguments you need to the file from the previous question:
 
-```
+```{r}
 url <- "http://mlr.cs.umass.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
 ```
 
@@ -229,7 +229,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ## Assessment 1 - Tidy Data
 
 1. A collaborator sends you a file containing data for three years of average race finish times.
-```
+```{r}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
@@ -245,7 +245,7 @@ Are these data considered “tidy” in R? Why or why not?
 2. Below are four versions of the same dataset. Which one is in a tidy format?
 
 - [X] A.
-```
+```{r}
 state      abb   region  population total
 Alabama    AL    South   4779736    135
 Alaska     AK    West    710231     19
@@ -255,7 +255,7 @@ California CA    West    37253956   1257
 Colorado   CO    West    5029196    65
 ```
 - [ ] B.
-```
+```{r}
 state    abb  region        var        people
 Alabama  AL   South         population 4779736
 Alabama  AL   South         total      135
@@ -265,7 +265,7 @@ Arizona  AZ   West          population 6392017
 Arizona  AZ   West          total      232
 ```
 - [ ] C.
-```
+```{r}
 state       abb       Northeast   South      North Central   West
 Alabama     AL        NA          4779736    NA              NA
 Alaska      AK        NA          NA         NA              710231
@@ -275,7 +275,7 @@ California  CA        NA          NA         NA              37253956
 Colorado    CO        NA          NA         NA              5029196
 ```
 - [ ] D.
-```
+```{r}
 state       abb  region    rate
 Alabama     AL   South     2.82e-05
 Alaska      AK   West      2.68e-05
@@ -287,7 +287,7 @@ Colorado    CO   West      1.29e-05
 ## Assessment 2 - Reshaping Data
 
 3. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
-```
+```{r}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
@@ -295,33 +295,33 @@ age_group,2015,2016,2017
 50,4:48,4:59,5:01
 ```
 You read in the data file using the following command.
-```
+```{r}
 d <- read_csv("times.csv")
 ```
 Which commands will help you “tidy” the data?
 
 - [X] A.
-```
+```{r}
 tidy_data <- d %>%
 gather(year, time, `2015`:`2017`)
 ```
 - [ ] B.
-```
+```{r}
 tidy_data <- d %>%
 spread(year, time, `2015`:`2017`)
 ```
 - [ ] C.
-```
+```{r}
 tidy_data <- d %>%
 gather(age_group, year, time, `2015`:`2017`)
 ```
 - [ ] D.
-```
+```{r}
 tidy_data <- d %>%
 gather(time, `2015`:`2017`)
 ```
 4. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
-```
+```{r}
 > head(dat_wide)
 state   year    population      Hepatitis A Mumps Polio Rubella
 Alabama 1990    4040587         86          19    76    1
@@ -332,7 +332,7 @@ Alabama 1994    4173361         72          12    39    0
 Alabama 1995    4216645         75          2     38    0
 ```
 Which of the following would transform this into a tidy dataset, with each row representing an observation of the incidence of each specific disease (as shown below)?
-```
+```{r}
 > head(dat_tidy)
 state   year    population   disease      count
 Alabama 1990    4040587      Hepatitis A  86
@@ -343,27 +343,27 @@ Alabama 1994    4173361      Hepatitis A  72
 Alabama 1995    4216645      Hepatitis A  75
 ```
 - [ ] A.
-```
+```{r}
 dat_tidy <- dat_wide %>%
 gather (key = count, value = disease, `Hepatitis A`, `Rubella`)
 ```
 - [ ] B.
-```
+```{r}
 dat_tidy <- dat_wide %>%
 gather(key = count, value = disease, -state, -year, -population)
 ```
 - [ ] C.
-```
+```{r}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, -state)
 ```
 - [X] D.
-```
+```{r}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, “Hepatitis A”: “Rubella”)
 ```
 5. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
-```
+```{r}
 age_group,year,time
 20,2015,03:46
 30,2015,03:50
@@ -377,7 +377,7 @@ Select the code that converts these data back to the wide format, where each yea
 - [ ] C. tidy_data %>% spread(year, age_group)
 - [ ] D. tidy_data %>% spread(time, year, `2015`:`2017`)
 6.
-```
+```{r}
 > head(dat)
 state    abb  region        var         people
 Alabama  AL   South         population  4779736
@@ -388,7 +388,7 @@ Arizona  AZ   West          population  6392017
 Arizona  AZ   West          total       232
 ```
 You would like to transform it into a dataset where population and total are each their own column (shown below). Which code would best accomplish this?
-```
+```{r}
 state       abb  region  population total
 Alabama     AL   South   4779736    135
 Alaska      AK   West    710231     19
@@ -405,7 +405,7 @@ Colorado    CO   West    5029196    65
 ## Assessment 3 - Separate and Unite
 
 7. A collaborator sends you a file containing data for two years of average race finish times.
-```
+```{r}
 age_group,2015_time,2015_participants,2016_time,2016_participants
 20,3:46,54,3:22,62
 30,3:50,60,3:43,58
@@ -413,40 +413,40 @@ age_group,2015_time,2015_participants,2016_time,2016_participants
 50,4:48,10,4:59,14
 ```
 You read in the data file
-```
+```{r}
 d <- read_csv("times.csv")
 ```
 Which of the answers below best tidys the data?
 - [ ] A.
-```
+```{r}
 tidy_data <- d %>%
     gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “.”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [X] B.
-```
+```{r}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] C.
-```
+```{r}
  tidy_data <- d %>%
         gather(key = “key”, value = “value”) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] D.
-```
+```{r}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = “year”, sep = “_”) %>% 
     spread(key = year, value = value)
 ```
 8. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
-```
+```{r}
 > head(stats)
 key                 value
 allen_height        75
@@ -459,26 +459,26 @@ bamba_wingspan      94
 Select all of the correct commands below that would turn this data into a “tidy” format.
 
 - [X] A.
-```
+```{r}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_", extra = "merge") %>% 
     spread(key = variable_name, value = value) 
 ```
 - [ ] B.
-```
+```{r}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name1", "variable_name2"), sep = "_", fill = "right") %>% 
     unite(col = variable_name, variable_name1, variable_name2, sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] C.
-```
+```{r}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
 Use the following libraries for these questions:
-```
+```{r}
 library(tidyverse)
 library(dslabs)
 ```
@@ -492,7 +492,7 @@ Is co2 tidy? Why or why not?
 - [X] D. co2 is not tidy: to be tidy we would have to wrangle it to have three columns (year, month and value), and then each co2 observation would have a row.
 
 10. Run the following command to define the co2_wide object:
-```
+```{r}
 co2_wide <- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) %>% 
       setNames(1:12) %>%
     mutate(year = as.character(1959:1997))
@@ -506,7 +506,7 @@ Which code would return the correct tidy format?
 - [X] D. co2_tidy <- gather(co2_wide,month,co2,-year)
 
 11. Use co2_tidy to plot CO2 versus month with a different curve for each year:
-```
+```{r}
 co2_tidy %>% ggplot(aes(as.numeric(month), co2, color = year)) + geom_line()
 ```
 What can be concluded from this plot?
@@ -517,13 +517,13 @@ What can be concluded from this plot?
 - [ ] E. CO2 concentrations do not have a seasonal trend.
 
 12. Load the admissions dataset from dslabs, which contains college admission information for men and women across six majors, and remove the applicants percentage column:
-```
+```{r}
 library(dslabs)
 data(admissions)
 dat <- admissions %>% select(-applicants)
 ```
 Your goal is to get the data in the shape that has one row for each major, like this:
-```
+```{r}
 major  men   women
 A      62    82		
 B      63    68		
@@ -539,7 +539,7 @@ Which command could help you to wrangle the data into the desired format?
 - [ ] D. dat_tidy <- spread(dat, admitted, gender)
 
 13. Now use the admissions dataset to create the object tmp, which has columns major, gender, key and value:
-```
+```{r}
 tmp <- gather(admissions, key, value, admitted:applicants)
 tmp
 ```
@@ -563,7 +563,7 @@ Which command could help you to wrangle the data into the desired format?
 ## Assessment 4 - Combining Table
 
 1. You have created a tab1 and tab2 of state population and election data, similar to our module videos:
-```
+```{r}
 > tab1
 state                    population
 Alabama                  4779736
@@ -588,7 +588,7 @@ Connecticut  7
 [1] 6 2
 ```
 What are the dimensions of the table dat, created by the following command?
-```
+```{r}
 dat <- left_join(tab1, tab2, by = “state”)
 ```
 - [ ] A. 3 rows by 3 columns
@@ -615,7 +615,7 @@ dat <- left_join(tab1, tab2, by = “state”)
 ## Assessment 6 - Set Operators
 
 4. We have two simple tables, shown below:
-```
+```{r}
 > df1
  x     y    
  a     a    
@@ -627,7 +627,7 @@ dat <- left_join(tab1, tab2, by = “state”)
  a     b  
 ```
 Which command would result in the following table?
-```
+```{r}
 > final
  x     y    
  b     a   
@@ -640,7 +640,7 @@ Which command would result in the following table?
 Install and load the Lahman library. This library contains a variety of datasets related to US professional baseball. We will use this library for the next few questions and will discuss it more extensively in the Regression course. For now, focus on wrangling the data rather than understanding the statistics.
 
 The Batting data frame contains the offensive statistics for all baseball players over several seasons.  Filter this data frame to define top as the top 10 home run (HR) hitters in 2016:
-```
+```{r}
 library(Lahman)
 top <- Batting %>% 
   filter(yearID == 2016) %>%
@@ -649,13 +649,13 @@ top <- Batting %>%
 top %>% as_tibble()
 ```
 Also Inspect the Master data frame, which has demographic information for all players:
-```
+```{r}
 Master %>% as_tibble()
 ```
 5. Use the correct join or bind function to create a combined table of the names and statistics of the top 10 home run (HR) hitters for 2016. This table should have the player ID, first name, last name, and number of HR for the top 10 players. Name this data frame top_names.
 
 Identify the join or bind that fills the blank in this code to create the correct table:
-```
+```{r}
 top_names <- top %>% ___________________ %>%
     select(playerID, nameFirst, nameLast, HR)
 ```
@@ -668,7 +668,7 @@ Which bind or join function fills the blank to generate the correct table?
 - [ ] F. anti_join(Master)
 
 6. Inspect the Salaries data frame. Filter this data frame to the 2016 salaries, then use the correct bind join function to add a salary column to the top_names data frame from the previous question. Name the new data frame top_salary. Use this code framework:
-```
+```{r}
 top_salary <- Salaries %>% filter(yearID == 2016) %>%
   ______________ %>%
   select(nameFirst, nameLast, teamID, HR, salary)
@@ -684,14 +684,14 @@ Which bind or join function fills the blank to generate the correct table?
 7. Inspect the AwardsPlayers table. Filter awards to include only the year 2016.
 
 How many players from the top 10 home run hitters won at least one award in 2016? Use a set operator. 
-```
+```{r}
 top_awards <- AwardsPlayers %>% filter(yearID == 2016)
 length(intersect(top_awards$playerID, top_names$playerID))
 
 3 
 ```
 How many players won an award in 2016 but were not one of the top 10 home run hitters in 2016? Use a set operator.
-```
+```{r}
 length(setdiff(top_awards$playerID, top_names$playerID))
 
 44
@@ -701,21 +701,21 @@ length(setdiff(top_awards$playerID, top_names$playerID))
 Load the following web page, which contains information about Major League Baseball payrolls, into R: 
 
 https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm
-```
+```{r}
 library(rvest)
 url <- "https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm"
 h <- read_html(url)
 ```
 We learned that tables in html are associated with the table node.  Use the html_nodes() function and the table node type to extract the first table. Store it in an object nodes:
-```
+```{r}
 nodes <- html_nodes(h, "table")
 ```
 The html_nodes() function returns a list of objects of class xml_node. We can see the content of each one using, for example, the html_text() function. You can see the content for an arbitrarily picked component like this:
-```
+```{r}
 html_text(nodes[[8]])
 ```
 If the content of this object is an html table, we can use the html_table() function to convert it to a data frame:
-```
+```{r}
 html_table(nodes[[8]])
 ```
 You will analyze the tables from this HTML page over questions 1-3.
@@ -752,18 +752,18 @@ How many rows are in the joined data table? ```58```
 4. The Wikipedia page on opinion polling for the Brexit referendum, in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
 
 Use the rvest library to read the HTML from this Wikipedia page (make sure to copy both lines of the URL):
-```
+```{r}
 library(rvest)
 library(tidyverse)
 url <- "https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054"
 ```
 Assign tab to be the html nodes of the "table" class.
 
-How many tables are in this Wikipedia page? ```40```
+How many tables are in this Wikipedia page? ```{r}40```
 
 5. Inspect the first several html tables using html_table() with the argument fill=TRUE (you can read about this argument in the documentation). Find the first table that has 9 columns with the first column named "Date(s) conducted".
 
-What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```5```
+What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```{r}5```
 
 ## Section 3 Overview
 
@@ -812,7 +812,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ## Assessment 4 - Case Study 1: US Murders Data
 
 1. You have a dataframe of monthly sales and profits in R
-```
+```{r}
 > head(dat)
 # A tibble: 5 x 3
 Month       Sales       Profit 
@@ -833,7 +833,7 @@ Which of the following commands could convert the sales and profits columns to n
 ## Assessment 5 - Case Study 2: Reported Heights
 
 1. In the video, we use the function not_inches to identify heights that were incorrectly entered
-```
+```{r}
 not_inches <- function(x, smallest = 50, tallest = 84) {
   inches <- suppressWarnings(as.numeric(x))
   ind <- is.na(inches) | inches < smallest | inches > tallest 
@@ -864,12 +864,12 @@ In this function, what TWO types of values are identified as not being correctly
 ## Assessment 6 - Regex
 
 1. Given the following code
-```
+```{r}
 > s
 [1] "70"       "5 ft"     "4'11"     ""         "."        "Six feet"
 ```
 What `pattern` vector yields the following result?
-```
+```{r}
 str_view_all(s, pattern)
 70
 5 ft
@@ -885,7 +885,7 @@ Six feet
 ## Assessment 7 - Character Classes, Anchors, and Qualifiers
 
 1. You enter the following set of commands into your R console. What is your printed result?
-```
+```{r}
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[a-z]"
 > str_detect(animals, pattern)
@@ -896,7 +896,7 @@ Six feet
 - [ ] D. TRUE TRUE FALSE FALSE
 
 2. You enter the following set of commands into your R console. What is your printed result?
-```
+```{r}
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[A-Z]$"
 > str_detect(animals, pattern)
@@ -907,7 +907,7 @@ Six feet
 - [ ] D. TRUE TRUE TRUE FALSE
 
 3. You enter the following set of commands into your R console. What is your printed result?
-```
+```{r}
 > animals <- c("cat", "puppy", "Moose", "MONKEY")
 > pattern <- "[a-z]{4,5}"
 > str_detect(animals, pattern)
@@ -920,7 +920,7 @@ Six feet
 ## Assessment 8 - Search and Replace with Regex
 
 1. Given the following code
-```
+```{r}
 animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) Which TWO “pattern” vectors would yield the following result?
 str_detect(animals, pattern) 
 [1] TRUE TRUE TRUE TRUE
@@ -931,13 +931,13 @@ str_detect(animals, pattern)
 - [ ] D. pattern <- “moo*”
 
 2. You are working on some data from different universities. You have the following vector
-```
+```{r}
 > schools
 [1] "U. Kentucky"                 "Univ New Hampshire"          "Univ. of Massachusetts"      "University Georgia"         
 [5] "U California"                "California State University"
 ```
 You want to clean this data to match the full names of each university
-```
+```{r}
 > final
 [1] "University of Kentucky"      "University of New Hampshire" "University of Massachusetts" "University of Georgia"         
 [5] "University of California"    "California State University"
@@ -945,25 +945,25 @@ You want to clean this data to match the full names of each university
 What of the following commands could accomplish this?
 
 - [ ] A.
-```
+```{r}
 schools %>% 
   str_replace("Univ\\.?|U\\.?", "University ") %>% 
   str_replace("^University of |^University ", "University of ")
 ```
 - [X] B.
-```
+```{r}
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University ") %>% 
   str_replace("^University of |^University ", "University of ")
 ```
 - [ ] C.
-```
+```{r}
 schools %>% 
   str_replace("^Univ\\.\\s|^U\\.\\s", "University") %>% 
   str_replace("^University of |^University ", "University of ")
 ```
 - [ ] D.
-```
+```{r}
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University") %>% 
   str_replace("University ", "University of ")
@@ -971,7 +971,7 @@ schools %>%
 ## Assessment 9 - Groups with Regex
 
 1. Rather than using the pattern_with_groups vector from the video, you accidentally write in the following code
-```
+```{r}
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
@@ -984,7 +984,7 @@ What is your result?
 - [ ] D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
 
 2. You notice your mistake and correct your pattern regex to the following
-```
+```{r}
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.\\s](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
@@ -999,7 +999,7 @@ What is your result?
 ## Assessment 10 - Testing and Improving
 
 1. In our example, we use the following code to detect height entries that do not match our pattern of x’y”.
-```
+```{r}
 converted <- problems %>% 
   str_replace("feet|foot|ft", "'") %>% 
   str_replace("inches|in|''|\"", "") %>% 
@@ -1019,7 +1019,7 @@ And the regex string in `pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"`?
 - [X] D. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for none or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
 
 2. You notice a few entries that are not being properly converted using your str_replace and str_detect code
-```
+```{r}
 yes <- c("5 feet 7inches", “5 7”)
 no <- c("5ft 9 inches", "5 ft 9 inches")
 s <- c(yes, no)
@@ -1036,28 +1036,28 @@ str_detect(converted, pattern)
 It seems like the problem may be due to spaces around the words feet|foot|ft and inches|in. What is another way you could fix this problem?
 
 - [X] A.
-```
+```{r}
 converted <- s %>% 
   str_replace("\\s*(feet|foot|ft)\\s*", "'") %>% 
   str_replace("\\s*(inches|in|''|\")\\s*", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
 ```
 - [ ] B. 
-```
+```{r}
 converted <- s %>% 
   str_replace("\\s+feet|foot|ft\\s+”, "'") %>% 
   str_replace("\\s+inches|in|''|\"\\s+", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
 ```
 - [ ] C.
-```
+```{r}
 converted <- s %>% 
   str_replace("\\s*|feet|foot|ft", "'") %>% 
   str_replace("\\s*|inches|in|''|\"", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2") 
 ```
 - [ ] D.
-```
+```{r}
 converted <- s %>% 
   str_replace_all(“\\s”, “”) %>% 
   str_replace("\\s|feet|foot|ft", "'") %>% 
@@ -1067,32 +1067,32 @@ converted <- s %>%
 ## Assessment 11 - Using Groups and Quantifiers
 
 1.
-```
+```{r}
 s <- c("5'10", "6'1\"", "5'8inches", "5'7.5")
 tab <- data.frame(x = s)
 ```
 If you use the extract code from our video, the decimal point is dropped. What modification of the code would allow you to put the decimals in a third column called “decimal”?
 - [ ] A.
-```
+```{r}
 extract(data = tab, col = x, into = c(“feet”, “inches”, “decimal”), regex = "(\\d)'(\\d{1,2})(\\.)?"
 ```
 - [ ] B.
-```
+```{r}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)" 
 ```
 - [ ] C.
-```
+```{r}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})\\.\\d+?"
 ```
 - [X] D.
-```
+```{r}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)?")  
 ```
 
 ## Assessment 12 - String Splitting
 
 1. You have the following table
-```
+```{r}
 >schedule
 day         staff
 Monday      Mandy, Chris and Laura
@@ -1108,14 +1108,14 @@ Which two commands would properly split the text in the “staff” column into 
 - [ ] D. str_split(schedule$staff, "\\s?(,|and)\\s?")
 
 2. You have the following table
-```
+```{r}
 > schedule
 day         staff
 Monday      Mandy, Chris and Laura
 Tuesday     Steve, Ruth and Frank
 ```
 What code would successfully turn your “Schedule” table into the following tidy table
-```
+```{r}
 < tidy
 day      staff
 <chr>    <chr>
@@ -1127,18 +1127,18 @@ Tuesday  Ruth
 Tuesday  Frank
 ```
 - [X] A.
-```
+```{r}
 tidy <- schedule %>% 
   mutate(staff = str_split(staff, ", | and ")) %>% 
   unnest()
 ```
 - [ ] B.
-```
+```{r}
 tidy <- separate(schedule, staff, into = c("s1","s2","s3"), sep = “,”) %>% 
   gather(key = s, value = staff, s1:s3)
 ```
 - [ ] C.
-```
+```{r}
 tidy <- schedule %>% 
   mutate(staff = str_split(staff, ", | and ", simplify = TRUE)) %>%   unnest()
 ```
@@ -1147,7 +1147,7 @@ tidy <- schedule %>%
 
 1. Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
 - [ ] A.
-```
+```{r}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(recode(country, 
                           "Central African Republic" = "CAR", 
@@ -1155,14 +1155,14 @@ dat <- gapminder %>% filter(region == "Middle Africa") %>%
                           "Equatorial Guinea" = "Eq. Guinea"))
 ```
 - [ ] B.
-```
+```{r}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           c("Central African Republic", "Congo, Dem. Rep.", "Equatorial Guinea"),
                           c("CAR", "DRC", "Eq. Guinea")))
 ```
 - [ ] C.
-```
+```{r}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country = recode(country, 
                           "Central African Republic" = "CAR", 
@@ -1170,7 +1170,7 @@ dat <- gapminder %>% filter(region == "Middle Africa") %>%
                           "Equatorial Guinea" = "Eq. Guinea"))
 ```
 - [X] D.
-```
+```{r}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           "Central African Republic" = "CAR", 
@@ -1180,7 +1180,7 @@ dat <- gapminder %>% filter(region == "Middle Africa") %>%
 
 2. Import raw Brexit referendum polling data from Wikipedia:
 
-```
+```{r}
 library(rvest)
 library(tidyverse)
 library(stringr)
@@ -1195,9 +1195,9 @@ Some rows in this table do not contain polls. You can identify these by the lack
 
 Update polls by changing the column names to c("dates", "remain", "leave", "undecided", "lead", "samplesize", "pollster", "poll_type", "notes") and only keeping rows that have a percent sign (%) in the remain column.
 
-How many rows remain in the polls data frame? ```129```
+How many rows remain in the polls data frame? ```{r}129```
 
-3. The ```remain``` and ```leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
+3. The ```{r}remain``` and ```{r}leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
 
 Which of these commands converts the remain vector to a proportion between 0 and 1?
 
@@ -1214,11 +1214,11 @@ Check all correct answers.
 
 Use a function from stringr to convert "N/A" in the undecided column to 0. The format of your command should be function_name(polls$undecided, "arg1", "arg2").
 
-What function replaces function_name? ```str_replace```
+What function replaces function_name? ```{r}str_replace```
 
-What argument replaces arg1? ```N/A```
+What argument replaces arg1? ```{r}N/A```
 
-What argument replaces arg2? ```0```
+What argument replaces arg2? ```{r}0```
 
 5. The dates column contains the range of dates over which the poll was conducted. The format is "8-10 Jan" where the poll had a start date of 2016-01-08 and end date of 2016-01-10. Some polls go across month boundaries (16 May-12 June).
 
@@ -1226,7 +1226,7 @@ The end date of the poll will always be one or two digits, followed by a space, 
 
 Write a regular expression to extract the end day and month from dates. Insert it into the skeleton code below:
 
-```
+```{r}
 temp <- str_extract_all(polls$dates, _____)
 end_date <- sapply(temp, function(x) x[length(x)]) # take last element (handles polls that cross month boundaries)
 ```
@@ -1234,13 +1234,13 @@ end_date <- sapply(temp, function(x) x[length(x)]) # take last element (handles 
 Which of the following regular expressions correctly extracts the end day and month when inserted into the blank in the code above?
 Check all correct answers.
 
-- [ ] A. ```"\\d?\\s[a-zA-Z]?"```
-- [X] B. ```"\\d+\\s[a-zA-Z]+"```
-- [ ] C. ```"\\d+\\s[A-Z]+"```
-- [X] D. ```"[0-9]+\\s[a-zA-Z]+"```
-- [X] E. ```"\\d{1,2}\\s[a-zA-Z]+"```
-- [ ] F. ```"\\d{1,2}[a-zA-Z]+"```
-- [X] G. ```"\\d+\\s[a-zA-Z]{3,5}"```
+- [ ] A. ```{r}"\\d?\\s[a-zA-Z]?"```
+- [X] B. ```{r}"\\d+\\s[a-zA-Z]+"```
+- [ ] C. ```{r}"\\d+\\s[A-Z]+"```
+- [X] D. ```{r}"[0-9]+\\s[a-zA-Z]+"```
+- [X] E. ```{r}"\\d{1,2}\\s[a-zA-Z]+"```
+- [ ] F. ```{r}"\\d{1,2}[a-zA-Z]+"```
+- [X] G. ```{r}"\\d+\\s[a-zA-Z]{3,5}"```
 
 ## Section 4 Overview
 
@@ -1263,7 +1263,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 - [ ] D. YY-MM-DD
 
 2. Which of the following commands could convert this string into the correct date format?
-```
+```{r}
 dates <- c("09-01-02", "01-12-07", "02-03-04")
 ```
 - [ ] A. ymd(dates)
@@ -1273,16 +1273,16 @@ dates <- c("09-01-02", "01-12-07", "02-03-04")
 
 3. Load the brexit_polls data frame from dslabs:
 
-```
+```{r}
 data(brexit_polls)
 ```
 
-How many polls had a start date (startdate) in April (month number 4)? ```25```
-```
+How many polls had a start date (startdate) in April (month number 4)? ```{r}25```
+```{r}
 sum(month(brexit_polls$startdate) == 4)
 ```
-Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```13```
-```
+Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```{r}13```
+```{r}
 sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
 ```
 
@@ -1297,30 +1297,30 @@ On which weekday did the greatest number of polls end?
 - [ ] F. Saturday
 - [X] G. Sunday
 
-```
+```{r}
 max(weekdays(brexit_polls$enddate))
 ```
 
 5. Load the movielens data frame from dslabs.
-```
+```{r}
 data(movielens)
 ```
 This data frame contains a set of about 100,000 movie reviews. The timestamp column contains the review date as the number of seconds since 1970-01-01 (epoch time).
 
 Convert the timestamp column to dates using the lubridate as_datetime() function.
-```
+```{r}
 dates <- as_datetime(movielens$timestamp) 
 ``` 
 
-Which year had the most movie reviews? ```2000```
-```
+Which year had the most movie reviews? ```{r}2000```
+```{r}
 reviews_by_year <- table(year(dates))
 names(which.max(reviews_by_year))
 ```
 
-Which hour of the day had the most movie reviews? ```20```
+Which hour of the day had the most movie reviews? ```{r}20```
 
-```
+```{r}
 reviews_by_hour <- table(year(dates))
 names(which.max(reviews_by_hour))
 ```
@@ -1328,35 +1328,35 @@ names(which.max(reviews_by_hour))
 6. Project Gutenberg is a digital archive of public domain books. The R package gutenbergr facilitates the importation of these texts into R. We will combine this with the tidyverse and tidytext libraries to practice text mining.
 
 Use these libraries and options:
-```
+```{r}
 library(tidyverse)
 library(gutenbergr)
 library(tidytext)
 options(digits = 3)
 ```
 You can see the books and documents available in gutenbergr like this:
-```
+```{r}
 gutenberg_metadata
 ```
 
 Use str_detect() to find the ID of the novel Pride and Prejudice.
 
-How many different ID numbers are returned?```6```
-```
+How many different ID numbers are returned? ```{r}6```
+```{r}
 gutenberg_metadata %>% filter(str_detect(title, "Pride and Prejudice"))
 ```
 
 7. Notice that there are several versions of the book. The gutenberg_works() function filters this table to remove replicates and include only English language works. Use this function to find the ID for Pride and Prejudice.
 
-What is the correct ID number? ```1342```
-```
+What is the correct ID number? ```{r}1342```
+```{r}
 gutenberg_works(title == "Pride and Prejudice") 
 ```
 
 8. Use the gutenberg_download() function to download the text for Pride and Prejudice. Use the tidytext package to create a tidy table with all the words in the text. Save this object as words.
 
-How many words are present in the book? ```122204``` 
-```
+How many words are present in the book? ```{r}122204``` 
+```{r}
 book_austen <- gutenberg_download(1342) 
 words <- book_austen %>% unnest_tokens(word, text) 
 nrow(words)
@@ -1364,39 +1364,39 @@ nrow(words)
 
 9. Remove stop words from the words object. Recall that stop words are defined in the stop_words data frame from the tidytext package.
 
-How many words remain? ```37246```
+How many words remain? ```{r}37246```
 
-```
+```{r}
 words <- words %>% anti_join(stop_words) 
 nrow(words) 
 ```
 
 10. After removing stop words, detect and then filter out any token that contains a digit from words.
 
-How many words remain? ```37180```
+How many words remain? ```{r}37180```
 
-```
+```{r}
 words %>% filter(!str_detect(word, "\\d"))
 ```
 
 11. Analyze the most frequent words in the novel after removing stop words and tokens with digits.
 
-How many words appear more than 100 times in the book? ```23```
-```
+How many words appear more than 100 times in the book? ```{r}23```
+```{r}
 words %>%
     count(word) %>%
     filter(n > 100) %>%
     nrow()
 ``` 
-What is the most common word in the book? ```Elizabeth```
-```
+What is the most common word in the book? ```{r}Elizabeth```
+```{r}
 words %>%
     count(word) %>%
     top_n(1, n) %>%
     pull(word)
 ```
-How many times does that most common word appear? ```597```
-```
+How many times does that most common word appear? ```{r}597```
+```{r}
 words %>%
     count(word) %>%
     top_n(1, n) %>%
@@ -1404,23 +1404,23 @@ words %>%
 ```
 
 12. Define the afinn lexicon.
-```
+```{r}
 afinn <- get_sentiments("afinn")
 ```
 
 Use this afinn lexicon to assign sentiment values to words. Keep only words that are present in both words and the afinn lexicon. Save this data frame as afinn_sentiments.
 
-How many elements of words have sentiments in the afinn lexicon? ```6065``` 
-```
+How many elements of words have sentiments in the afinn lexicon? ```{r}6065``` 
+```{r}
 afinn_sentiments <- inner_join(afinn, words)
 nrow(afinn_sentiments)
 ```
-What proportion of words in afinn_sentiments have a positive value? ```0.563``` 
-```
+What proportion of words in afinn_sentiments have a positive value? ```{r}0.563``` 
+```{r}
 mean(afinn_sentiments$value > 0)
 ```
-How many elements of afinn_sentiments have a value of 4? ```51``` 
-```
+How many elements of afinn_sentiments have a value of 4? ```{r}51``` 
+```{r}
 sum(afinn_sentiments$value == 4)
 ```
 
@@ -1508,6 +1508,9 @@ class(s)
 length(s)
 s
 ```
+
+
+
 #### Question 5
 When inspecting the string we obtained above, we see a common problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them.  
 We learned about the command str_trim that removes spaces at the start or end of the strings. Use this function to trim s and assign the result to s again.
