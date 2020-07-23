@@ -45,6 +45,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ## Assessment 1 - Importing Spreadsheets
 
 1. Which of the following is NOT part of the data wranging process?
+
 - [ ] A. Importing data into R
 - [ ] B. Formatting dates/times
 - [X] C. Checking correlations between your variables
@@ -67,6 +68,7 @@ adc,TX,45,5:45
 kme,CT,50,4:19
 ```
 What type of file is this?
+
 - [ ] A. A comma-delimited file without a header
 - [ ] B. A tab-delimited file with a header
 - [ ] C. A white space-delimited file without a header
@@ -77,6 +79,7 @@ What type of file is this?
 4. Assume the following is the full path to the directory that a student wants to use as their working directory in R: “/Users/student/Documents/projects/”
 
 Which of the following lines of code CANNOT set the working directory to the desired “projects” directory?
+
 - [ ] A. setwd("~/Documents/projects/")
 - [ ] B. setwd("/Users/student/Documents/projects/")
 - [X] C. setwd(/Users/student/Documents/projects/)
@@ -90,6 +93,7 @@ Which of the following lines of code CANNOT set the working directory to the des
 > path <- system.file("extdata", package = "dslabs")  
 ```
 Which of the following commands would NOT successfully copy “murders.csv” into the folder “data”?
+
 - [X] A. file.copy(file.path(path, "murders.csv"), getwd())
 - [ ] B. setwd("data") file.copy(file.path(path, filename), getwd())
 - [ ] C. file.copy(file.path(path, "murders.csv"), file.path(getwd(), "data"))
@@ -102,6 +106,7 @@ file.destination <- file.path(getwd(),
 6. You are not sure whether the murders.csv file has a header row. How could you check this?
 
 Select ALL that apply.
+
 - [X] A. Open the file in a basic text editor.
 - [X] B. In the RStudio “Files” pane, click on your file, then select “View File”.
 - [X] C. Use the command read_lines (remembering to specify the number of rows with the n_max argument).
@@ -121,6 +126,7 @@ adc,TX,45,5:45
 kme,CT,50,4:19
 ```
 Which line of code will NOT produce a tibble with column names “initials”, “state”, “age”, and “time”?
+
 - [ ] A. race_times <- read_csv("times.txt")
 - [X] B. race_times <- read.csv("times.txt")
 - [ ] C. race_times <- read_csv("times.txt", col_names = TRUE)
@@ -129,6 +135,7 @@ Which line of code will NOT produce a tibble with column names “initials”, �
 9. You also have access to marathon finish times in the form of an Excel document named “times.xlsx”. In the Excel document, different sheets contain race information for different years. The first sheet is named “2015”, the second is named “2016”, and the third is named “2017”.
 
 Which line of code will NOT import the data contained in the “2016” tab of this Excel sheet?
+
 - [ ] A. times_2016 <- read_excel("times.xlsx", sheet = 2)
 - [X] B. times_2016 <- read_xlsx("times.xlsx", sheet = “2”)
 - [ ] C. times_2016 <- read_excel("times.xlsx", sheet = "2016")
@@ -143,6 +150,7 @@ You read in the file using the following code.
 race_times <- read.csv(“times.csv”)
 ```
 What is the data type of the initials in the object race_times?
+
 - [ ] A. integers
 - [ ] B. characters
 - [X] C. factors
@@ -151,6 +159,7 @@ What is the data type of the initials in the object race_times?
 Note: If you don’t supply the argument stringsAsFactors = F, the read.csv file will automatically convert characters to factors.
 
 11. Which of the following is NOT a real difference between the readr import functions and the base R import functions?
+
 - [ ] A. The import functions in the readr package all start as read_, while the import functions for base R all start with read.
 - [ ] B. Base R import functions automatically convert character columns to factors.
 - [X] C. The base R import functions can read .csv files, but cannot files with other delimiters, such as .tsv files, or fixed-width files.
@@ -161,6 +170,7 @@ Note: If you don’t supply the argument stringsAsFactors = F, the read.csv file
 race_times <- read.csv(“times.csv”, stringsAsFactors = F)
 ```
 What is the class of the object race_times?
+
 - [X] A. data frame 
 - [ ] B. tibble
 - [ ] C. matrix
@@ -184,6 +194,7 @@ download.file(url, "MyData.csv")
 http://mlr.cs.umass.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data
 
 Which readr function should be used to import this file?
+
 - [ ] A. read_table()
 - [X] B. read_csv()
 - [ ] C. read_csv2()
@@ -237,6 +248,7 @@ age_group,2015,2016,2017
 50,4:48,4:59,5:01
 ```
 Are these data considered “tidy” in R? Why or why not?
+
 - [ ] A. Yes. These data are considered “tidy” because each row contains unique observations.
 - [ ] B. Yes. These data are considered “tidy” because there are no missing data in the data frame.
 - [X] C. No. These data are not considered “tidy” because the variable “year” is stored in the header.
@@ -372,6 +384,7 @@ age_group,year,time
 20,2016,03:22
 ```
 Select the code that converts these data back to the wide format, where each year has a separate column.
+
 - [ ] A. tidy_data %>% spread(time, year)
 - [X] B. tidy_data %>% spread(year, time)
 - [ ] C. tidy_data %>% spread(year, age_group)
@@ -417,6 +430,7 @@ You read in the data file
 d <- read_csv("times.csv")
 ```
 Which of the answers below best tidys the data?
+
 - [ ] A.
 ```{r}
 tidy_data <- d %>%
@@ -500,6 +514,7 @@ co2_wide <- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) %>%
 Use the gather() function to make this dataset tidy. Call the column with the CO2 measurements co2 and call the month column month. Name the resulting object co2_tidy.
 
 Which code would return the correct tidy format?
+
 - [ ] A. co2_tidy <- gather(co2_wide,month,co2,year)
 - [ ] B. co2_tidy <- gather(co2_wide,co2,month,-year)
 - [ ] C. co2_tidy <- gather(co2_wide,co2,month,year)
@@ -510,6 +525,7 @@ Which code would return the correct tidy format?
 co2_tidy %>% ggplot(aes(as.numeric(month), co2, color = year)) + geom_line()
 ```
 What can be concluded from this plot?
+
 - [ ] A. CO2 concentrations increased monotonically (never decreased) from 1959 to 1997.
 - [X] B. CO2 concentrations are highest around May and the yearly average increased from 1959 to 1997.
 - [ ] C. CO2 concentrations are highest around October and the yearly average increased from 1959 to 1997.
@@ -533,6 +549,7 @@ E      28    24
 F       6     7	
 ```
 Which command could help you to wrangle the data into the desired format?
+
 - [ ] A. dat_tidy <- spread(dat, major, admitted)
 - [ ] B. dat_tidy <- spread(dat, gender, major)
 - [X] C. dat_tidy <- spread(dat, gender, admitted)
@@ -660,6 +677,7 @@ top_names <- top %>% ___________________ %>%
     select(playerID, nameFirst, nameLast, HR)
 ```
 Which bind or join function fills the blank to generate the correct table?
+
 - [ ] A. rbind(Master)
 - [ ] B. cbind(Master)
 - [X] C. left_join(Master)
@@ -674,6 +692,7 @@ top_salary <- Salaries %>% filter(yearID == 2016) %>%
   select(nameFirst, nameLast, teamID, HR, salary)
 ```
 Which bind or join function fills the blank to generate the correct table?
+
 - [ ] A. rbind(top_names)
 - [ ] B. cbind(top_names)
 - [ ] C. left_join(top_names)
@@ -1072,6 +1091,7 @@ s <- c("5'10", "6'1\"", "5'8inches", "5'7.5")
 tab <- data.frame(x = s)
 ```
 If you use the extract code from our video, the decimal point is dropped. What modification of the code would allow you to put the decimals in a third column called “decimal”?
+
 - [ ] A.
 ```{r}
 extract(data = tab, col = x, into = c(“feet”, “inches”, “decimal”), regex = "(\\d)'(\\d{1,2})(\\.)?"
@@ -1146,6 +1166,7 @@ tidy <- schedule %>%
 ## Assessment 13 - Recoding
 
 1. Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
+
 - [ ] A.
 ```{r}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
@@ -1289,6 +1310,7 @@ sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
 4. Use the weekdays() function from lubridate to determine the weekday on which each poll ended (enddate).
 
 On which weekday did the greatest number of polls end?
+
 - [ ] A. Monday
 - [ ] B. Tuesday
 - [ ] C. Wednesday
@@ -1456,6 +1478,7 @@ system2("open", args = fn)
 ```
 
 Which of the following best describes this file?
+
 - [ ] A. It is a table. Extracting the data will be easy.
 - [ ] B. It is a report written in prose. Extracting the data will be impossible.
 - [X] C. It is a report combining graphs and tables. Extracting the data seems possible.
