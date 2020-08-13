@@ -1959,14 +1959,16 @@ converted[!index]    # show problems
 
 ## Assessment - String Processing Part 2
 
-1. In the video, we use the function not_inches to identify heights that were incorrectly entered
-```{r}
+1. In the video, we use the function ```not_inches``` to identify heights that were incorrectly entered
+
+```{r, eval=FALSE, echo=TRUE}
 not_inches <- function(x, smallest = 50, tallest = 84) {
   inches <- suppressWarnings(as.numeric(x))
   ind <- is.na(inches) | inches < smallest | inches > tallest 
   ind
 }
 ```
+
 In this function, what TWO types of values are identified as not being correctly formatted in inches?
 
 - [ ] A. Values that specifically contain apostrophes (‘), periods (.) or quotations (“).
@@ -1974,33 +1976,34 @@ In this function, what TWO types of values are identified as not being correctly
 - [X] C. Values less than 50 inches or greater than 84 inches
 - [ ] D. Values that are stored as a character class, because most are already classed as numeric.
 
-2. Which of the following arguments, when passed to the function not_inches, would return the vector c(FALSE)?
+2. Which of the following arguments, when passed to the function ```not_inches```, would return the vector ```c(FALSE)```?
 
-- [ ] A. c(175)
-- [ ] B. c(“5’8\””)
-- [X] C. c(70)
-- [ ] D. c(85) (the height of Shaquille O'Neal in inches)
+- [ ] A. ```c(175)```
+- [ ] B. ```c(“5’8\””)```
+- [X] C. ```c(70)```
+- [ ] D. ```c(85)``` (the height of Shaquille O'Neal in inches)
 
-3. Our function `not_inches` returns the object `ind`. Which answer correctly describes ind?
+3. Our function ```not_inches``` returns the object ```ind```. Which answer correctly describes ```ind```?
 
-- [X] A. ind is a logical vector of TRUE and FALSE, equal in length to the vector x (in the arguments list). TRUE indicates that a height entry is incorrectly formatted.
-- [ ] B. indis a logical vector of TRUE and FALSE, equal in length to the vector x(in the arguments list). TRUE indicates that a height entry is correctly formatted.
-- [ ] C. ind is a data frame like our reported_heights table but with an extra column of TRUE or FALSE. TRUE indicates that a height entry is incorrectly formatted.
-- [ ] D. ind is a numeric vector equal to reported_heights$heights but with incorrectly formatted heights replaced with NAs.
+- [X] A. ```ind``` is a logical vector of TRUE and FALSE, equal in length to the vector ```x``` (in the arguments list). TRUE indicates that a height entry is incorrectly formatted.
+- [ ] B. ```ind``` is a logical vector of TRUE and FALSE, equal in length to the vector ```x``` (in the arguments list). TRUE indicates that a height entry is correctly formatted.
+- [ ] C. ```ind``` is a data frame like our ```reported_heights``` table but with an extra column of TRUE or FALSE. TRUE indicates that a height entry is incorrectly formatted.
+- [ ] D. ```ind``` is a numeric vector equal to ```reported_heights$heights``` but with incorrectly formatted heights replaced with NAs.
 
-## Assessment 6 - Regex
+4. Given the following code
 
-1. Given the following code
 ```{r}
 s <- c("70", "5 ft", "4'11", "", ".", "Six feet")
 s
 ```
-What `pattern` vector yields the following result?
+
+What ```pattern``` vector yields the following result?
+
 ```{r, eval=FALSE, echo=TRUE}
 str_view_all(s, pattern)
-70
-5 ft
-4’11
+```70```
+```5``` ```ft```
+```4```’```11```
 .
 Six feet
 ```
@@ -2014,123 +2017,163 @@ pattern <- "\\d|ft"
 - [ ] C. ```pattern <- "\\d\\d|ft"```
 - [ ] D. ```pattern <- "\\d|feet"```
 
-## Assessment 7 - Character Classes, Anchors, and Qualifiers
+5. You enter the following set of commands into your R console. What is your printed result?
 
-1. You enter the following set of commands into your R console. What is your printed result?
 ```{r}
-> animals <- c("cat", "puppy", "Moose", "MONKEY")
-> pattern <- "[a-z]"
-> str_detect(animals, pattern)
+animals <- c("cat", "puppy", "Moose", "MONKEY")
+pattern <- "[a-z]"
+str_detect(animals, pattern)
 ```
+
 - [ ] A. TRUE
 - [ ] B. TRUE TRUE TRUE TRUE
 - [X] C. TRUE TRUE TRUE FALSE
 - [ ] D. TRUE TRUE FALSE FALSE
 
-2. You enter the following set of commands into your R console. What is your printed result?
+6. You enter the following set of commands into your R console. What is your printed result?
+
 ```{r}
-> animals <- c("cat", "puppy", "Moose", "MONKEY")
-> pattern <- "[A-Z]$"
-> str_detect(animals, pattern)
+animals <- c("cat", "puppy", "Moose", "MONKEY")
+pattern <- "[A-Z]$"
+str_detect(animals, pattern)
 ```
+
 - [ ] A. FALSE FALSE FALSE FALSE
 - [ ] B. FALSE FALSE TRUE TRUE
 - [X] C. FALSE FALSE FALSE TRUE
 - [ ] D. TRUE TRUE TRUE FALSE
 
-3. You enter the following set of commands into your R console. What is your printed result?
+7. You enter the following set of commands into your R console. What is your printed result?
+
 ```{r}
-> animals <- c("cat", "puppy", "Moose", "MONKEY")
-> pattern <- "[a-z]{4,5}"
-> str_detect(animals, pattern)
+animals <- c("cat", "puppy", "Moose", "MONKEY")
+pattern <- "[a-z]{4,5}"
+str_detect(animals, pattern)
 ```
+
 - [X] A. FALSE TRUE TRUE FALSE
 - [ ] B. TRUE TRUE FALSE FALSE
 - [ ] C. FALSE FALSE FALSE TRUE
 - [ ] D. TRUE TRUE TRUE FALSE
 
-## Assessment 8 - Search and Replace with Regex
+8. Given the following code
 
-1. Given the following code
-```{r}
-animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) Which TWO “pattern” vectors would yield the following result?
-str_detect(animals, pattern) 
+```{r, eval=FALSE, echo=TRUE}
+animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) 
+------------
+str_detect(animals, pattern)
+```
+
+Which TWO “pattern” vectors would yield the following result?
+
+```{r, eval=FALSE, echo=TRUE}
 [1] TRUE TRUE TRUE TRUE
 ```
+
+```{r}
+animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) 
+pattern <- “mo*”
+str_detect(animals, pattern)
+```
+
+```{r}
+animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) 
+pattern <- “mo?”
+str_detect(animals, pattern)
+```
+
 - [X] A. pattern <- “mo*”
 - [X] B. pattern <- “mo?”
 - [ ] C. pattern <- “mo+”
 - [ ] D. pattern <- “moo*”
 
-2. You are working on some data from different universities. You have the following vector
+9. You are working on some data from different universities. You have the following vector
+
 ```{r}
-> schools
-[1] "U. Kentucky"                 "Univ New Hampshire"          "Univ. of Massachusetts"      "University Georgia"         
-[5] "U California"                "California State University"
+schools <- c("U. Kentucky", "Univ New Hampshire", "Univ. of Massachusetts", "University Georgia", "U California", "California State University")
+schools
 ```
+
 You want to clean this data to match the full names of each university
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 > final
 [1] "University of Kentucky"      "University of New Hampshire" "University of Massachusetts" "University of Georgia"         
 [5] "University of California"    "California State University"
 ```
+
 What of the following commands could accomplish this?
 
-- [ ] A.
-```{r}
-schools %>% 
-  str_replace("Univ\\.?|U\\.?", "University ") %>% 
-  str_replace("^University of |^University ", "University of ")
-```
-- [X] B.
 ```{r}
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University ") %>% 
   str_replace("^University of |^University ", "University of ")
 ```
+
+- [ ] A.
+
+```{r, eval=FALSE, echo=TRUE}
+schools %>% 
+  str_replace("Univ\\.?|U\\.?", "University ") %>% 
+  str_replace("^University of |^University ", "University of ")
+```
+
+- [X] B.
+
+```{r, eval=FALSE, echo=TRUE}
+schools %>% 
+  str_replace("^Univ\\.?\\s|^U\\.?\\s", "University ") %>% 
+  str_replace("^University of |^University ", "University of ")
+```
+
 - [ ] C.
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 schools %>% 
   str_replace("^Univ\\.\\s|^U\\.\\s", "University") %>% 
   str_replace("^University of |^University ", "University of ")
 ```
+
 - [ ] D.
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 schools %>% 
   str_replace("^Univ\\.?\\s|^U\\.?\\s", "University") %>% 
   str_replace("University ", "University of ")
 ```
-## Assessment 9 - Groups with Regex
 
-1. Rather than using the pattern_with_groups vector from the video, you accidentally write in the following code
+10. Rather than using the ```pattern_with_groups``` vector, you accidentally write in the following code
+
 ```{r}
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
 ```
+
 What is your result?
 
-- [X] A. [1] "5'3" "5'5" "6 1" "5 .11" "5, 12"
-- [ ] B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
-- [ ] C. [1] “5’3” “5’5” “6’1” “5 .11” “5, 12”
-- [ ] D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
+- [X] A. ```[1] "5'3" "5'5" "6 1" "5 .11" "5, 12"```
+- [ ] B. ```[1] “5.3” “5,5” “6 1” “5 .11” “5, 12”```
+- [ ] C. ```[1] “5’3” “5’5” “6’1” “5 .11” “5, 12”```
+- [ ] D. ```[1] “5’3” “5’5” “6’1” “5’11” “5’12”```
 
-2. You notice your mistake and correct your pattern regex to the following
+11. You notice your mistake and correct your pattern regex to the following
+
 ```{r}
 problems <- c("5.3", "5,5", "6 1", "5 .11", "5, 12")
 pattern_with_groups <- "^([4-7])[,\\.\\s](\\d*)$"
 str_replace(problems, pattern_with_groups, "\\1'\\2")
 ```
+
 What is your result?
 
-- [ ] A. [1] “5’3” “5’5” “6 1” “5 .11” “5, 12”
-- [ ] B. [1] “5.3” “5,5” “6 1” “5 .11” “5, 12”
-- [X] C. [1] "5'3" "5'5" "6'1" "5 .11" "5, 12"
-- [ ] D. [1] “5’3” “5’5” “6’1” “5’11” “5’12”
+- [ ] A. ```[1] “5’3” “5’5” “6 1” “5 .11” “5, 12”```
+- [ ] B. ```[1] “5.3” “5,5” “6 1” “5 .11” “5, 12”```
+- [X] C. ```[1] "5'3" "5'5" "6'1" "5 .11" "5, 12"```
+- [ ] D. ```[1] “5’3” “5’5” “6’1” “5’11” “5’12”```
 
-## Assessment 10 - Testing and Improving
+12. In our example, we use the following code to detect height entries that do not match our pattern of x’y”.
 
-1. In our example, we use the following code to detect height entries that do not match our pattern of x’y”.
 ```{r}
 converted <- problems %>% 
   str_replace("feet|foot|ft", "'") %>% 
@@ -2141,17 +2184,17 @@ pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
 index <- str_detect(converted, pattern)
 converted[!index]
 ```
-Which answer best describes the differences between the regex string we use as an argument in `str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")`
 
-And the regex string in `pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"`?
+Which answer best describes the differences between the regex string we use as an argument in ```str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")``` and the regex string in ```pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"```?
 
-- [ ] A. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for one or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
-- [ ] B. The regex used in str_replace allows for additional spaces between the feet and inches digits, but the pattern regex does not.
-- [ ] C. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows none or more digits to be entered as inches, while the pattern regex only allows for the number 1 or 2 to be used.
-- [X] D. The regex used in str_replace looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for none or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
+- [ ] A. The regex used in ```str_replace()``` looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for one or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
+- [ ] B. The regex used in ```str_replace()``` allows for additional spaces between the feet and inches digits, but the pattern regex does not.
+- [ ] C. The regex used in ```str_replace()``` looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows none or more digits to be entered as inches, while the pattern regex only allows for the number 1 or 2 to be used.
+- [X] D. The regex used in ```str_replace()``` looks for either a comma, period or space between the feet and inches digits, while the pattern regex just looks for an apostrophe; the regex in str_replace allows for none or more digits to be entered as inches, while the pattern regex only allows for one or two digits.
 
-2. You notice a few entries that are not being properly converted using your str_replace and str_detect code
-```{r}
+13. You notice a few entries that are not being properly converted using your ```str_replace``` and ```str_detect``` code
+
+```{r, eval=FALSE, echo=TRUE}
 yes <- c("5 feet 7inches", “5 7”)
 no <- c("5ft 9 inches", "5 ft 9 inches")
 s <- c(yes, no)
@@ -2167,36 +2210,62 @@ str_detect(converted, pattern)
 ```
 It seems like the problem may be due to spaces around the words feet|foot|ft and inches|in. What is another way you could fix this problem?
 
-- [X] A.
 ```{r}
+yes <- c("5 feet 7inches", “5 7”)
+no <- c("5ft 9 inches", "5 ft 9 inches")
+s <- c(yes, no)
+
+converted <- s %>% 
+  str_replace("\\s*(feet|foot|ft)\\s*", "'") %>% 
+  str_replace("\\s*(inches|in|''|\")\\s*", "") %>% 
+  str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
+
+pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
+str_detect(converted, pattern)
+```
+
+- [X] A.
+
+```{r, eval=FALSE, echo=TRUE}
 converted <- s %>% 
   str_replace("\\s*(feet|foot|ft)\\s*", "'") %>% 
   str_replace("\\s*(inches|in|''|\")\\s*", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
 ```
+
 - [ ] B. 
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 converted <- s %>% 
   str_replace("\\s+feet|foot|ft\\s+”, "'") %>% 
   str_replace("\\s+inches|in|''|\"\\s+", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
 ```
+
 - [ ] C.
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 converted <- s %>% 
   str_replace("\\s*|feet|foot|ft", "'") %>% 
   str_replace("\\s*|inches|in|''|\"", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2") 
 ```
+
 - [ ] D.
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 converted <- s %>% 
   str_replace_all(“\\s”, “”) %>% 
   str_replace("\\s|feet|foot|ft", "'") %>% 
   str_replace("\\s|inches|in|''|\"", "") %>% 
   str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2")
 ```
-## Assessment 11 - Using Groups and Quantifiers
+
+## Separate with Regex
+
+
+
+## Assessment Part 1 - String Processing Part 3
 
 1.
 ```{r}
