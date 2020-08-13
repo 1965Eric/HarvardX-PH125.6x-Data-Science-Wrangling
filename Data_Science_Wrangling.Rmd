@@ -2071,14 +2071,14 @@ Which TWO “pattern” vectors would yield the following result?
 ```
 
 ```{r}
-animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) 
-pattern <- “mo*”
+animals <- c("moose", "monkey", "meerkat", "mountain lion") 
+pattern <- "mo*"
 str_detect(animals, pattern)
 ```
 
 ```{r}
-animals <- c(“moose”, “monkey”, “meerkat”, “mountain lion”) 
-pattern <- “mo?”
+animals <- c("moose", "monkey", "meerkat", "mountain lion") 
+pattern <- "mo?"
 str_detect(animals, pattern)
 ```
 
@@ -2211,7 +2211,7 @@ str_detect(converted, pattern)
 It seems like the problem may be due to spaces around the words feet|foot|ft and inches|in. What is another way you could fix this problem?
 
 ```{r}
-yes <- c("5 feet 7inches", “5 7”)
+yes <- c("5 feet 7inches", "5 7")
 no <- c("5ft 9 inches", "5 ft 9 inches")
 s <- c(yes, no)
 
