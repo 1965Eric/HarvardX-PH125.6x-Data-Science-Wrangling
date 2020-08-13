@@ -2195,7 +2195,7 @@ Which answer best describes the differences between the regex string we use as a
 13. You notice a few entries that are not being properly converted using your ```str_replace``` and ```str_detect``` code
 
 ```{r, eval=FALSE, echo=TRUE}
-yes <- c("5 feet 7inches", “5 7”)
+yes <- c("5 feet 7inches", "5 7")
 no <- c("5ft 9 inches", "5 ft 9 inches")
 s <- c(yes, no)
 
@@ -2206,7 +2206,7 @@ converted <- s %>%
 
 pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
 str_detect(converted, pattern)
-[1]  TRUE FALSE FALSE
+[1]  TRUE TRUE FALSE FALSE
 ```
 It seems like the problem may be due to spaces around the words feet|foot|ft and inches|in. What is another way you could fix this problem?
 
