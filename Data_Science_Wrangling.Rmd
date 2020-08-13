@@ -993,10 +993,136 @@ spread(tmp2, column_name, value)
 - [ ] C. ```separate()```
 - [ ] D. ```unite()```
 
-## Assessment 4 - Combining Table
+## Combining Tables
 
-1. You have created a tab1 and tab2 of state population and election data, similar to our module videos:
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html)
+
+**Key points**
+
+* The join functions in the **dplyr** package combine two tables such that matching rows are together.
+* ```left_join()``` only keeps rows that have information in the first table.
+* ```right_join()``` only keeps rows that have information in the second table.
+* ```inner_join()``` only keeps rows that have information in both tables.
+* ```full_join()``` keeps all rows from both tables.
+* ```semi_join()``` keeps the part of first table for which we have information in the second.
+* ```anti_join()``` keeps the elements of the first table for which there is no information in the second.
+
+*Code*
+
 ```{r}
+if(!require(ggrepel)) install.packages("ggrepel")
+
+# import US murders data
+library(ggrepel)
+ds_theme_set()
+data(murders)
+head(murders)
+
+# import US election results data
+data(polls_us_election_2016)
+head(results_us_election_2016)
+identical(results_us_election_2016$state, murders$state)
+
+# join the murders table and US election results table
+tab <- left_join(murders, results_us_election_2016, by = "state")
+head(tab)
+
+# plot electoral votes versus population
+tab %>% ggplot(aes(population/10^6, electoral_votes, label = abb)) +
+  geom_point() +
+  geom_text_repel() + 
+  scale_x_continuous(trans = "log2") +
+  scale_y_continuous(trans = "log2") +
+  geom_smooth(method = "lm", se = FALSE)
+
+# make two smaller tables to demonstrate joins
+tab1 <- slice(murders, 1:6) %>% select(state, population)
+tab1
+tab2 <- slice(results_us_election_2016, c(1:3, 5, 7:8)) %>% select(state, electoral_votes)
+tab2
+
+# experiment with different joins
+left_join(tab1, tab2)
+tab1 %>% left_join(tab2)
+tab1 %>% right_join(tab2)
+inner_join(tab1, tab2)
+semi_join(tab1, tab2)
+anti_join(tab1, tab2)
+```
+
+## Binding
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#binding)
+
+**Key points**
+
+* Unlike the join functions, the binding functions do not try to match by a variable, but rather just combine datasets.
+* ```bind_cols()``` binds two objects by making them columns in a tibble. The R-base function ```cbind()``` binds columns but makes a data frame or matrix instead.
+* The ```bind_rows()``` function is similar but binds rows instead of columns. The R-base function ```rbind()``` binds rows but makes a data frame or matrix instead.
+
+*Code*
+
+```{r}
+bind_cols(a = 1:3, b = 4:6)
+
+tab1 <- tab[, 1:3]
+tab2 <- tab[, 4:6]
+tab3 <- tab[, 7:9]
+new_tab <- bind_cols(tab1, tab2, tab3)
+head(new_tab)
+
+tab1 <- tab[1:2,]
+tab2 <- tab[3:4,]
+bind_rows(tab1, tab2)
+```
+
+## Set Operators
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#set-operators)
+
+**Key points**
+
+* By default, the set operators in R-base work on vectors. If **tidyverse/dplyr** are loaded, they also work on data frames.
+* You can take intersections of vectors using ```intersect()```. This returns the elements common to both sets.
+* You can take the union of vectors using ```union()```. This returns the elements that are in either set.
+* The set difference between a first and second argument can be obtained with ```setdiff()```. Note that this function is not symmetric.
+* The function ```set_equal()``` tells us if two sets are the same, regardless of the order of elements.
+
+*Code*
+
+```{r}
+# intersect vectors or data frames
+intersect(1:10, 6:15)
+intersect(c("a","b","c"), c("b","c","d"))
+tab1 <- tab[1:5,]
+tab2 <- tab[3:7,]
+intersect(tab1, tab2)
+
+# perform a union of vectors or data frames
+union(1:10, 6:15)
+union(c("a","b","c"), c("b","c","d"))
+tab1 <- tab[1:5,]
+tab2 <- tab[3:7,]
+union(tab1, tab2)
+
+# set difference of vectors or data frames
+setdiff(1:10, 6:15)
+setdiff(6:15, 1:10)
+tab1 <- tab[1:5,]
+tab2 <- tab[3:7,]
+setdiff(tab1, tab2)
+
+# setequal determines whether sets have the same elements, regardless of order
+setequal(1:5, 1:6)
+setequal(1:5, 5:1)
+setequal(tab1, tab2)
+```
+
+## Assessment - Combining Tables
+
+1. You have created a ```tab1``` and ```tab2``` of state population and election data:
+
+```{r, eval=FALSE, echo=TRUE}
 > tab1
 state                    population
 Alabama                  4779736
@@ -1020,23 +1146,24 @@ Connecticut  7
 > dim(tab2)
 [1] 6 2
 ```
+
 What are the dimensions of the table dat, created by the following command?
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 dat <- left_join(tab1, tab2, by = “state”)
 ```
+
 - [ ] A. 3 rows by 3 columns
 - [ ] B. 5 rows by 2 columns
 - [X] C. 5 rows by 3 columns
 - [ ] D. 6 rows by 3 columns
 
-2. We are still using the tab1 and tab2 tables shown in question 1. What join command would create a new table “dat” with three rows and two columns?
+2. We are still using the ```tab1``` and ```tab2 tables shown in question 1. What join command would create a new table “dat” with three rows and two columns?
 
-- [ ] A. dat <- right_join(tab1, tab2, by = “state”)
-- [ ] B. dat <- full_join(tab1, tab2, by = “state”)
-- [ ] C. dat <- inner_join(tab1, tab2, by = “state”)
-- [X] D. dat <- semi_join(tab1, tab2, by = “state”)
-
-## Assessment 5 - Binding
+- [ ] A. ```dat <- right_join(tab1, tab2, by = “state”)```
+- [ ] B. ```dat <- full_join(tab1, tab2, by = “state”)```
+- [ ] C. ```dat <- inner_join(tab1, tab2, by = “state”)```
+- [X] D. ```dat <- semi_join(tab1, tab2, by = “state”)```
 
 3. Which of the following are real differences between the join and bind functions?
 
@@ -1045,10 +1172,9 @@ dat <- left_join(tab1, tab2, by = “state”)
 - [X] C. Bind functions can combine both vectors and dataframes, while join functions work for only for dataframes.
 - [ ] D. The join functions are a part of the dplyr package and have been optimized for speed, while the bind functions are inefficient base functions.
 
-## Assessment 6 - Set Operators
+4. We have two simple tables, shown below, with columns ```x``` and ```y```:
 
-4. We have two simple tables, shown below:
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 > df1
  x     y    
  a     a    
@@ -1059,21 +1185,27 @@ dat <- left_join(tab1, tab2, by = “state”)
  a     a    
  a     b  
 ```
+
 Which command would result in the following table?
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 > final
  x     y    
  b     a   
 ```
-- [ ] A. final <- union(df1, df2)
-- [X] B. final <- setdiff(df1, df2)
-- [ ] C. final <- setdiff(df2, df1)
-- [ ] D. final <- intersect(df1, df2)
 
-Install and load the Lahman library. This library contains a variety of datasets related to US professional baseball. We will use this library for the next few questions and will discuss it more extensively in the Regression course. For now, focus on wrangling the data rather than understanding the statistics.
+- [ ] A. ```final <- union(df1, df2)```
+- [X] B. ```final <- setdiff(df1, df2)```
+- [ ] C. ```final <- setdiff(df2, df1)```
+- [ ] D. ```final <- intersect(df1, df2)```
 
-The Batting data frame contains the offensive statistics for all baseball players over several seasons.  Filter this data frame to define top as the top 10 home run (HR) hitters in 2016:
+Install and load the **Lahman** library. This library contains a variety of datasets related to US professional baseball. We will use this library for the next few questions and will discuss it more extensively in the Regression course. For now, focus on wrangling the data rather than understanding the statistics.
+
+The ```Batting``` data frame contains the offensive statistics for all baseball players over several seasons.  Filter this data frame to define ```top``` as the top 10 home run (```HR```) hitters in 2016:
+
 ```{r}
+if(!require(Lahman)) install.packages("Lahman")
+
 library(Lahman)
 top <- Batting %>% 
   filter(yearID == 2016) %>%
@@ -1081,56 +1213,74 @@ top <- Batting %>%
   slice(1:10)    # take entries 1-10
 top %>% as_tibble()
 ```
-Also Inspect the Master data frame, which has demographic information for all players:
+
+Also Inspect the ```Master``` data frame, which has demographic information for all players:
+
 ```{r}
 Master %>% as_tibble()
 ```
-5. Use the correct join or bind function to create a combined table of the names and statistics of the top 10 home run (HR) hitters for 2016. This table should have the player ID, first name, last name, and number of HR for the top 10 players. Name this data frame top_names.
 
-Identify the join or bind that fills the blank in this code to create the correct table:
-```{r}
+5. Use the correct ```join``` or ```bind``` function to create a combined table of the names and statistics of the top 10 home run (HR) hitters for 2016. This table should have the player ID, first name, last name, and number of HR for the top 10 players. Name this data frame ```top_names```.
+
+Identify the ```join``` or ```bind``` that fills the blank in this code to create the correct table:
+
+```{r, eval=FALSE, echo=TRUE}
 top_names <- top %>% ___________________ %>%
     select(playerID, nameFirst, nameLast, HR)
 ```
+
 Which bind or join function fills the blank to generate the correct table?
 
-- [ ] A. rbind(Master)
-- [ ] B. cbind(Master)
-- [X] C. left_join(Master)
-- [ ] D. right_join(Master)
-- [ ] E. full_join(Master)
-- [ ] F. anti_join(Master)
-
-6. Inspect the Salaries data frame. Filter this data frame to the 2016 salaries, then use the correct bind join function to add a salary column to the top_names data frame from the previous question. Name the new data frame top_salary. Use this code framework:
 ```{r}
+top_names <- top %>% left_join(Master) %>%
+    select(playerID, nameFirst, nameLast, HR)
+```
+
+- [ ] A. ```rbind(Master)```
+- [ ] B. ```cbind(Master)```
+- [X] C. ```left_join(Master)```
+- [ ] D. ```right_join(Master)```
+- [ ] E. ```full_join(Master)```
+- [ ] F. ```anti_join(Master)```
+
+6. Inspect the ```Salaries``` data frame. Filter this data frame to the 2016 salaries, then use the correct bind join function to add a ```salary``` column to the ```top_names``` data frame from the previous question. Name the new data frame ```top_salary```. Use this code framework:
+
+```{r, eval=FALSE, echo=TRUE}
 top_salary <- Salaries %>% filter(yearID == 2016) %>%
   ______________ %>%
   select(nameFirst, nameLast, teamID, HR, salary)
 ```
-Which bind or join function fills the blank to generate the correct table?
 
-- [ ] A. rbind(top_names)
-- [ ] B. cbind(top_names)
-- [ ] C. left_join(top_names)
-- [X] D. right_join(top_names)
-- [ ] E. full_join(top_names)
-- [ ] F. anti_join(top_names)
+Which ```bind``` or ```join``` function fills the blank to generate the correct table?
 
-7. Inspect the AwardsPlayers table. Filter awards to include only the year 2016.
+```{r, eval=FALSE, echo=TRUE}
+top_salary <- Salaries %>% filter(yearID == 2016) %>%
+  right_join(top_names) %>%
+  select(nameFirst, nameLast, teamID, HR, salary)
+```
+
+- [ ] A. ```rbind(top_names)```
+- [ ] B. ```cbind(top_names)```
+- [ ] C. ```left_join(top_names)```
+- [X] D. ```right_join(top_names)```
+- [ ] E. ```full_join(top_names)```
+- [ ] F. ```anti_join(top_names)```
+
+7. Inspect the ```AwardsPlayers``` table. Filter awards to include only the year 2016.
 
 How many players from the top 10 home run hitters won at least one award in 2016? Use a set operator. 
-```{r}
-top_awards <- AwardsPlayers %>% filter(yearID == 2016)
-length(intersect(top_awards$playerID, top_names$playerID))
 
-3 
+```{r}
+Awards_2016 <- AwardsPlayers %>% filter(yearID == 2016)
+length(intersect(Awards_2016$playerID, top_names$playerID))
 ```
+
 How many players won an award in 2016 but were not one of the top 10 home run hitters in 2016? Use a set operator.
-```{r}
-length(setdiff(top_awards$playerID, top_names$playerID))
 
-44
+```{r}
+length(setdiff(Awards_2016$playerID, top_names$playerID))
 ```
+
 ## Assessment 7 - Web Scraping
 
 Load the following web page, which contains information about Major League Baseball payrolls, into R: 
