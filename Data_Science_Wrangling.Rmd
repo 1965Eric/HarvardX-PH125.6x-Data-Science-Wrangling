@@ -800,8 +800,8 @@ Which of the answers below best tidys the data?
 
 ```{r}
 tidy_data <- d %>%
-        gather(key = “key”, value = “value”, -age_group) %>%
-    separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
+        gather(key = "key", value = "value", -age_group) %>%
+    separate(col = key, into = c("year", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
 
@@ -985,7 +985,7 @@ tmp2 <- unite(tmp, column_name, c(key, gender))
 14. Which function can reshape ```tmp2``` to a table with six rows and five columns named ```major```, ```admitted_men```, ```admitted_women```, ```applicants_men``` and ```applicants_women```?
 
 ```{r}
-spread(tmp2)
+spread(tmp2, column_name, value)
 ```
 
 - [ ] A. ```gather()```
