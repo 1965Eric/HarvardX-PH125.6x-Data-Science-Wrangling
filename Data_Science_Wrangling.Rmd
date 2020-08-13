@@ -1529,11 +1529,11 @@ In this function, what TWO types of values are identified as not being correctly
 
 1. Given the following code
 ```{r}
-> s
-[1] "70"       "5 ft"     "4'11"     ""         "."        "Six feet"
+s <- c("70", "5 ft", "4'11", "", ".", "Six feet")
+s
 ```
 What `pattern` vector yields the following result?
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 str_view_all(s, pattern)
 70
 5 ft
@@ -1541,6 +1541,11 @@ str_view_all(s, pattern)
 .
 Six feet
 ```
+
+````{r}
+pattern <- "\\d|ft"
+````
+
 - [X] A. ```pattern <- "\\d|ft"```
 - [ ] B. ```pattern <- "\d|ft"```
 - [ ] C. ```pattern <- "\\d\\d|ft"```
