@@ -1360,35 +1360,46 @@ get_recipe("https://foodnetwork.co.uk/recipes/guacamole/?utm_source=foodnetwork.
 There are several other powerful tools provided by **rvest**. For example, the functions ```html_form()```, ```set_values()```, and ```submit_form()``` permit you to query a webpage from R. This is a more advanced topic not covered here.
 
 
-## Assessment 7 - Web Scraping
+## Assessment - Web Scraping
 
 Load the following web page, which contains information about Major League Baseball payrolls, into R: 
 
 https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm
+
 ```{r}
-library(rvest)
 url <- "https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm"
 h <- read_html(url)
 ```
-We learned that tables in html are associated with the table node.  Use the html_nodes() function and the table node type to extract the first table. Store it in an object nodes:
+
+We learned that tables in html are associated with the ```table``` node.  Use the ```html_nodes()``` function and the ```table``` node type to extract the first table. Store it in an object nodes:
+
 ```{r}
 nodes <- html_nodes(h, "table")
 ```
-The html_nodes() function returns a list of objects of class xml_node. We can see the content of each one using, for example, the html_text() function. You can see the content for an arbitrarily picked component like this:
+
+The ```html_nodes()``` function returns a list of objects of class ```xml_node```. We can see the content of each one using, for example, the ```html_text()``` function. You can see the content for an arbitrarily picked component like this:
+
 ```{r}
 html_text(nodes[[8]])
 ```
-If the content of this object is an html table, we can use the html_table() function to convert it to a data frame:
+
+If the content of this object is an html table, we can use the ```html_table()``` function to convert it to a data frame:
+
 ```{r}
 html_table(nodes[[8]])
 ```
+
 You will analyze the tables from this HTML page over questions 1-3.
 
 1. Many tables on this page are team payroll tables, with columns for rank, team, and one or more money values.
 
-Convert the first four tables in nodes to data frames and inspect them.
+Convert the first four tables in ```nodes``` to data frames and inspect them.
 
-Which of the first four nodes are tables of team payroll? Check all correct answers. Look at table content, not column names.
+```{r}
+sapply(nodes[1:4], html_table)    # 2, 3, 4 give tables with payroll info
+```
+
+Which of the first four ```nodes``` are tables of team payroll? Check all correct answers. Look at table content, not column names.
 
 - [ ] A. None of the above
 - [ ] B. Table 1
@@ -1396,55 +1407,151 @@ Which of the first four nodes are tables of team payroll? Check all correct answ
 - [X] D. Table 3
 - [X] E. Table 4
 
-2. For the last 3 components of nodes, which of the following are true? Check all correct answers.
+2. For the last 3 components of ```nodes```, which of the following are true? Check all correct answers.
+
+```{r}
+html_table(nodes[[length(nodes)-2]])
+html_table(nodes[[length(nodes)-1]])
+html_table(nodes[[length(nodes)]])
+```
 
 - [X] A. All three entries are tables.
 - [ ] B. All three entries are tables of payroll per team.
 - [X] C. The last entry shows the average across all teams through time, not payroll per team.
 - [ ] D. None of the three entries are tables of payroll per team.
 
-3. Create a table called tab_1 using entry 10 of nodes. Create a table called tab_2 using entry 19 of nodes.
+3. Create a table called ```tab_1``` using entry 10 of ```nodes```. Create a table called ```tab_2``` using entry 19 of ```nodes```.
 
-Note that the column names should be c("Team", "Payroll", "Average"). You can see that these column names are actually in the first data row of each table, and that tab_1 has an extra first column No. that should be removed so that the column names for both tables match.
+Note that the column names should be ```c("Team", "Payroll", "Average")```. You can see that these column names are actually in the first data row of each table, and that ```tab_1``` has an extra first column ```No.``` that should be removed so that the column names for both tables match.
 
-Remove the extra column in tab_1, remove the first row of each dataset, and change the column names for each table to c("Team", "Payroll", "Average"). Use a full_join() by the Team to combine these two tables.
+Remove the extra column in ```tab_1```, remove the first row of each dataset, and change the column names for each table to ```c("Team", "Payroll", "Average")```. Use a ```full_join()``` by the ```Team``` to combine these two tables.
 
-Note that some students, presumably because of system differences, have noticed that entry 18 instead of entry 19 of nodes gives them the tab_2 correctly; be sure to check entry 18 if entry 19 is giving you problems.
+Note that some students, presumably because of system differences, have noticed that entry 18 instead of entry 19 of ```nodes``` gives them the ```tab_2``` correctly; be sure to check entry 18 if entry 19 is giving you problems.
 
-How many rows are in the joined data table? ```58```
+How many rows are in the joined data table?
 
-4. The Wikipedia page on opinion polling for the Brexit referendum, in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
+```{r}
+tab_1 <- html_table(nodes[[10]])
+tab_2 <- html_table(nodes[[19]])
+col_names <- c("Team", "Payroll", "Average")
+tab_1 <- tab_1[-1, -1]
+tab_2 <- tab_2[-1,]
+names(tab_2) <- col_names
+names(tab_1) <- col_names
+full_join(tab_1,tab_2, by = "Team")
+```
+
+4. The Wikipedia page on [opinion polling for the Brexit referendum](https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054), in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
+
+![Polls regarding the referendum over 2016](images/Polls_referendum_2016.png)
 
 Use the rvest library to read the HTML from this Wikipedia page (make sure to copy both lines of the URL):
+
 ```{r}
-library(rvest)
-library(tidyverse)
 url <- "https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054"
 ```
-Assign tab to be the html nodes of the "table" class.
 
-How many tables are in this Wikipedia page? ```40```
+Assign ```tab``` to be the html nodes of the "table" class.
 
-5. Inspect the first several html tables using html_table() with the argument fill=TRUE (you can read about this argument in the documentation). Find the first table that has 9 columns with the first column named "Date(s) conducted".
+How many tables are in this Wikipedia page?
 
-What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? ```5```
+```{r}
+tab <- read_html(url) %>% html_nodes("table")
+length(tab)
+```
+
+5. Inspect the first several html tables using ```html_table()``` with the argument ```fill=TRUE``` (you can read about this argument in the documentation). Find the first table that has 9 columns with the first column named "Date(s) conducted".
+
+What is the first table number to have 9 columns where the first column is named "Date(s) conducted"? 
+
+```{r}
+tab[[5]] %>% html_table(fill = TRUE) %>% names()    # inspect column names
+```
 
 # Section 3 Overview
 
-In the String Processing section, we use case studies that help demonstrate how string processing is a powerful tool useful for overcoming many data wrangling challenges. You will see how the original raw data was processed to create the data frames we have used in courses throughout this series.
+In the **String Processing** section, we use case studies that help demonstrate how string processing is a powerful tool useful for overcoming many data wrangling challenges. You will see how the original **raw** data was processed to create the data frames we have used in courses throughout this series.
 
 This section is divided into three parts.
 
-After completing the String Processing section, you will be able to:
-- Remove unwanted characters from text.
-- Extract numeric values from text.
-- Find and replace characters.
-- Extract specific parts of strings.
-- Convert free form text into more uniform formats.
-- Split strings into multiple values.
-- Use regular expressions (regex) to process strings.
+After completing the **String Processing** section, you will be able to:
+
+* **Remove** unwanted characters from text.
+* **Extract numeric** values from text.
+* **Find** and **replace** characters.
+* **Extract specific** parts of strings.
+* **Convert** free form text into more uniform formats.
+* **Split strings** into multiple values.
+* Use **regular expressions (regex)** to process strings.
+
+## String Parsing
 
 The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html)
+
+**Key points**
+
+* The most common tasks in string processing include:
+    * extracting numbers from strings
+    * removing unwanted characters from text
+    * finding and replacing characters
+    * extracting specific parts of strings
+    * converting free form text to more uniform formats
+    * splitting strings into multiple values
+* The **stringr** package in the **tidyverse** contains string processing functions that follow a similar naming format (```str_functionname```) and are compatible with the pipe.
+
+*Code*
+
+```{r}
+# read in raw murders data from Wikipedia
+url <- "https://en.wikipedia.org/w/index.php?title=Gun_violence_in_the_United_States_by_state&direction=prev&oldid=810166167"
+murders_raw <- read_html(url) %>% 
+  html_nodes("table") %>% 
+  html_table() %>%
+  .[[1]] %>%
+  setNames(c("state", "population", "total", "murder_rate"))
+
+# inspect data and column classes
+head(murders_raw)
+class(murders_raw$population)
+class(murders_raw$total)
+```
+
+## Defining Strings: Single and Double Quotes and How to Escape
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#how-to-escape-when-defining-strings)
+
+**Key points**
+
+* Define a string by surrounding text with either single quotes or double quotes.
+* To include a single quote inside a string, use double quotes on the outside. To include a double quote inside a string, use single quotes on the outside.
+* The ```cat()``` function displays a string as it is represented inside R.
+* To include a double quote inside of a string surrounded by double quotes, use the backslash (\) to escape the double quote. Escape a single quote to include it inside of a string defined by single quotes.
+* We will see additional uses of the escape later.
+
+*Code*
+
+```{r}
+s <- "Hello!"    # double quotes define a string
+s <- 'Hello!'    # single quotes define a string
+s <- `Hello`    # backquotes do not
+
+s <- "10""    # error - unclosed quotes
+s <- '10"'    # correct
+
+# cat shows what the string actually looks like inside R
+cat(s)
+
+s <- "5'"
+cat(s)
+
+# to include both single and double quotes in string, escape with \
+s <- '5'10"'    # error
+s <- "5'10""    # error
+s <- '5\'10"'    # correct
+cat(s)
+s <- "5'10\""    # correct
+cat(s)
+```
 
 ## Assessment 1 - String Parsing
 
