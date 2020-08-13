@@ -408,22 +408,157 @@ ncol(df)
 
 # Section 2 Overview
 
-In the Tidy Data section, you will learn how to convert data from a raw to a tidy format.
+In the **Tidy Data** section, you will learn how to convert data from a raw to a tidy format.
 
-This section is divided into three parts: Reshaping Data, Combining Tables, and Web Scraping.
+This section is divided into three parts: **Reshaping Data**, **Combining Tables**, and **Web Scraping**.
 
-After completing the Tidy Data section, you will be able to:
-- Reshape data using functions from the tidyr package, including gather, spread, separate, and unite.
-- Combine information from different tables using join functions from the dplyr package.
-- Combine information from different tables using binding functions from the dplyr package.
-- Use set operators to combine data frames.
-- Gather data from a website through web scraping and use of CSS selectors.
+After completing the **Tidy Data** section, you will be able to:
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/tidyverse.html#tidy-data) and [here](https://rafalab.github.io/dsbook/reshaping-data.html)
+* **Reshape data** using functions from the **tidyr** package, including ```gather()```, ```spread()```, ```separate()```, and ```unite()```.
+* Combine information from different tables using **join** functions from the **dplyr** package.
+* Combine information from different tables using **binding** functions from the **dplyr** package.
+* Use **set operators** to combine data frames.
+* Gather data from a website through **web scraping** and use of **CSS selectors**.
 
-## Assessment 1 - Tidy Data
+## Tidy Data
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/tidyverse.html#tidy-data)
+
+**Key points**
+
+* In tidy data, each row represents an observation and each column represents a different variable.
+* In wide data, each row includes several observations and one of the variables is stored in the header.
+
+*Code*
+
+```{r}
+data(gapminder)
+
+# create and inspect a tidy data frame
+tidy_data <- gapminder %>% 
+  filter(country %in% c("South Korea", "Germany")) %>%
+  select(country, year, fertility)
+head(tidy_data)
+
+# plotting tidy data is simple
+tidy_data %>% 
+  ggplot(aes(year, fertility, color = country)) +
+  geom_point()
+
+# import and inspect example of original Gapminder data in wide format
+path <- system.file("extdata", package="dslabs")
+filename <- file.path(path,  "fertility-two-countries-example.csv")
+wide_data <- read_csv(filename)
+select(wide_data, country, `1960`:`1967`)
+```
+
+## Reshaping Data
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html), [here](https://rafalab.github.io/dsbook/reshaping-data.html#gather) and [here](https://rafalab.github.io/dsbook/reshaping-data.html#spread)
+
+**Key points**
+
+* The **tidyr** package includes several functions that are useful for tidying data.
+* The ```gather()``` function converts wide data into tidy data.
+* The ```spread()``` function converts tidy data to wide data.
+
+*Code*
+
+```{r}
+# original wide data
+path <- system.file("extdata", package="dslabs")
+filename <- file.path(path,  "fertility-two-countries-example.csv")
+wide_data <- read_csv(filename)
+
+# tidy data from dslabs
+tidy_data <- gapminder %>% 
+  filter(country %in% c("South Korea", "Germany")) %>%
+  select(country, year, fertility)
+
+# gather wide data to make new tidy data
+new_tidy_data <- wide_data %>%
+  gather(year, fertility, `1960`:`2015`)
+head(new_tidy_data)
+
+# gather all columns except country
+new_tidy_data <- wide_data %>%
+  gather(year, fertility, -country)
+
+# gather treats column names as characters by default
+class(tidy_data$year)
+class(new_tidy_data$year)
+
+# convert gathered column names to numeric
+new_tidy_data <- wide_data %>%
+  gather(year, fertility, -country, convert = TRUE)
+class(new_tidy_data$year)
+
+# ggplot works on new tidy data
+new_tidy_data %>%
+  ggplot(aes(year, fertility, color = country)) +
+  geom_point()
+
+# spread tidy data to generate wide data
+new_wide_data <- new_tidy_data %>% spread(year, fertility)
+select(new_wide_data, country, `1960`:`1967`)
+```
+
+## Separate and Unite
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html#separate) and [here](https://rafalab.github.io/dsbook/reshaping-data.html#unite)
+
+**Key points**
+
+* The ```separate()``` function splits one column into two or more columns at a specified character that separates the variables.
+* When there is an extra separation in some of the entries, use ```fill="right"``` to pad missing values with NAs, or use ```extra="merge"``` to keep extra elements together.
+* The ```unite()``` function combines two columns and adds a separating character.
+
+*Code*
+
+```{r}
+# import data
+path <- system.file("extdata", package = "dslabs")
+filename <- file.path(path, "life-expectancy-and-fertility-two-countries-example.csv")
+raw_dat <- read_csv(filename)
+select(raw_dat, 1:5)
+
+# gather all columns except country
+dat <- raw_dat %>% gather(key, value, -country)
+head(dat)
+dat$key[1:5]
+
+# separate on underscores
+dat %>% separate(key, c("year", "variable_name"), "_")
+dat %>% separate(key, c("year", "variable_name"))
+
+# split on all underscores, pad empty cells with NA
+dat %>% separate(key, c("year", "first_variable_name", "second_variable_name"), 
+                 fill = "right")
+
+# split on first underscore but keep life_expectancy merged
+dat %>% separate(key, c("year", "variable_name"), sep = "_", extra = "merge")
+
+# separate then spread
+dat %>% separate(key, c("year", "variable_name"), sep = "_", extra = "merge") %>%
+  spread(variable_name, value) 
+
+# separate then unite
+dat %>% 
+  separate(key, c("year", "first_variable_name", "second_variable_name"), fill = "right") %>%
+  unite(variable_name, first_variable_name, second_variable_name, sep="_")
+
+# full code for tidying data
+dat %>% 
+  separate(key, c("year", "first_variable_name", "second_variable_name"), fill = "right") %>%
+  unite(variable_name, first_variable_name, second_variable_name, sep="_") %>%
+  spread(variable_name, value) %>%
+  rename(fertility = fertility_NA)
+```
+
+## Assessment Part 1 - Reshaping Data
 
 1. A collaborator sends you a file containing data for three years of average race finish times.
+
 ```{r, eval=FALSE, echo=TRUE}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
@@ -431,6 +566,7 @@ age_group,2015,2016,2017
 40,4:39,3:49,4:51
 50,4:48,4:59,5:01
 ```
+
 Are these data considered “tidy” in R? Why or why not?
 
 - [ ] A. Yes. These data are considered “tidy” because each row contains unique observations.
@@ -441,7 +577,8 @@ Are these data considered “tidy” in R? Why or why not?
 2. Below are four versions of the same dataset. Which one is in a tidy format?
 
 - [X] A.
-````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 state      abb   region  population total
 Alabama    AL    South   4779736    135
 Alaska     AK    West    710231     19
@@ -450,7 +587,9 @@ Arkansas   AR    South   2915918    93
 California CA    West    37253956   1257
 Colorado   CO    West    5029196    65
 ```
+
 - [ ] B.
+
 ```{r, eval=FALSE, echo=TRUE}
 state    abb  region        var        people
 Alabama  AL   South         population 4779736
@@ -460,7 +599,9 @@ Alaska   AK   West          total      19
 Arizona  AZ   West          population 6392017
 Arizona  AZ   West          total      232
 ```
+
 - [ ] C.
+
 ```{r, eval=FALSE, echo=TRUE}
 state       abb       Northeast   South      North Central   West
 Alabama     AL        NA          4779736    NA              NA
@@ -470,7 +611,9 @@ Arkansas    AR        NA          2915918    NA              NA
 California  CA        NA          NA         NA              37253956
 Colorado    CO        NA          NA         NA              5029196
 ```
+
 - [ ] D.
+
 ```{r, eval=FALSE, echo=TRUE}
 state       abb  region    rate
 Alabama     AL   South     2.82e-05
@@ -480,9 +623,9 @@ Arkansas    AR   South     3.19e-05
 California  CA   West      3.37e-05
 Colorado    CO   West      1.29e-05
 ```
-## Assessment 2 - Reshaping Data
 
 3. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
+
 ```{r, eval=FALSE, echo=TRUE}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
@@ -490,34 +633,51 @@ age_group,2015,2016,2017
 40,4:39,3:49,4:51
 50,4:48,4:59,5:01
 ```
+
 You read in the data file using the following command.
-``````{r, eval=FALSE, echo=TRUE}
-d <- read_csv("times.csv")
+
+```{r}
+d <- read_csv("files/times.csv")
 ```
+
 Which commands will help you “tidy” the data?
 
-- [X] A.
-``````{r, eval=FALSE, echo=TRUE}
+```{r}
 tidy_data <- d %>%
 gather(year, time, `2015`:`2017`)
 ```
+
+- [X] A.
+
+```{r, eval=FALSE, echo=TRUE}
+tidy_data <- d %>%
+gather(year, time, `2015`:`2017`)
+```
+
 - [ ] B.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 spread(year, time, `2015`:`2017`)
 ```
+
 - [ ] C.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 gather(age_group, year, time, `2015`:`2017`)
 ```
+
 - [ ] D.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 gather(time, `2015`:`2017`)
 ```
+
 4. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 > head(dat_wide)
 state   year    population      Hepatitis A Mumps Polio Rubella
 Alabama 1990    4040587         86          19    76    1
@@ -527,8 +687,10 @@ Alabama 1993    4133242         40          22    67    0
 Alabama 1994    4173361         72          12    39    0
 Alabama 1995    4216645         75          2     38    0
 ```
+
 Which of the following would transform this into a tidy dataset, with each row representing an observation of the incidence of each specific disease (as shown below)?
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 > head(dat_tidy)
 state   year    population   disease      count
 Alabama 1990    4040587      Hepatitis A  86
@@ -538,43 +700,60 @@ Alabama 1993    4133242      Hepatitis A  40
 Alabama 1994    4173361      Hepatitis A  72
 Alabama 1995    4216645      Hepatitis A  75
 ```
+
 - [ ] A.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather (key = count, value = disease, `Hepatitis A`, `Rubella`)
 ```
+
 - [ ] B.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = count, value = disease, -state, -year, -population)
 ```
+
 - [ ] C.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, -state)
 ```
+
 - [X] D.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, “Hepatitis A”: “Rubella”)
 ```
-5. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
-``````{r, eval=FALSE, echo=TRUE}
-age_group,year,time
-20,2015,03:46
-30,2015,03:50
-40,2015,04:39
-50,2015,04:48
-20,2016,03:22
+
+5. You have successfully formatted marathon finish times into a tidy object called ```tidy_data```. The first few lines are shown below.
+
+```{r, eval=FALSE, echo=TRUE}
+age_group year  time
+20        2015  03:46
+30        2015  03:50
+40        2015  04:39
+50        2015  04:48
+20        2016  03:22
 ```
+
 Select the code that converts these data back to the wide format, where each year has a separate column.
 
-- [ ] A. tidy_data %>% spread(time, year)
-- [X] B. tidy_data %>% spread(year, time)
-- [ ] C. tidy_data %>% spread(year, age_group)
-- [ ] D. tidy_data %>% spread(time, year, `2015`:`2017`)
-6.
-``````{r, eval=FALSE, echo=TRUE}
+```{r}
+tidy_data %>% spread(year, time)
+```
+
+- [ ] A. ```tidy_data %>% spread(time, year)```
+- [X] B. ```tidy_data %>% spread(year, time)```
+- [ ] C. ```tidy_data %>% spread(year, age_group)```
+- [ ] D. ```tidy_data %>% spread(time, year, `2015`:`2017`)```
+
+6. You have the following dataset:
+
+```{r, eval=FALSE, echo=TRUE}
 > head(dat)
 state    abb  region        var         people
 Alabama  AL   South         population  4779736
@@ -584,8 +763,10 @@ Alaska   AK   West          total       19
 Arizona  AZ   West          population  6392017
 Arizona  AZ   West          total       232
 ```
+
 You would like to transform it into a dataset where population and total are each their own column (shown below). Which code would best accomplish this?
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 state       abb  region  population total
 Alabama     AL   South   4779736    135
 Alaska      AK   West    710231     19
@@ -594,57 +775,75 @@ Arkansas    AR   South   2915918    93
 California  CA   West    37253956   1257
 Colorado    CO   West    5029196    65
 ```
-- [X] A. dat_tidy <- dat %>% spread(key = var, value = people) 
-- [ ] B. dat_tidy <- dat %>% spread(key = state:region, value = people) 
-- [ ] C. dat_tidy <- dat %>% spread(key = people, value = var) 
-- [ ] D. dat_tidy <- dat %>% spread(key = region, value = people)
 
-## Assessment 3 - Separate and Unite
+- [X] A. ```dat_tidy <- dat %>% spread(key = var, value = people)``` 
+- [ ] B. ```dat_tidy <- dat %>% spread(key = state:region, value = people)```
+- [ ] C. ```dat_tidy <- dat %>% spread(key = people, value = var)```
+- [ ] D. ```dat_tidy <- dat %>% spread(key = region, value = people)```
 
-7. A collaborator sends you a file containing data for two years of average race finish times.
-``````{r, eval=FALSE, echo=TRUE}
+7. A collaborator sends you a file containing data for two years of average race finish times, "times2.csv":.
+
+```{r, eval=FALSE, echo=TRUE}
 age_group,2015_time,2015_participants,2016_time,2016_participants
 20,3:46,54,3:22,62
 30,3:50,60,3:43,58
 40,4:39,29,3:49,33
 50,4:48,10,4:59,14
 ```
+
 You read in the data file
-``````{r, eval=FALSE, echo=TRUE}
-d <- read_csv("times.csv")
+```{r}
+d <- read_csv("files/times2.csv")
 ```
+
 Which of the answers below best tidys the data?
 
+```{r}
+tidy_data <- d %>%
+        gather(key = “key”, value = “value”, -age_group) %>%
+    separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
+    spread(key = variable_name, value = value)
+```
+
 - [ ] A.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
     gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “.”) %>% 
     spread(key = variable_name, value = value)
 ```
+
 - [X] B.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
+
 - [ ] C.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
  tidy_data <- d %>%
         gather(key = “key”, value = “value”) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
+
 - [ ] D.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = “year”, sep = “_”) %>% 
     spread(key = year, value = value)
 ```
+
 8. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 > head(stats)
 key                 value
 allen_height        75
@@ -654,60 +853,76 @@ bamba_height        83.25
 bamba_hand_length   9.75
 bamba_wingspan      94
 ```
+
 Select all of the correct commands below that would turn this data into a “tidy” format.
 
 - [X] A.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_", extra = "merge") %>% 
     spread(key = variable_name, value = value) 
 ```
+
 - [ ] B.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name1", "variable_name2"), sep = "_", fill = "right") %>% 
     unite(col = variable_name, variable_name1, variable_name2, sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
+
 - [ ] C.
-``````{r, eval=FALSE, echo=TRUE}
+
+```{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
-Use the following libraries for these questions:
-``````{r, eval=FALSE, echo=TRUE}
-library(tidyverse)
-library(dslabs)
+
+## Assessment Part 2 - Reshaping Data
+
+9. Examine the built-in dataset ```co2```. This dataset comes with base R, not **dslabs** - just type ```co2``` to access the dataset.
+
+```{r}
+co2
 ```
-9. Examine the built-in dataset co2. This dataset comes with base R, not dslabs - just type co2 to access the dataset.
 
-Is co2 tidy? Why or why not?
+Is ```co2``` tidy? Why or why not?
 
-- [ ] A. co2 is tidy data: it has one year for each row.
-- [ ] B. co2 is tidy data: each column is a different month.
-- [ ] C. co2 is not tidy: there are multiple observations per column.
-- [X] D. co2 is not tidy: to be tidy we would have to wrangle it to have three columns (year, month and value), and then each co2 observation would have a row.
+- [ ] A. ```co2``` is tidy data: it has one year for each row.
+- [ ] B. ```co2``` is tidy data: each column is a different month.
+- [ ] C. ```co2``` is not tidy: there are multiple observations per column.
+- [X] D. ```co2``` is not tidy: to be tidy we would have to wrangle it to have three columns (year, month and value), and then each co2 observation would have a row.
 
 10. Run the following command to define the co2_wide object:
+
 ```{r}
 co2_wide <- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) %>% 
       setNames(1:12) %>%
     mutate(year = as.character(1959:1997))
 ```
-Use the gather() function to make this dataset tidy. Call the column with the CO2 measurements co2 and call the month column month. Name the resulting object co2_tidy.
+
+Use the ```gather()``` function to make this dataset tidy. Call the column with the CO2 measurements ```co2``` and call the month column ```month```. Name the resulting object ```co2_tidy```.
 
 Which code would return the correct tidy format?
 
-- [ ] A. co2_tidy <- gather(co2_wide,month,co2,year)
-- [ ] B. co2_tidy <- gather(co2_wide,co2,month,-year)
-- [ ] C. co2_tidy <- gather(co2_wide,co2,month,year)
-- [X] D. co2_tidy <- gather(co2_wide,month,co2,-year)
+```{r}
+co2_tidy <- gather(co2_wide,month,co2,-year)
+```
 
-11. Use co2_tidy to plot CO2 versus month with a different curve for each year:
+- [ ] A. ```co2_tidy <- gather(co2_wide,month,co2,year)```
+- [ ] B. ```co2_tidy <- gather(co2_wide,co2,month,-year)```
+- [ ] C. ```co2_tidy <- gather(co2_wide,co2,month,year)```
+- [X] D. ```co2_tidy <- gather(co2_wide,month,co2,-year)```
+
+11. Use ```co2_tidy``` to plot CO2 versus month with a different curve for each year:
+
 ```{r}
 co2_tidy %>% ggplot(aes(as.numeric(month), co2, color = year)) + geom_line()
 ```
+
 What can be concluded from this plot?
 
 - [ ] A. CO2 concentrations increased monotonically (never decreased) from 1959 to 1997.
@@ -716,14 +931,16 @@ What can be concluded from this plot?
 - [ ] D. Yearly average CO2 concentrations have remained constant over time.
 - [ ] E. CO2 concentrations do not have a seasonal trend.
 
-12. Load the admissions dataset from dslabs, which contains college admission information for men and women across six majors, and remove the applicants percentage column:
+12. Load the ```admissions``` dataset from **dslabs**, which contains college admission information for men and women across six majors, and remove the ```applicants``` percentage column:
+
 ```{r}
-library(dslabs)
 data(admissions)
 dat <- admissions %>% select(-applicants)
 ```
+
 Your goal is to get the data in the shape that has one row for each major, like this:
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 major  men   women
 A      62    82		
 B      63    68		
@@ -732,34 +949,49 @@ D      33    35
 E      28    24		
 F       6     7	
 ```
+
 Which command could help you to wrangle the data into the desired format?
 
-- [ ] A. dat_tidy <- spread(dat, major, admitted)
-- [ ] B. dat_tidy <- spread(dat, gender, major)
-- [X] C. dat_tidy <- spread(dat, gender, admitted)
-- [ ] D. dat_tidy <- spread(dat, admitted, gender)
+```{r}
+dat_tidy <- spread(dat, gender, admitted)
+```
 
-13. Now use the admissions dataset to create the object tmp, which has columns major, gender, key and value:
+- [ ] A. ```dat_tidy <- spread(dat, major, admitted)```
+- [ ] B. ```dat_tidy <- spread(dat, gender, major)```
+- [X] C. ```dat_tidy <- spread(dat, gender, admitted)```
+- [ ] D. ```dat_tidy <- spread(dat, admitted, gender)```
+
+13. Now use the ```admissions``` dataset to create the object ```tmp```, which has columns ```major```, ```gender```, ```key``` and ```value```:
+
 ```{r}
 tmp <- gather(admissions, key, value, admitted:applicants)
 tmp
 ```
-Combine the key and gender and create a new column called column_name to get a variable with the following values: admitted_men, admitted_women, applicants_men and applicants_women. Save the new data as tmp2.
+
+Combine the key and gender and create a new column called ```column_name``` to get a variable with the following values: ```admitted_men```, ```admitted_women```, ```applicants_men ```and ```applicants_women```. Save the new data as ```tmp2```.
 
 Which command could help you to wrangle the data into the desired format?
 
-- [ ] A. tmp2 <- spread(tmp, column_name, key, gender)
-- [ ] B. tmp2 <- gather(tmp, column_name, c(gender,key))
-- [ ] C. tmp2 <- unite(tmp, column_name, c(gender, key)) 
-- [ ] D. tmp2 <- spread(tmp, column_name, c(key,gender))
-- [X] E. tmp2 <- unite(tmp, column_name, c(key, gender))
+```{r}
+tmp2 <- unite(tmp, column_name, c(key, gender))
+```
 
-14. Which function can reshape tmp2 to a table with six rows and five columns named major, admitted_men, admitted_women, applicants_men and applicants_women?
+- [ ] A. ```tmp2 <- spread(tmp, column_name, key, gender)```
+- [ ] B. ```tmp2 <- gather(tmp, column_name, c(gender,key))```
+- [ ] C. ```tmp2 <- unite(tmp, column_name, c(gender, key))```
+- [ ] D. ```tmp2 <- spread(tmp, column_name, c(key,gender))```
+- [X] E. ```tmp2 <- unite(tmp, column_name, c(key, gender))```
 
-- [ ] A. gather()
-- [X] B. spread()
-- [ ] C. separate()
-- [ ] D. unite()
+14. Which function can reshape ```tmp2``` to a table with six rows and five columns named ```major```, ```admitted_men```, ```admitted_women```, ```applicants_men``` and ```applicants_women```?
+
+```{r}
+spread(tmp2)
+```
+
+- [ ] A. ```gather()```
+- [X] B. ```spread()```
+- [ ] C. ```separate()```
+- [ ] D. ```unite()```
 
 ## Assessment 4 - Combining Table
 
