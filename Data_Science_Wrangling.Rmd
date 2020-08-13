@@ -1564,7 +1564,58 @@ s <- "5'10\""    # correct
 cat(s)
 ```
 
-## Assessment 1 - String Parsing
+## stringr Package
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#stringr)
+
+**Key points**
+
+* The main types of string processing tasks are detecting, locating, extracting and replacing elements of strings.
+* The **stringr** package from the **tidyverse** includes a variety of string processing functions that begin with ```str_``` and take the string as the first argument, which makes them compatible with the pipe.
+
+*Code*
+
+```{r}
+# murders_raw defined in web scraping section
+
+# direct conversion to numeric fails because of commas
+murders_raw$population[1:3]
+as.numeric(murders_raw$population[1:3])
+```
+
+## Case Study 1: US Murders Data
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-1-us-murders-data)
+
+**Key points**
+
+* Use the ```str_detect()``` function to determine whether a string contains a certain pattern.
+* Use the ```str_replace_all()``` function to replace all instances of one pattern with another pattern. To remove a pattern, replace with the empty string (```""```).
+* The ```parse_number()``` function removes punctuation from strings and converts them to numeric.
+* ```mutate_at()``` performs the same transformation on the specified column numbers.
+
+*Code*
+
+```{r}
+# murders_raw was defined in the web scraping section
+
+# detect whether there are commas
+commas <- function(x) any(str_detect(x, ","))
+murders_raw %>% summarize_all(funs(commas))
+
+# replace commas with the empty string and convert to numeric
+test_1 <- str_replace_all(murders_raw$population, ",", "")
+test_1 <- as.numeric(test_1)
+
+# parse_number also removes commas and converts to numeric
+test_2 <- parse_number(murders_raw$population)
+identical(test_1, test_2)
+
+murders_new <- murders_raw %>% mutate_at(2:3, parse_number)
+murders_new %>% head
+```
+
+## Assessment - String Processing Part 1
 
 1. Which of the following is NOT an application of string parsing?
 
@@ -1573,28 +1624,23 @@ cat(s)
 - [X] C. Formatting numbers and characters so they can easily be displayed in deliverables like papers and presentations.
 - [ ] D. Splitting strings into multiple values.
 
-## Assessment 2 - Defining Strings: Single and Double Quotes and How to Escape
+2. Which of the following commands would not give you an error in R?
 
-1. Which of the following commands would not give you an error in R?
+- [X] A. ```cat(" LeBron James is 6’8\" ")```
+- [ ] B. ```cat(' LeBron James is 6'8" ')```
+- [ ] C. ```cat(` LeBron James is 6'8" `)```
+- [ ] D. ```cat(" LeBron James is 6\’8" ")```
 
-- [X] A. cat(" LeBron James is 6’8\" ")
-- [ ] B. cat(' LeBron James is 6'8" ')
-- [ ] C. cat(` LeBron James is 6'8" `)
-- [ ] D. cat(" LeBron James is 6\’8" ")
-
-## Assessment 3 - stringr Package
-
-1. Which of the following are advantages of the stringr package over string processing functions in base R? Select all that apply.
+3. Which of the following are advantages of the **stringr** package over string processing functions in base R? Select all that apply.
 
 - [ ] A. Base R functions are rarely used for string processing by data scientists so it’s not worth learning them.
 - [X] B. Functions in stringr all start with “str_”, which makes them easy to look up using autocomplete.
 - [X] C. Stringr functions work better with pipes.
 - [X] D. The order of arguments is more consistent in stringr functions than in base R.
 
-## Assessment 4 - Case Study 1: US Murders Data
+4. You have a dataframe of monthly sales and profits in R
 
-1. You have a dataframe of monthly sales and profits in R
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 > head(dat)
 # A tibble: 5 x 3
 Month       Sales       Profit 
@@ -1605,12 +1651,73 @@ March       $115,468    $17,920
 April       $122,274    $15,825
 May         $117,921    $15,437
 ```
+
 Which of the following commands could convert the sales and profits columns to numeric? Select all that apply.
 
-- [X] A. dat %>% mutate_at(2:3, parse_number)
-- [ ] B. dat %>% mutate_at(2:3, as.numeric)
-- [ ] C. dat %>% mutate_all(parse_number)
-- [X] D. dat %>% mutate_at(2:3, funs(str_replace_all(., c("\\$|,"), ""))) %>%mutate_at(2:3, as.numeric)
+- [X] A. ```dat %>% mutate_at(2:3, parse_number)```
+- [ ] B. ```dat %>% mutate_at(2:3, as.numeric)```
+- [ ] C. ```dat %>% mutate_all(parse_number)```
+- [X] D. ```dat %>% mutate_at(2:3, funs(str_replace_all(., c("\\$|,"), ""))) %>%mutate_at(2:3, as.numeric)```
+
+## Case Study 2: Reported Heights
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-2-self-reported-heights)
+
+**Key points**
+
+* In the raw heights data, many students did not report their height as the number of inches as requested. There are many entries with real height information but in the wrong format, which we can extract with string processing. 
+* When there are both text and numeric entries in a column, the column will be a character vector. Converting this column to numeric will result in NAs for some entries.
+* To correct problematic entries, look for patterns that are shared across large numbers of entries, then define rules that identify those patterns and use these rules to write string processing tasks.
+* Use ```suppressWarnings()``` to hide warning messages for a function.
+
+*Code*
+
+```{r}
+# load raw heights data and inspect
+data(reported_heights)
+class(reported_heights$height)
+
+# convert to numeric, inspect, count NAs
+x <- as.numeric(reported_heights$height)
+head(x)
+sum(is.na(x))
+
+# keep only entries that result in NAs
+reported_heights %>% mutate(new_height = as.numeric(height)) %>%
+  filter(is.na(new_height)) %>% 
+  head(n=10)
+
+# calculate cutoffs that cover 99.999% of human population
+alpha <- 1/10^6
+qnorm(1-alpha/2, 69.1, 2.9)
+qnorm(alpha/2, 63.7, 2.7)
+
+# keep only entries that either result in NAs or are outside the plausible range of heights
+not_inches <- function(x, smallest = 50, tallest = 84){
+  inches <- suppressWarnings(as.numeric(x))
+  ind <- is.na(inches) | inches < smallest | inches > tallest
+  ind
+}
+
+# number of problematic entries
+problems <- reported_heights %>% 
+  filter(not_inches(height)) %>%
+  .$height
+length(problems)
+
+# 10 examples of x'y or x'y" or x'y\"
+pattern <- "^\\d\\s*'\\s*\\d{1,2}\\.*\\d*'*\"*$"
+str_subset(problems, pattern) %>% head(n=10) %>% cat
+
+# 10 examples of x.y or x,y
+pattern <- "^[4-6]\\s*[\\.|,]\\s*([0-9]|10|11)$"
+str_subset(problems, pattern) %>% head(n=10) %>% cat
+
+# 10 examples of entries in cm rather than inches
+ind <- which(between(suppressWarnings(as.numeric(problems))/2.54, 54, 81) )
+ind <- ind[!is.na(ind)]
+problems[ind] %>% head(n=10) %>% cat
+```
 
 ## Assessment 5 - Case Study 2: Reported Heights
 
