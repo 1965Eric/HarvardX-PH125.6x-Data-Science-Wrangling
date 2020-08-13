@@ -1533,9 +1533,14 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ```{r}
 s <- "Hello!"    # double quotes define a string
 s <- 'Hello!'    # single quotes define a string
-s <- `Hello`    # backquotes do not
+```
 
+```{r, eval=FALSE, echo=TRUE}
+s <- `Hello`    # backquotes do not
 s <- "10""    # error - unclosed quotes
+```
+
+```{r}
 s <- '10"'    # correct
 
 # cat shows what the string actually looks like inside R
@@ -1543,10 +1548,16 @@ cat(s)
 
 s <- "5'"
 cat(s)
+```
 
+```{r, eval=FALSE, echo=TRUE}
 # to include both single and double quotes in string, escape with \
 s <- '5'10"'    # error
 s <- "5'10""    # error
+```
+
+```{r}
+# to include both single and double quotes in string, escape with \
 s <- '5\'10"'    # correct
 cat(s)
 s <- "5'10\""    # correct
