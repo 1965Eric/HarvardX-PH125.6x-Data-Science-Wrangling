@@ -86,13 +86,15 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 
 *Code*
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # see working directory
 getwd()
 
 # change your working directory
 setwd()
+````
 
+```{r}
 # set path to the location for raw data files in the dslabs package and list files
 path <- system.file("extdata", package="dslabs")
 list.files(path)
@@ -422,7 +424,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 ## Assessment 1 - Tidy Data
 
 1. A collaborator sends you a file containing data for three years of average race finish times.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
@@ -439,7 +441,7 @@ Are these data considered “tidy” in R? Why or why not?
 2. Below are four versions of the same dataset. Which one is in a tidy format?
 
 - [X] A.
-```{r}
+````{r, eval=FALSE, echo=TRUE}
 state      abb   region  population total
 Alabama    AL    South   4779736    135
 Alaska     AK    West    710231     19
@@ -449,7 +451,7 @@ California CA    West    37253956   1257
 Colorado   CO    West    5029196    65
 ```
 - [ ] B.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 state    abb  region        var        people
 Alabama  AL   South         population 4779736
 Alabama  AL   South         total      135
@@ -459,7 +461,7 @@ Arizona  AZ   West          population 6392017
 Arizona  AZ   West          total      232
 ```
 - [ ] C.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 state       abb       Northeast   South      North Central   West
 Alabama     AL        NA          4779736    NA              NA
 Alaska      AK        NA          NA         NA              710231
@@ -469,7 +471,7 @@ California  CA        NA          NA         NA              37253956
 Colorado    CO        NA          NA         NA              5029196
 ```
 - [ ] D.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 state       abb  region    rate
 Alabama     AL   South     2.82e-05
 Alaska      AK   West      2.68e-05
@@ -481,7 +483,7 @@ Colorado    CO   West      1.29e-05
 ## Assessment 2 - Reshaping Data
 
 3. Your file called “times.csv” has age groups and average race finish times for three years of marathons.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 age_group,2015,2016,2017
 20,3:46,3:22,3:50
 30,3:50,3:43,4:43
@@ -489,33 +491,33 @@ age_group,2015,2016,2017
 50,4:48,4:59,5:01
 ```
 You read in the data file using the following command.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 d <- read_csv("times.csv")
 ```
 Which commands will help you “tidy” the data?
 
 - [X] A.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 gather(year, time, `2015`:`2017`)
 ```
 - [ ] B.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 spread(year, time, `2015`:`2017`)
 ```
 - [ ] C.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 gather(age_group, year, time, `2015`:`2017`)
 ```
 - [ ] D.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
 gather(time, `2015`:`2017`)
 ```
 4. You have a dataset on U.S. contagious diseases, but it is in the following wide format:
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 > head(dat_wide)
 state   year    population      Hepatitis A Mumps Polio Rubella
 Alabama 1990    4040587         86          19    76    1
@@ -526,7 +528,7 @@ Alabama 1994    4173361         72          12    39    0
 Alabama 1995    4216645         75          2     38    0
 ```
 Which of the following would transform this into a tidy dataset, with each row representing an observation of the incidence of each specific disease (as shown below)?
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 > head(dat_tidy)
 state   year    population   disease      count
 Alabama 1990    4040587      Hepatitis A  86
@@ -537,27 +539,27 @@ Alabama 1994    4173361      Hepatitis A  72
 Alabama 1995    4216645      Hepatitis A  75
 ```
 - [ ] A.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather (key = count, value = disease, `Hepatitis A`, `Rubella`)
 ```
 - [ ] B.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = count, value = disease, -state, -year, -population)
 ```
 - [ ] C.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, -state)
 ```
 - [X] D.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 dat_tidy <- dat_wide %>%
 gather(key = disease, value = count, “Hepatitis A”: “Rubella”)
 ```
 5. You have successfully formatted marathon finish times into a tidy object called tidy_data. The first few lines are shown below.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 age_group,year,time
 20,2015,03:46
 30,2015,03:50
@@ -572,7 +574,7 @@ Select the code that converts these data back to the wide format, where each yea
 - [ ] C. tidy_data %>% spread(year, age_group)
 - [ ] D. tidy_data %>% spread(time, year, `2015`:`2017`)
 6.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 > head(dat)
 state    abb  region        var         people
 Alabama  AL   South         population  4779736
@@ -583,7 +585,7 @@ Arizona  AZ   West          population  6392017
 Arizona  AZ   West          total       232
 ```
 You would like to transform it into a dataset where population and total are each their own column (shown below). Which code would best accomplish this?
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 state       abb  region  population total
 Alabama     AL   South   4779736    135
 Alaska      AK   West    710231     19
@@ -600,7 +602,7 @@ Colorado    CO   West    5029196    65
 ## Assessment 3 - Separate and Unite
 
 7. A collaborator sends you a file containing data for two years of average race finish times.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 age_group,2015_time,2015_participants,2016_time,2016_participants
 20,3:46,54,3:22,62
 30,3:50,60,3:43,58
@@ -608,41 +610,41 @@ age_group,2015_time,2015_participants,2016_time,2016_participants
 50,4:48,10,4:59,14
 ```
 You read in the data file
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 d <- read_csv("times.csv")
 ```
 Which of the answers below best tidys the data?
 
 - [ ] A.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
     gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “.”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [X] B.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] C.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
  tidy_data <- d %>%
         gather(key = “key”, value = “value”) %>%
     separate(col = key, into = c(“year”, “variable_name”), sep = “_”) %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] D.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- d %>%
         gather(key = “key”, value = “value”, -age_group) %>%
     separate(col = key, into = “year”, sep = “_”) %>% 
     spread(key = year, value = value)
 ```
 8. You are in the process of tidying some data on heights, hand length, and wingspan for basketball players in the draft. Currently, you have the following:
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 > head(stats)
 key                 value
 allen_height        75
@@ -655,26 +657,26 @@ bamba_wingspan      94
 Select all of the correct commands below that would turn this data into a “tidy” format.
 
 - [X] A.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_", extra = "merge") %>% 
     spread(key = variable_name, value = value) 
 ```
 - [ ] B.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name1", "variable_name2"), sep = "_", fill = "right") %>% 
     unite(col = variable_name, variable_name1, variable_name2, sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
 - [ ] C.
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 tidy_data <- stats %>%
     separate(col = key, into = c("player", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
 ```
 Use the following libraries for these questions:
-```{r}
+``````{r, eval=FALSE, echo=TRUE}
 library(tidyverse)
 library(dslabs)
 ```
