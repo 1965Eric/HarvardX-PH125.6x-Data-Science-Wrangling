@@ -3426,7 +3426,7 @@ mean(tab$`2017`[20:30])
 #### Question 13
 Finish it up by changing tab to a tidy format, starting from this code outline:
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 tab <- tab %>% ________(year, deaths, -day) %>%
     mutate(deaths = as.numeric(deaths))
 tab
@@ -3440,9 +3440,9 @@ What code fills the blank to generate a data frame with columns named "day", "ye
 
 #### Question 14
 Make a plot of deaths versus day with color to denote year. Exclude 2018 since we have no data. Add a vertical line at day 20, the day that Hurricane Maria hit in 2017.
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 tab %>%
-    filter(year<2018) %>%
+    filter(year < 2018) %>%
     ggplot(aes(day,deaths, color=year)) + 
     geom_line() +
     geom_vline(xintercept=20)
