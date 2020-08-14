@@ -1,9 +1,9 @@
 ---
 title: "Data Science Wrangling"
 output:
-  word_document: default
   pdf_document:
     latex_engine: xelatex
+  word_document: default
   html_document: default
 urlcolor: blue
 always_allow_html: yes
