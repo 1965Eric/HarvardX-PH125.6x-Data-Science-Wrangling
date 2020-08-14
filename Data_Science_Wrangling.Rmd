@@ -1,9 +1,9 @@
 ---
 title: "Data Science Wrangling"
 output:
+  word_document: default
   pdf_document:
     latex_engine: xelatex
-  word_document: default
   html_document: default
 urlcolor: blue
 always_allow_html: yes
@@ -1738,7 +1738,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 
 *Code*
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # detect whether a comma is present
 pattern <- ","
 str_detect(murders_raw$total, pattern) 
@@ -1773,7 +1773,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 
 *Code*
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # s was defined in the previous section
 yes <- c("5", "6", "5'10", "5 feet", "4'11")
 no <- c("", ".", "Five", "six")
@@ -1827,7 +1827,7 @@ The textbook for this section is available:
 
 *Code*
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # number of entries matching our desired pattern
 pattern <- "^[4-7]'\\d{1,2}\"$"
 sum(str_detect(problems, pattern))
@@ -2011,10 +2011,10 @@ str_view_all(s, pattern)
 Six feet
 ```
 
-````{r}
+```{r, eval=FALSE, echo=TRUE}
 pattern <- "\\d|ft"
 str_view_all(s, pattern)
-````
+```
 
 - [X] A. ```pattern <- "\\d|ft"```
 - [ ] B. ```pattern <- "\d|ft"```
@@ -2604,7 +2604,7 @@ Examining this object,
 raw_data_research_funding_rates %>% head
 ```
 
-we see that it is a long string. Each line on the page, including the table rows, is separated by the symbol for newline: \n.
+we see that it is a long string. Each line on the page, including the table rows, is separated by the symbol for newline: ```\n```.
 
 We can therefore can create a list with the lines of the text as elements:
 
@@ -2729,7 +2729,7 @@ gapminder %>% filter(region=="Caribbean") %>%
   geom_line()
 ```
 
-## Assessment Part 1 - String Processing Part 3
+## Assessment - String Processing Part 3
 
 Want even more practice with regular expressions? Complete the lessons and exercises in the [RegexOne](https://regexone.com) online interactive tutorial!
 
@@ -3237,7 +3237,7 @@ fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="
 ```
 
 Find and open the file or open it directly from RStudio. On a Mac, you can type:
-```{r, eval=FALSE, echo=TRUE}
+```{r}
 system2("open", args = fn)
 ```
 
@@ -3267,7 +3267,7 @@ Describe what you see in txt.
 - [ ] D. An html document.
 
 #### Question 3
-Extract the ninth page of the PDF file from the object txt, then use the str_split function from the stringr package so that you have each line in a different entry. The new line character is \n. Call this string vector x.  
+Extract the ninth page of the PDF file from the object txt, then use the str_split function from the stringr package so that you have each line in a different entry. The new line character is ```\n```. Call this string vector x. 
 
 ```{r}
 page_9 <- txt[9]
