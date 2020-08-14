@@ -2730,56 +2730,73 @@ gapminder %>% filter(region=="Caribbean") %>%
 Want even more practice with regular expressions? Complete the lessons and exercises in the [RegexOne](https://regexone.com) online interactive tutorial!
 
 1.
+
 ```{r}
 s <- c("5'10", "6'1\"", "5'8inches", "5'7.5")
 tab <- data.frame(x = s)
 ```
+
 If you use the extract code from our video, the decimal point is dropped. What modification of the code would allow you to put the decimals in a third column called “decimal”?
 
-- [ ] A.
 ```{r}
+extract(data = tab, col = x, into = c("feet", "inches", "decimal"), 
+regex = "(\\d)'(\\d{1,2})(\\.\\d+)?")  
+```
+
+- [ ] A.
+
+```{r,eval=FALSE, echo=TRUE}
 extract(data = tab, col = x, into = c(“feet”, “inches”, “decimal”), regex = "(\\d)'(\\d{1,2})(\\.)?"
 ```
+
 - [ ] B.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)" 
 ```
+
 - [ ] C.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})\\.\\d+?"
 ```
+
 - [X] D.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 extract(data = tab, col = x, into = c("feet", "inches", "decimal"), regex = "(\\d)'(\\d{1,2})(\\.\\d+)?")  
 ```
 
-## Assessment 12 - String Splitting
+2. You have the following table, ```schedule```
 
-1. You have the following table
-```{r}
+```{r,eval=FALSE, echo=TRUE}
 >schedule
 day         staff
 Monday      Mandy, Chris and Laura
 Tuesday     Steve, Ruth and Frank
 ```
+
 You want to turn this into a more useful data frame.
 
 Which two commands would properly split the text in the “staff” column into each individual name? Select ALL that apply.
 
-- [ ] A. str_split(schedule$staff, ",|and")
-- [X] B. str_split(schedule$staff, ", | and ")
-- [X] C. str_split(schedule$staff, ",\\s|\\sand\\s")
-- [ ] D. str_split(schedule$staff, "\\s?(,|and)\\s?")
+- [ ] A. ```str_split(schedule$staff, ",|and")```
+- [X] B. ```str_split(schedule$staff, ", | and ")```
+- [X] C. ```str_split(schedule$staff, ",\\s|\\sand\\s")```
+- [ ] D. ```str_split(schedule$staff, "\\s?(,|and)\\s?")```
 
-2. You have the following table
-```{r}
+3. You have the following table, ```schedule```
+
+```{r,eval=FALSE, echo=TRUE}
 > schedule
 day         staff
 Monday      Mandy, Chris and Laura
 Tuesday     Steve, Ruth and Frank
 ```
+
 What code would successfully turn your “Schedule” table into the following tidy table
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 < tidy
 day      staff
 <chr>    <chr>
@@ -2790,52 +2807,73 @@ Tuesday  Steve
 Tuesday  Ruth 
 Tuesday  Frank
 ```
+
 - [X] A.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 tidy <- schedule %>% 
   mutate(staff = str_split(staff, ", | and ")) %>% 
   unnest()
 ```
+
 - [ ] B.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 tidy <- separate(schedule, staff, into = c("s1","s2","s3"), sep = “,”) %>% 
   gather(key = s, value = staff, s1:s3)
 ```
+
 - [ ] C.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 tidy <- schedule %>% 
-  mutate(staff = str_split(staff, ", | and ", simplify = TRUE)) %>%   unnest()
+  mutate(staff = str_split(staff, ", | and ", simplify = TRUE)) %>%  
+  unnest()
 ```
 
-## Assessment 13 - Recoding
+4. Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
 
-1. Using the gapminder data, you want to recode countries longer than 12 letters in the region “Middle Africa” to their abbreviations in a new column, “country_short”. Which code would accomplish this?
+```{r}
+dat <- gapminder %>% filter(region == "Middle Africa") %>% 
+  mutate(country_short = recode(country, 
+                          "Central African Republic" = "CAR", 
+                          "Congo, Dem. Rep." = "DRC",
+                          "Equatorial Guinea" = "Eq. Guinea"))
+dat
+```
 
 - [ ] A.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(recode(country, 
                           "Central African Republic" = "CAR", 
                           "Congo, Dem. Rep." = "DRC",
                           "Equatorial Guinea" = "Eq. Guinea"))
 ```
+
 - [ ] B.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           c("Central African Republic", "Congo, Dem. Rep.", "Equatorial Guinea"),
                           c("CAR", "DRC", "Eq. Guinea")))
 ```
+
 - [ ] C.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country = recode(country, 
                           "Central African Republic" = "CAR", 
                           "Congo, Dem. Rep." = "DRC",
                           "Equatorial Guinea" = "Eq. Guinea"))
 ```
+
 - [X] D.
-```{r}
+
+```{r,eval=FALSE, echo=TRUE}
 dat <- gapminder %>% filter(region == "Middle Africa") %>% 
   mutate(country_short = recode(country, 
                           "Central African Republic" = "CAR", 
@@ -2843,11 +2881,11 @@ dat <- gapminder %>% filter(region == "Middle Africa") %>%
                           "Equatorial Guinea" = "Eq. Guinea"))
 ```
 
-2. Import raw Brexit referendum polling data from Wikipedia:
+5. Import raw Brexit referendum polling data from Wikipedia:
 
 ```{r}
-library(rvest)
-library(tidyverse)
+if(!require(stringr)) install.packages("stringr")
+
 library(stringr)
 url <- "https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054"
 tab <- read_html(url) %>% html_nodes("table")
@@ -2858,46 +2896,51 @@ You will use a variety of string processing techniques learned in this section t
 
 Some rows in this table do not contain polls. You can identify these by the lack of the percent sign (%) in the Remain column.
 
-Update polls by changing the column names to c("dates", "remain", "leave", "undecided", "lead", "samplesize", "pollster", "poll_type", "notes") and only keeping rows that have a percent sign (%) in the remain column.
+Update ```polls``` by changing the column names to ```c("dates", "remain", "leave", "undecided", "lead", "samplesize", "pollster", "poll_type", "notes")``` and only keeping rows that have a percent sign (%) in the remain column.
 
-How many rows remain in the polls data frame? ```129```
+How many rows remain in the ```polls``` data frame?
 
-3. The ```remain``` and ```leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
+```{r}
+names(polls) <- c("dates", "remain", "leave", "undecided", "lead", "samplesize", "pollster", "poll_type", "notes")
+polls <- polls[str_detect(polls$remain, "%"), -9]
+nrow(polls)
+```
 
-Which of these commands converts the remain vector to a proportion between 0 and 1?
+6. The ```remain``` and ```leave``` columns are both given in the format "48.1%": percentages out of 100% with a percent symbol.
+
+Which of these commands converts the ```remain``` vector to a proportion between 0 and 1?
 
 Check all correct answers.
 
-- [ ] A. as.numeric(str_remove(polls$remain, "%"))
-- [ ] B. as.numeric(polls$remain)/100
-- [ ] C. parse_number(polls$remain)
-- [ ] D. str_remove(polls$remain, "%")/100
-- [X] E. as.numeric(str_replace(polls$remain, "%", ""))/100
-- [X] F. parse_number(polls$remain)/100
+- [ ] A. ```as.numeric(str_remove(polls$remain, "%"))```
+- [ ] B. ```as.numeric(polls$remain)/100```
+- [ ] C. ```parse_number(polls$remain)```
+- [ ] D. ```str_remove(polls$remain, "%")/100```
+- [X] E. ```as.numeric(str_replace(polls$remain, "%", ""))/100```
+- [X] F. ```parse_number(polls$remain)/100```
 
-4. The undecided column has some "N/A" values. These "N/A"s are only present when the remain and leave columns total 100%, so they should actually be zeros.
+7. The ```undecided``` column has some "N/A" values. These "N/A"s are only present when the ```remain``` and ```leave``` columns total 100%, so they should actually be zeros.
 
-Use a function from stringr to convert "N/A" in the undecided column to 0. The format of your command should be function_name(polls$undecided, "arg1", "arg2").
+Use a function from **stringr** to convert "N/A" in the ```undecided``` column to 0. The format of your command should be ```function_name(polls$undecided, "arg1", "arg2")```.
 
-What function replaces function_name? ```str_replace```
+What function replaces ```function_name```? ```str_replace```
 
-What argument replaces arg1? ```N/A```
+What argument replaces ```arg1```? ```N/A```
 
-What argument replaces arg2? ```0```
+What argument replaces ```arg2```? ```0```
 
-5. The dates column contains the range of dates over which the poll was conducted. The format is "8-10 Jan" where the poll had a start date of 2016-01-08 and end date of 2016-01-10. Some polls go across month boundaries (16 May-12 June).
+8. The ```dates``` column contains the range of dates over which the poll was conducted. The format is "8-10 Jan" where the poll had a start date of 2016-01-08 and end date of 2016-01-10. Some polls go across month boundaries (16 May-12 June).
 
 The end date of the poll will always be one or two digits, followed by a space, followed by the month as one or more letters (either capital or lowercase). In these data, all month abbreviations or names have 3, 4 or 5 letters.
 
-Write a regular expression to extract the end day and month from dates. Insert it into the skeleton code below:
+Write a regular expression to extract the end day and month from ```dates```. Insert it into the skeleton code below:
 
 ```{r, eval=FALSE, echo=TRUE}
 temp <- str_extract_all(polls$dates, _____)
 end_date <- sapply(temp, function(x) x[length(x)]) # take last element (handles polls that cross month boundaries)
 ```
 
-Which of the following regular expressions correctly extracts the end day and month when inserted into the blank in the code above?
-Check all correct answers.
+Which of the following regular expressions correctly extracts the end day and month when inserted into the blank in the code above? Check all correct answers.
 
 - [ ] A. ```"\\d?\\s[a-zA-Z]?"```
 - [X] B. ```"\\d+\\s[a-zA-Z]+"```
@@ -2909,14 +2952,87 @@ Check all correct answers.
 
 # Section 4 Overview
 
-In the Dates, Times, and Text Mining section, you will learn how to deal with dates and times in R and also how to generate numerical summaries from text data.
+In the **Dates, Times, and Text Mining** section, you will learn how to deal with dates and times in R and also how to generate numerical summaries from text data.
 
 After completing this section, you will be able to:
-- Handle dates and times in R.
-- Use the lubridate package to parse dates and times in different formats.
-- Generate numerical summaries from text data and apply data visualization and analysis techniques to those data.
+
+* Handle **dates** and **times** in R.
+* Use the **lubridate** package to parse dates and times in different formats.
+* Generate **numerical summaries from text data** and apply data visualization and analysis techniques to those data.
+
+## Dates and Times
 
 The textbook for this section is available [here](https://rafalab.github.io/dsbook/parsing-dates-and-times.html)
+
+**Key points**
+
+* Dates are a separate data type in R.The **tidyverse** includes functionality for dealing with dates through the **lubridate** package. 
+* Extract the year, month and day from a date object with the ```year()```, ```month()``` and ```day()``` functions.
+* Parsers convert strings into dates with the standard YYYY-MM-DD format (ISO 8601 format). Use the parser with the name corresponding to the string format of year, month and day (```ymd()```, ```ydm()```, ```myd()```, ```mdy()```, ```dmy()```, ```dym()```).
+* Get the current time with the ```Sys.time()``` function. Use the ```now()``` function instead to specify a time zone.
+* You can extract values from time objects with the ```hour()```, ```minute()``` and ```second()``` functions.
+* Parsers convert strings into times (for example, ```hms()```). Parsers can also create combined date-time objects (for example, ```mdy_hms()```).
+
+*Code*
+
+```{r}
+# inspect the startdate column of 2016 polls data, a Date type
+data("polls_us_election_2016")
+polls_us_election_2016$startdate %>% head
+class(polls_us_election_2016$startdate)
+as.numeric(polls_us_election_2016$startdate) %>% head
+
+# ggplot is aware of dates
+polls_us_election_2016 %>% filter(pollster == "Ipsos" & state =="U.S.") %>%
+  ggplot(aes(startdate, rawpoll_trump)) +
+  geom_line()
+
+# lubridate: the tidyverse date package
+if(!require(lubridate)) install.packages("lubridate")
+
+library(lubridate)
+
+# select some random dates from polls
+set.seed(2)
+dates <- sample(polls_us_election_2016$startdate, 10) %>% sort
+dates
+
+# extract month, day, year from date strings
+data.frame(date = dates, 
+           month = month(dates),
+           day = day(dates),
+           year = year(dates))
+
+month(dates, label = TRUE)    # extract month label
+
+# ymd works on mixed date styles
+x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
+       "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
+ymd(x)
+
+# different parsers extract year, month and day in different orders
+x <- "09/01/02"
+ymd(x)
+mdy(x)
+ydm(x)
+myd(x)
+dmy(x)
+dym(x)
+
+now()    # current time in your time zone
+now("GMT")    # current time in GMT
+now() %>% hour()    # current hour
+now() %>% minute()    # current minute
+now() %>% second()    # current second
+
+# parse time
+x <- c("12:34:56")
+hms(x)
+
+#parse datetime
+x <- "Nov/2/2012 12:34:56"
+mdy_hms(x)
+```
 
 ## Assessment 1 - Dates and Times
 
