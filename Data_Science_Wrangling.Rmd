@@ -3,6 +3,7 @@ title: "Data Science Wrangling"
 output:
   pdf_document:
     latex_engine: xelatex
+  word_document: default
   html_document: default
 urlcolor: blue
 always_allow_html: yes
@@ -2482,7 +2483,7 @@ new_heights <- reported_heights %>%
 
 We can check all the entries we converted using the following code:
 
-```{r, eval=FALSE, echo=TRUE}
+```{r}
 new_heights %>%
   filter(not_inches(original)) %>%
   select(original, height) %>% 
