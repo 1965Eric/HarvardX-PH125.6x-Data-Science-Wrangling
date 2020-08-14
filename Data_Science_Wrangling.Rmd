@@ -1,11 +1,11 @@
 ---
 title: "Data Science Wrangling"
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
-  word_document: default
+  html_document: default
 urlcolor: blue
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -645,6 +645,7 @@ Which commands will help you “tidy” the data?
 ```{r}
 tidy_data <- d %>%
 gather(year, time, `2015`:`2017`)
+tidy_data
 ```
 
 - [X] A.
@@ -803,6 +804,7 @@ tidy_data <- d %>%
         gather(key = "key", value = "value", -age_group) %>%
     separate(col = key, into = c("year", "variable_name"), sep = "_") %>% 
     spread(key = variable_name, value = value)
+tidy_data
 ```
 
 - [ ] A.
@@ -1321,12 +1323,12 @@ The default look of webpages made with the most basic HTML is quite unattractive
 
 To do this CSS leverages patterns used to define these elements, referred to as selectors. An example of pattern we used in a previous video is table but there are many many more. If we want to grab data from a webpage and we happen to know a selector that is unique to the part of the page, we can use the html_nodes() function.
 
-However, knowing which selector to use can be quite complicated. To demonstrate this we will try to extract the recipe name, total preparation time, and list of ingredients from [this guacamole recipe](https://foodnetwork.co.uk/recipes/guacamole/?utm_source=foodnetwork.com&utm_medium=domestic). Looking at the code for this page, it seems that the task is impossibly complex. However, selector gadgets actually make this possible. [SelectorGadget](https://selectorgadget.com) is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget highlighting parts of the page as you click through, showing the necessary selector to extract those segments.
+However, knowing which selector to use can be quite complicated. To demonstrate this we will try to extract the recipe name, total preparation time, and list of ingredients from [this guacamole recipe](http://www.foodnetwork.com/recipes/alton-brown/guacamole-recipe-1940609). Looking at the code for this page, it seems that the task is impossibly complex. However, selector gadgets actually make this possible. [SelectorGadget](https://selectorgadget.com) is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget highlighting parts of the page as you click through, showing the necessary selector to extract those segments.
 
 For the guacamole recipe page, we already have done this and determined that we need the following selectors:
 
-```{r}
-h <- read_html("https://foodnetwork.co.uk/recipes/guacamole/?utm_source=foodnetwork.com&utm_medium=domestic")
+```{r, eval=FALSE, echo=TRUE}
+h <- read_html("http://www.foodnetwork.com/recipes/alton-brown/guacamole-recipe-1940609")
 recipe <- h %>% html_node(".o-AssetTitle__a-HeadlineText") %>% html_text()
 prep_time <- h %>% html_node(".m-RecipeInfo__a-Description--Total") %>% html_text()
 ingredients <- h %>% html_nodes(".o-Ingredients__a-Ingredient") %>% html_text()
@@ -1334,14 +1336,14 @@ ingredients <- h %>% html_nodes(".o-Ingredients__a-Ingredient") %>% html_text()
 
 You can see how complex the selectors are. In any case we are now ready to extract what we want and create a list:
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 guacamole <- list(recipe, prep_time, ingredients)
 guacamole
 ```
 
 Since recipe pages from this website follow this general layout, we can use this code to create a function that extracts this information:
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 get_recipe <- function(url){
     h <- read_html(url)
     recipe <- h %>% html_node(".o-AssetTitle__a-HeadlineText") %>% html_text()
@@ -1353,8 +1355,8 @@ get_recipe <- function(url){
 
 and then use it on any of their webpages:
 
-```{r}
-get_recipe("https://foodnetwork.co.uk/recipes/guacamole/?utm_source=foodnetwork.com&utm_medium=domestic")
+```{r, eval=FALSE, echo=TRUE}
+get_recipe("http://www.foodnetwork.com/recipes/food-network-kitchen/pancakes-recipe-1913844")
 ```
 
 There are several other powerful tools provided by **rvest**. For example, the functions ```html_form()```, ```set_values()```, and ```submit_form()``` permit you to query a webpage from R. This is a more advanced topic not covered here.
@@ -2001,15 +2003,16 @@ What ```pattern``` vector yields the following result?
 
 ```{r, eval=FALSE, echo=TRUE}
 str_view_all(s, pattern)
-```70```
-```5``` ```ft```
-```4```’```11```
+70
+5 ft
+4’11
 .
 Six feet
 ```
 
 ````{r}
 pattern <- "\\d|ft"
+str_view_all(s, pattern)
 ````
 
 - [X] A. ```pattern <- "\\d|ft"```
@@ -2479,7 +2482,7 @@ new_heights <- reported_heights %>%
 
 We can check all the entries we converted using the following code:
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 new_heights %>%
   filter(not_inches(original)) %>%
   select(original, height) %>% 
@@ -3233,7 +3236,7 @@ fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="
 ```
 
 Find and open the file or open it directly from RStudio. On a Mac, you can type:
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 system2("open", args = fn)
 ```
 
