@@ -3038,7 +3038,25 @@ x <- "Nov/2/2012 12:34:56"
 mdy_hms(x)
 ```
 
-## Assessment 1 - Dates and Times
+## Text mining
+
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/text-mining.html)
+
+**Key points**
+
+* The **tidytext** package helps us convert free form text into a tidy table.
+* Use ```unnest_tokens()``` to extract individual words and other meaningful chunks of text.
+* Sentiment analysis assigns emotions or a positive/negative score to tokens. You can extract sentiments using ```get_sentiments()```. Common lexicons for sentiment analysis are "bing", "afinn", "nrc" and "loughran".
+
+With the exception of labels used to represent categorical data, we have focused on numerical data, but in many applications data starts as text. Well known examples are spam filtering, cyber-crime prevention, counter-terrorism and sentiment analysis.
+
+In all these examples, the raw data is composed of free form texts. Our task is to extract insights from these data. In this section, we learn how to generate useful numerical summaries from text data to which we can apply some of the powerful data visualization and analysis techniques we have learned.
+
+**Case study: Trump Tweets**
+
+See my [GitHub-repository on Trump Tweets](https://github.com/1965Eric/trump-tweets.git)
+
+## Assessment Part 1 - Dates, Times, and Text Mining
 
 1. Which of the following is the standard ISO 8601 format for dates?
 
@@ -3048,12 +3066,14 @@ mdy_hms(x)
 - [ ] D. YY-MM-DD
 
 2. Which of the following commands could convert this string into the correct date format?
-```{r}
+
+```{r, eval=FALSE, echo=TRUE}
 dates <- c("09-01-02", "01-12-07", "02-03-04")
 ```
-- [ ] A. ymd(dates)
-- [ ] B. mdy(dates)
-- [ ] C. dmy(dates)
+
+- [ ] A. ```ymd(dates)```
+- [ ] B. ```mdy(dates)```
+- [ ] C. ```dmy(dates)```
 - [X] D. It is impossible to know which format is correct without additional information.
 
 3. Load the brexit_polls data frame from dslabs:
@@ -3062,18 +3082,27 @@ dates <- c("09-01-02", "01-12-07", "02-03-04")
 data(brexit_polls)
 ```
 
-How many polls had a start date (startdate) in April (month number 4)? ```25```
+How many polls had a start date (startdate) in April (month number 4)?
+
 ```{r}
 sum(month(brexit_polls$startdate) == 4)
 ```
-Use the round_date() function on the enddate column with the argument unit="week". How many polls ended the week of 2016-06-12? ```13```
+
+Use the ```round_date()``` function on the ```enddate``` column with the argument ```unit="week"```. How many polls ended the week of 2016-06-12?
+
+Read the documentation to learn more about ```round_date()```.
+
 ```{r}
 sum(round_date(brexit_polls$enddate, unit = "week") == "2016-06-12")
 ```
 
-4. Use the weekdays() function from lubridate to determine the weekday on which each poll ended (enddate).
+4. Use the ```weekdays()``` function from **lubridate** to determine the weekday on which each poll ended (```enddate```).
 
 On which weekday did the greatest number of polls end?
+
+```{r}
+table(weekdays(brexit_polls$enddate))
+```
 
 - [ ] A. Monday
 - [ ] B. Tuesday
@@ -3087,27 +3116,30 @@ On which weekday did the greatest number of polls end?
 max(weekdays(brexit_polls$enddate))
 ```
 
-5. Load the movielens data frame from dslabs.
+5. Load the ```movielens``` data frame from **dslabs**.
+
 ```{r}
 data(movielens)
 ```
-This data frame contains a set of about 100,000 movie reviews. The timestamp column contains the review date as the number of seconds since 1970-01-01 (epoch time).
 
-Convert the timestamp column to dates using the lubridate as_datetime() function.
+This data frame contains a set of about 100,000 movie reviews. The ```timestamp``` column contains the review date as the number of seconds since 1970-01-01 (epoch time).
+
+Convert the ```timestamp``` column to dates using the **lubridate** as_datetime() function.
+
 ```{r}
 dates <- as_datetime(movielens$timestamp) 
 ``` 
+Which year had the most movie reviews?
 
-Which year had the most movie reviews? ```2000```
 ```{r}
 reviews_by_year <- table(year(dates))
 names(which.max(reviews_by_year))
 ```
 
-Which hour of the day had the most movie reviews? ```20```
+Which hour of the day had the most movie reviews?
 
 ```{r}
-reviews_by_hour <- table(year(dates))
+reviews_by_hour <- table(hour(dates))
 names(which.max(reviews_by_hour))
 ```
 
