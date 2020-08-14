@@ -2442,6 +2442,7 @@ convert_format <- function(s){
     str_replace("^([56])'?$", "\\1'0") %>% #add 0 when to 5 or 6
     str_replace("^([12])\\s*,\\s*(\\d*)$", "\\1\\.\\2") %>% #change european decimal
     str_trim() #remove extra space
+}
     
 words_to_numbers <- function(s){
   str_to_lower(s) %>%  
@@ -2457,6 +2458,7 @@ words_to_numbers <- function(s){
     str_replace_all("nine", "9") %>%
     str_replace_all("ten", "10") %>%
     str_replace_all("eleven", "11")
+}
 
 smallest <- 50
 tallest <- 84
@@ -2482,7 +2484,7 @@ new_heights %>%
   filter(not_inches(original)) %>%
   select(original, height) %>% 
   arrange(height) %>%
-  View()
+  View() # Open XQuartz-app to run this command
 ```
 
 Let's take a look at the shortest students in our dataset using the following code:
