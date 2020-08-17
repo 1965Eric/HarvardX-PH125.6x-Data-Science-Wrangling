@@ -3058,6 +3058,10 @@ See my [GitHub-repository on Trump Tweets](https://github.com/1965Eric/trump-twe
 
 ## Assessment Part 1 - Dates, Times, and Text Mining
 
+```{r}
+options(digits = 3)    # 3 significant digits
+```
+
 1. Which of the following is the standard ISO 8601 format for dates?
 
 - [ ] A. MM-DD-YY
@@ -3076,7 +3080,7 @@ dates <- c("09-01-02", "01-12-07", "02-03-04")
 - [ ] C. ```dmy(dates)```
 - [X] D. It is impossible to know which format is correct without additional information.
 
-3. Load the brexit_polls data frame from dslabs:
+3. Load the ```brexit_polls``` data frame from dslabs:
 
 ```{r}
 data(brexit_polls)
@@ -3126,12 +3130,10 @@ This data frame contains a set of about 100,000 movie reviews. The ```timestamp`
 
 Convert the ```timestamp``` column to dates using the **lubridate** as_datetime() function.
 
-```{r}
-dates <- as_datetime(movielens$timestamp) 
-``` 
 Which year had the most movie reviews?
 
 ```{r}
+dates <- as_datetime(movielens$timestamp) 
 reviews_by_year <- table(year(dates))
 names(which.max(reviews_by_year))
 ```
@@ -3143,77 +3145,95 @@ reviews_by_hour <- table(hour(dates))
 names(which.max(reviews_by_hour))
 ```
 
-6. Project Gutenberg is a digital archive of public domain books. The R package gutenbergr facilitates the importation of these texts into R. We will combine this with the tidyverse and tidytext libraries to practice text mining.
+## Assessment Part 2 - Dates, Times, and Text Mining
+
+6. Project Gutenberg is a digital archive of public domain books. The R package **gutenbergr** facilitates the importation of these texts into R. We will combine this with the **tidyverse** and **tidytext** libraries to practice text mining.
 
 Use these libraries and options:
+
 ```{r}
-library(tidyverse)
+if(!require(gutenbergr)) install.packages("gutenbergr")
+
 library(gutenbergr)
-library(tidytext)
-options(digits = 3)
 ```
-You can see the books and documents available in gutenbergr like this:
+
+You can see the books and documents available in **gutenbergr** like this:
+
 ```{r}
 gutenberg_metadata
 ```
 
-Use str_detect() to find the ID of the novel Pride and Prejudice.
+Use ```str_detect()``` to find the ID of the novel *Pride and Prejudice*.
 
-How many different ID numbers are returned? ```6```
+How many different ID numbers are returned?
+
 ```{r}
-gutenberg_metadata %>% filter(str_detect(title, "Pride and Prejudice"))
+gutenberg_metadata %>%
+    filter(str_detect(title, "Pride and Prejudice"))
 ```
 
-7. Notice that there are several versions of the book. The gutenberg_works() function filters this table to remove replicates and include only English language works. Use this function to find the ID for Pride and Prejudice.
+7. Notice that there are several versions of the book. The ```gutenberg_works()``` function filters this table to remove replicates and include only English language works. Use this function to find the ID for *Pride and Prejudice*.
 
-What is the correct ID number? ```1342```
+What is the correct ID number?
+
+Read the ```gutenberg_works()``` documentation to learn how to use the function.
+
 ```{r}
-gutenberg_works(title == "Pride and Prejudice") 
+gutenberg_works(title == "Pride and Prejudice")$gutenberg_id
 ```
 
-8. Use the gutenberg_download() function to download the text for Pride and Prejudice. Use the tidytext package to create a tidy table with all the words in the text. Save this object as words.
+8. Use the ```gutenberg_download()``` function to download the text for Pride and Prejudice. Use the **tidytext** package to create a tidy table with all the words in the text. Save this object as ```words``.
 
-How many words are present in the book? ```122204``` 
+How many words are present in the book?
+
 ```{r}
-book_austen <- gutenberg_download(1342) 
-words <- book_austen %>% unnest_tokens(word, text) 
+book <- gutenberg_download(1342)
+words <- book %>%
+  unnest_tokens(word, text)
 nrow(words)
 ```
 
-9. Remove stop words from the words object. Recall that stop words are defined in the stop_words data frame from the tidytext package.
+9. Remove stop words from the ```words``` object. Recall that stop words are defined in the ```stop_words``` data frame from the **tidytext** package.
 
-How many words remain? ```37246```
+How many words remain?
 
 ```{r}
 words <- words %>% anti_join(stop_words) 
 nrow(words) 
 ```
 
-10. After removing stop words, detect and then filter out any token that contains a digit from words.
+10. After removing stop words, detect and then filter out any token that contains a digit from ```words``.
 
-How many words remain? ```37180```
+How many words remain?
 
 ```{r}
-words %>% filter(!str_detect(word, "\\d"))
+words <- words %>%
+  filter(!str_detect(word, "\\d"))
+nrow(words)
 ```
 
 11. Analyze the most frequent words in the novel after removing stop words and tokens with digits.
 
-How many words appear more than 100 times in the book? ```23```
+How many words appear more than 100 times in the book?
+
 ```{r}
 words %>%
     count(word) %>%
     filter(n > 100) %>%
     nrow()
 ``` 
-What is the most common word in the book? ```Elizabeth```
+
+What is the most common word in the book?
+
 ```{r}
 words %>%
     count(word) %>%
     top_n(1, n) %>%
     pull(word)
 ```
+
 How many times does that most common word appear? ```597```
+
 ```{r}
 words %>%
     count(word) %>%
@@ -3222,22 +3242,30 @@ words %>%
 ```
 
 12. Define the afinn lexicon.
+
 ```{r}
 afinn <- get_sentiments("afinn")
 ```
 
-Use this afinn lexicon to assign sentiment values to words. Keep only words that are present in both words and the afinn lexicon. Save this data frame as afinn_sentiments.
+Note that this command will trigger a question in the R Console asking if you want to download the AFINN lexicon. Press 1 to select "Yes" (if using RStudio, enter this in the Console tab).
 
-How many elements of words have sentiments in the afinn lexicon? ```6065``` 
+Use this ```afinn``` lexicon to assign sentiment values to ```words```. Keep only words that are present in both ```words``` and the ```afinn``` lexicon. Save this data frame as ```afinn_sentiments```.
+
+How many elements of words have sentiments in the afinn lexicon?
+
 ```{r}
 afinn_sentiments <- inner_join(afinn, words)
 nrow(afinn_sentiments)
 ```
-What proportion of words in afinn_sentiments have a positive value? ```0.563``` 
+
+What proportion of words in afinn_sentiments have a positive value?
+
 ```{r}
 mean(afinn_sentiments$value > 0)
 ```
-How many elements of afinn_sentiments have a value of 4? ```51``` 
+
+How many elements of afinn_sentiments have a value of 4?
+
 ```{r}
 sum(afinn_sentiments$value == 4)
 ```
