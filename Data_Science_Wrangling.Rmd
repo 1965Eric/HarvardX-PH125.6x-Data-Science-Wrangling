@@ -1,10 +1,10 @@
 ---
 title: "Data Science Wrangling"
 output:
+  word_document: default
+  html_document: default
   pdf_document:
     latex_engine: xelatex
-  html_document: default
-  word_document: default
 urlcolor: blue
 always_allow_html: yes
 ---
@@ -2323,7 +2323,7 @@ The pattern says it has to start (**^**), be followed with a digit between 4 and
 
 **Cases 2 and 4**
 
-We can adapt this code slightly to handle case 2 as well which covers the entry **5'**. Note that the **5'** is left untouched by the code above. This is because the extra **'** makes the pattern not match since we have to end with a 5 or 6. To handle case 2, we want to permit the 5 or 6 to be followed by no or one symbol for feet. So we can simply add **'{0,1}** after the **'** to do this. We can also use the none or once special character **?**. As we saw previously, this is different from ***** which is none or more. We now see that this code also handles the fourth case as well:
+We can adapt this code slightly to handle case 2 as well which covers the entry **5'**. Note that the **5'** is left untouched by the code above. This is because the extra **'** makes the pattern not match since we have to end with a 5 or 6. To handle case 2, we want to permit the 5 or 6 to be followed by no or one symbol for feet. So we can simply add **'{0,1}** after the **'** to do this. We can also use the none or once special character **?**. As we saw previously, this is different from * which is none or more. We now see that this code also handles the fourth case as well:
 
 ```{r, eval=FALSE, echo=TRUE}
 str_replace(s, "^([56])'?$", "\\1'0")
@@ -2333,9 +2333,9 @@ Note that here we only permit 5 and 6 but not 4 and 7. This is because heights o
 
 **Case 3**
 
-We can use quantifiers to deal with  case 3. These entries are not matched because the inches include decimals and our pattern does not permit this. We need allow the second group to include decimals and not just digits. This means we must permit zero or one period **.** followed by zero or more digits. So we will use both **?** and *****. Also remember that for this particular case, the period needs to be escaped since it is a special character (it means any character except a line break).
+We can use quantifiers to deal with  case 3. These entries are not matched because the inches include decimals and our pattern does not permit this. We need allow the second group to include decimals and not just digits. This means we must permit zero or one period **.** followed by zero or more digits. So we will use both **?** and *. Also remember that for this particular case, the period needs to be escaped since it is a special character (it means any character except a line break).
 
-So we can adapt our pattern, currently **^[4-7]\\s*'\\s*\\d{1,2}$**, to permit a decimal at the end:
+So we can adapt our pattern, currently ```^[4-7]\\s*'\\s*\\d{1,2}$```, to permit a decimal at the end:
 
 ```{r, eval=FALSE, echo=TRUE}
 pattern <- "^[4-7]\\s*'\\s*(\\d+\\.?\\d*)$"
@@ -3288,7 +3288,7 @@ We will use your new data wrangling skills to extract actual daily mortality dat
 options(digits = 3)    # report 3 significant digits
 ```
 
-### Puerto Rico Hurricane Mortality- Part 1
+### Puerto Rico Hurricane Mortality - Part 1
 
 1. In the ```extdata``` directory of the **dslabs** package, you will find a PDF file containing daily mortality data for Puerto Rico from Jan 1, 2015 to May 31, 2018. You can find the file like this:
 
@@ -3323,7 +3323,7 @@ Use the **pdftools** package to read in ```fn``` using the ```pdf_text``` functi
 txt <- pdf_text(fn)
 class(txt)
 str(txt)
-dim(txt)
+length(txt)
 ```
 
 Describe what you see in ```txt```.
@@ -3534,4 +3534,3 @@ Which of the following are TRUE?
 - [ ] B. The day with the most deaths was the day of the hurricane: September 20, 2017.
 - [X] C. After the hurricane in September 2017, there were over 100 deaths per day every day for the rest of the month.
 - [X] D. No days before September 20, 2017 have over 100 deaths per day.
-
