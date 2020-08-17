@@ -1,10 +1,10 @@
 ---
 title: "Data Science Wrangling"
 output:
-  word_document: default
   pdf_document:
     latex_engine: xelatex
   html_document: default
+  word_document: default
 urlcolor: blue
 always_allow_html: yes
 ---
@@ -3153,8 +3153,10 @@ Use these libraries and options:
 
 ```{r}
 if(!require(gutenbergr)) install.packages("gutenbergr")
+if(!require(tidytext)) install.packages("tidytext")
 
 library(gutenbergr)
+library(tidytext)
 ```
 
 You can see the books and documents available in **gutenbergr** like this:
