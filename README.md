@@ -12,3 +12,5 @@ In a data science project, data are often not easily accessible. It's more likel
 
 The class notes for this course series can be found in Professor Irizarry's freely available [Introduction to Data Science book](https://rafalab.github.io/dsbook/). The textbook is also freely available in PDF format on [Leanpub](https://leanpub.com/datasciencebook). This course corresponds to textbook [Chapter 20](https://rafalab.github.io/dsbook/introduction-to-data-wrangling.html) through [Chapter 26](https://rafalab.github.io/dsbook/text-mining.html).
 
+The bookdown-version of this course is available on [this Github Page](https://1965eric.github.io/Wrangling)
+
