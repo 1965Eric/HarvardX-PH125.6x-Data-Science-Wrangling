@@ -3,10 +3,10 @@ title: "Data Science Wrangling"
 output:
   bookdown::epub_book:
       number_sections: true
+  word_document: default
   html_document: default
   pdf_document:
     latex_engine: xelatex
-  word_document: default
 urlcolor: blue
 always_allow_html: yes
 ---
@@ -15,7 +15,7 @@ always_allow_html: yes
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The textbook for the Data Science course series is [freely available online](https://rafalab.github.io/dsbook/).
+The textbook for the Data Science course series is [freely available online](https://rafalab.github.io/dsbook/){target="_blank"}.
 
 # Learning Objectives
 
@@ -43,7 +43,7 @@ You will learn how to work with dates and times as file formats and how to mine 
 
 ## Introduction to Wrangling
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/introduction-to-data-wrangling.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/introduction-to-data-wrangling.html){target="_blank"}.
 
 **Key points**
 
@@ -62,11 +62,11 @@ After completing this section, you will be able to:
 - Use **R-base functions** to import spreadsheets.
 - **Download** files from the internet using R.
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html){target="_blank"}.
 
 ## Importing Spreadsheets
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html){target="_blank"}.
 
 **Key points**
 
@@ -77,7 +77,7 @@ The textbook for this section is available [here](https://rafalab.github.io/dsbo
 
 ## Paths and the Working Directory
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#paths-and-the-working-directory)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#paths-and-the-working-directory){target="_blank"}.
 
 **Key points**
 
@@ -116,7 +116,7 @@ file.exists(filename)
 
 ## The readr and readxl Packages
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#the-readr-and-readxl-packages)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#the-readr-and-readxl-packages){target="_blank"}.
 
 **Key points**
 
@@ -161,7 +161,7 @@ dat2=read.csv(file.path(path, filename2))
 
 ## Importing Data Using R-base Functions
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#r-base-importing-functions)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#r-base-importing-functions){target="_blank"}.
 
 **Key point**
 
@@ -178,7 +178,7 @@ class(dat2$region)
 
 ## Downloading Files from the Internet
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#downloading-files)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/importing-data.html#downloading-files){target="_blank"}.
 
 **Key points**
 
@@ -368,7 +368,7 @@ download.file(url, "MyData.csv")
 
 14. Inspect the file at the following URL:
 
-http://mlr.cs.umass.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data
+https://raw.githubusercontent.com/rasbt/python-machine-learning-book/master/code/datasets/wdbc/wdbc.data
 
 Which **readr** function should be used to import this file?
 
@@ -425,7 +425,7 @@ After completing the **Tidy Data** section, you will be able to:
 
 ## Tidy Data
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/tidyverse.html#tidy-data)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/tidyverse.html#tidy-data){target="_blank"}.
 
 **Key points**
 
@@ -457,7 +457,7 @@ select(wide_data, country, `1960`:`1967`)
 
 ## Reshaping Data
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html), [here](https://rafalab.github.io/dsbook/reshaping-data.html#gather) and [here](https://rafalab.github.io/dsbook/reshaping-data.html#spread)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html){target="_blank"}, [here](https://rafalab.github.io/dsbook/reshaping-data.html#gather){target="_blank"} and [here](https://rafalab.github.io/dsbook/reshaping-data.html#spread){target="_blank"}.
 
 **Key points**
 
@@ -508,7 +508,7 @@ select(new_wide_data, country, `1960`:`1967`)
 
 ## Separate and Unite
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html#separate) and [here](https://rafalab.github.io/dsbook/reshaping-data.html#unite)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/reshaping-data.html#separate){target="_blank"} and [here](https://rafalab.github.io/dsbook/reshaping-data.html#unite){target="_blank"}.
 
 **Key points**
 
@@ -1000,7 +1000,7 @@ spread(tmp2, column_name, value)
 
 ## Combining Tables
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html){target="_blank"}.
 
 **Key points**
 
@@ -1057,7 +1057,7 @@ anti_join(tab1, tab2)
 
 ## Binding
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#binding)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#binding){target="_blank"}.
 
 **Key points**
 
@@ -1083,7 +1083,7 @@ bind_rows(tab1, tab2)
 
 ## Set Operators
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#set-operators)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/joining-tables.html#set-operators){target="_blank"}.
 
 **Key points**
 
@@ -1288,7 +1288,7 @@ length(setdiff(Awards_2016$playerID, top_names$playerID))
 
 ## Web Scraping
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/web-scraping.html) through [section 23.2](https://rafalab.github.io/dsbook/web-scraping.html#the-rvest-package)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/web-scraping.html){target="_blank"} through [section 23.2](https://rafalab.github.io/dsbook/web-scraping.html#the-rvest-package){target="_blank"}.
 
 **Key points**
 
@@ -1320,13 +1320,13 @@ head(tab)
 
 ## CSS Selectors
 
-This page corresponds to the [textbook section on CSS selectors](https://rafalab.github.io/dsbook/web-scraping.html#css-selectors).
+This page corresponds to the [textbook section on CSS selectors](https://rafalab.github.io/dsbook/web-scraping.html#css-selectors){target="_blank"}.
 
 The default look of webpages made with the most basic HTML is quite unattractive. The aesthetically pleasing pages we see today are made using CSS. CSS is used to add style to webpages. The fact that all pages for a company have the same style is usually a result that they all use the same CSS file. The general way these CSS files work is by defining how each of the elements of a webpage will look. The title, headings, itemized lists, tables, and links, for example, each receive their own style including font, color, size, and distance from the margin, among others.
 
 To do this CSS leverages patterns used to define these elements, referred to as selectors. An example of pattern we used in a previous video is table but there are many many more. If we want to grab data from a webpage and we happen to know a selector that is unique to the part of the page, we can use the html_nodes() function.
 
-However, knowing which selector to use can be quite complicated. To demonstrate this we will try to extract the recipe name, total preparation time, and list of ingredients from [this guacamole recipe](http://www.foodnetwork.com/recipes/alton-brown/guacamole-recipe-1940609). Looking at the code for this page, it seems that the task is impossibly complex. However, selector gadgets actually make this possible. [SelectorGadget](https://selectorgadget.com) is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget highlighting parts of the page as you click through, showing the necessary selector to extract those segments.
+However, knowing which selector to use can be quite complicated. To demonstrate this we will try to extract the recipe name, total preparation time, and list of ingredients from [this guacamole recipe](http://www.foodnetwork.com/recipes/alton-brown/guacamole-recipe-1940609). Looking at the code for this page, it seems that the task is impossibly complex. However, selector gadgets actually make this possible. [SelectorGadget](https://selectorgadget.com){target="_blank"} is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget highlighting parts of the page as you click through, showing the necessary selector to extract those segments.
 
 For the guacamole recipe page, we already have done this and determined that we need the following selectors:
 
@@ -1369,7 +1369,7 @@ There are several other powerful tools provided by **rvest**. For example, the f
 
 Load the following web page, which contains information about Major League Baseball payrolls, into R: 
 
-https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm
+[https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm](https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm){target="_blank"}
 
 ```{r}
 url <- "https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm"
@@ -1446,7 +1446,7 @@ names(tab_1) <- col_names
 full_join(tab_1,tab_2, by = "Team")
 ```
 
-4. The Wikipedia page on [opinion polling for the Brexit referendum](https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054), in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
+4. The Wikipedia page on [opinion polling for the Brexit referendum](https://en.wikipedia.org/w/index.php?title=Opinion_polling_for_the_United_Kingdom_European_Union_membership_referendum&oldid=896735054){target="_blank"}, in which the United Kingdom voted to leave the European Union in June 2016, contains several tables. One table contains the results of all polls regarding the referendum over 2016.
 
 ![Polls regarding the referendum over 2016](images/Polls_referendum_2016.png)
 
@@ -1491,7 +1491,7 @@ After completing the **String Processing** section, you will be able to:
 
 ## String Parsing
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html){target="_blank"}.
 
 **Key points**
 
@@ -1523,7 +1523,7 @@ class(murders_raw$total)
 
 ## Defining Strings: Single and Double Quotes and How to Escape
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#how-to-escape-when-defining-strings)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#how-to-escape-when-defining-strings){target="_blank"}.
 
 **Key points**
 
@@ -1571,7 +1571,7 @@ cat(s)
 
 ## stringr Package
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#stringr)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#stringr){target="_blank"}.
 
 **Key points**
 
@@ -1590,7 +1590,7 @@ as.numeric(murders_raw$population[1:3])
 
 ## Case Study 1: US Murders Data
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-1-us-murders-data)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-1-us-murders-data){target="_blank"}.
 
 **Key points**
 
@@ -1666,7 +1666,7 @@ Which of the following commands could convert the sales and profits columns to n
 
 ## Case Study 2: Reported Heights
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-2-self-reported-heights)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-2-self-reported-heights){target="_blank"}.
 
 **Key points**
 
@@ -1726,7 +1726,7 @@ problems[ind] %>% head(n=10) %>% cat
 
 ## Regex
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#regular-expressions) through [section 24.5.2](https://rafalab.github.io/dsbook/string-processing.html#special-characters).
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#regular-expressions){target="_blank"} through [section 24.5.2](https://rafalab.github.io/dsbook/string-processing.html#special-characters){target="_blank"}.
 
 **Key points**
 
@@ -1764,7 +1764,7 @@ str_view_all(s, pattern)
 
 ## Character Classes, Anchors and Quantifiers
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#character-classes), [here](https://rafalab.github.io/dsbook/string-processing.html#anchors) and [here](https://rafalab.github.io/dsbook/string-processing.html#quantifiers)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#character-classes){target="_blank"}, [here](https://rafalab.github.io/dsbook/string-processing.html#anchors){target="_blank"} and [here](https://rafalab.github.io/dsbook/string-processing.html#quantifiers){target="_blank"}
 
 **Key points**
 
@@ -1816,9 +1816,9 @@ str_detect(no, pattern)
 
 The textbook for this section is available:
 
-* [searching and replacing with regex](https://rafalab.github.io/dsbook/string-processing.html#search-and-replace-with-regex)
-* [white space](https://rafalab.github.io/dsbook/string-processing.html#white-space-s)
-* [quantifiers: *, +, ?](https://rafalab.github.io/dsbook/string-processing.html#quantifiers-1)
+* [searching and replacing with regex](https://rafalab.github.io/dsbook/string-processing.html#search-and-replace-with-regex){target="_blank"}.
+* [white space](https://rafalab.github.io/dsbook/string-processing.html#white-space-s){target="_blank"}.
+* [quantifiers: *, +, ?](https://rafalab.github.io/dsbook/string-processing.html#quantifiers-1){target="_blank"}.
 
 **Key points**
 
@@ -1877,7 +1877,7 @@ problems %>%
 
 ## Groups with Regex
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#groups)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#groups){target="_blank"}.
 
 **Key Points**
 
@@ -1923,7 +1923,7 @@ str_subset(problems, pattern_with_groups) %>%
 
 ## Testing and Improving
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#testing-and-improving)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#testing-and-improving){target="_blank"}.
 
 **Key points**
 
@@ -2269,7 +2269,7 @@ converted <- s %>%
 
 ## Separate with Regex
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#the-extract-function)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#the-extract-function){target="_blank"}.
 
 **Key Point**
 
@@ -2297,7 +2297,7 @@ tab %>% extract(x, c("feet", "inches"), regex = "(\\d)'(\\d{1,2})")
 
 ## Using Groups and Quantifiers
 
-The textbook for this section is available [here; through 24.10](https://rafalab.github.io/dsbook/string-processing.html#testing-and-improving)
+The textbook for this section is available [here; through 24.10](https://rafalab.github.io/dsbook/string-processing.html#testing-and-improving){target="_blank"}.
 
 Four clear patterns of entries have arisen along with some other minor problems:
 
@@ -2503,7 +2503,7 @@ We see heights of 53, 54, and 55. In the original heights column, we also have 5
 
 ## String Splitting
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#string-splitting)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#string-splitting){target="_blank"}.
 
 **Key Points**
 
@@ -2560,7 +2560,7 @@ x %>% as_data_frame() %>%
 
 ## Case Study - Extracting a Table from a PDF
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-3-extracting-tables-from-a-pdf)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#case-study-3-extracting-tables-from-a-pdf){target="_blank"}.
 
 One of the datasets provided in ```dslabs``` shows scientific funding rates by gender in the Netherlands:
 
@@ -2569,7 +2569,7 @@ data("research_funding_rates")
 research_funding_rates
 ```
 
-The data come from a [paper](https://www.pnas.org/content/112/40/12349.abstract) published in the prestigious journal PNAS. However, the data are not provided in a spreadsheet; they are in a table in a PDF document. We could extract the numbers by hand, but this could lead to human error. Instead we can try to wrangle the data using R.
+The data come from a [paper](https://www.pnas.org/content/112/40/12349.abstract){target="_blank"} published in the prestigious journal PNAS. However, the data are not provided in a spreadsheet; they are in a table in a PDF document. We could extract the numbers by hand, but this could lead to human error. Instead we can try to wrangle the data using R.
 
 **Downloading the data*
 
@@ -2698,7 +2698,7 @@ identical(research_funding_rates, new_research_funding_rates)
 
 ## Recoding
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#recode)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/string-processing.html#recode){target="_blank"}.
 
 **Key points**
 
@@ -2733,7 +2733,7 @@ gapminder %>% filter(region=="Caribbean") %>%
 
 ## Assessment - String Processing Part 3
 
-Want even more practice with regular expressions? Complete the lessons and exercises in the [RegexOne](https://regexone.com) online interactive tutorial!
+Want even more practice with regular expressions? Complete the lessons and exercises in the [RegexOne](https://regexone.com){target="_blank"} online interactive tutorial!
 
 1.
 
@@ -2968,7 +2968,7 @@ After completing this section, you will be able to:
 
 ## Dates and Times
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/parsing-dates-and-times.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/parsing-dates-and-times.html){target="_blank"}.
 
 **Key points**
 
@@ -3042,7 +3042,7 @@ mdy_hms(x)
 
 ## Text mining
 
-The textbook for this section is available [here](https://rafalab.github.io/dsbook/text-mining.html)
+The textbook for this section is available [here](https://rafalab.github.io/dsbook/text-mining.html){target="_blank"}.
 
 **Key points**
 
@@ -3056,7 +3056,7 @@ In all these examples, the raw data is composed of free form texts. Our task is 
 
 **Case study: Trump Tweets**
 
-See my [GitHub-repository on Trump Tweets](https://github.com/1965Eric/trump-tweets.git)
+See my [GitHub-repository on Trump Tweets](https://github.com/1965Eric/trump-tweets.git){target="_blank"}.
 
 ## Assessment Part 1 - Dates, Times, and Text Mining
 
@@ -3282,7 +3282,7 @@ sum(afinn_sentiments$value == 4)
 
 On September 20, 2017, Hurricane Maria made landfall on Puerto Rico. It was the worst natural disaster on record in Puerto Rico and the deadliest Atlantic hurricane since 2004. However, Puerto Rico's official death statistics only tallied 64 deaths caused directly by the hurricane (due to structural collapse, debris, floods and drownings), an undercount that slowed disaster recovery funding. The majority of the deaths resulted from infrastructure damage that made it difficult to access resources like clean food, water, power, healthcare and communications in the months after the disaster, and although these deaths were due to effects of the hurricane, they were not initially counted.
 
-In order to correct the misconception that few lives were lost in Hurricane Maria, statisticians analyzed how death rates in Puerto Rico changed after the hurricane and estimated the excess number of deaths likely caused by the storm. [This analysis](https://drive.google.com/file/d/16X9qtnPaD--2dPhpcwu7S53esafH59i9/preview) suggested that the actual number of deaths in Puerto Rico was 2,975 (95% CI: 2,658-3,290) over the 4 months following the hurricane, much higher than the original count.
+In order to correct the misconception that few lives were lost in Hurricane Maria, statisticians analyzed how death rates in Puerto Rico changed after the hurricane and estimated the excess number of deaths likely caused by the storm. [This analysis](https://drive.google.com/file/d/16X9qtnPaD--2dPhpcwu7S53esafH59i9/preview){target="_blank"} suggested that the actual number of deaths in Puerto Rico was 2,975 (95% CI: 2,658-3,290) over the 4 months following the hurricane, much higher than the original count.
 
 We will use your new data wrangling skills to extract actual daily mortality data from Puerto Rico and investigate whether the Hurricane Maria had an immediate effect on daily mortality compared to unaffected days in September 2015-2017.
 
